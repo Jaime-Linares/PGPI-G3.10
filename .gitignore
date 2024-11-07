@@ -1,0 +1,47 @@
+# Sistema
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.virtualenv/
+.venv/
+
+# Archivos de entorno
+.env
+*.env
+
+# Archivos de configuración de editor
+.vscode/
+.idea/
+*.swp
+
+# Archivos de sistema de MacOS y otros
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación
+*.log
+
+# Archivos de migración de Django
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.py,cover
+
+# Archivos de caché de Django
+staticfiles/
+mediafiles/
+
+# Archivos de salida de test
+*.coverage
+.tox/
+.cache/
+
+# Base de datos local
+db.sqlite3
+*.sqlite3
+
+# Archivos generados
+*.log
