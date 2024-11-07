@@ -10,19 +10,38 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
+from django import forms
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.forms import UserCreationForm
+
+from django import forms
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.forms import UserCreationForm
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    role = forms.ChoiceField(
+        choices=[('Propietario', 'Propietario'), ('Cliente', 'Cliente')],
+        widget=forms.RadioSelect,
+        required=True
+    )
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "email", "password1", "password2", "role")
 
     def save(self, commit=True):
-        user = super(CustomUserCreationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
+            # Asigna el usuario al grupo según el rol seleccionado
+            role = self.cleaned_data["role"]
+            group = Group.objects.get(name=role)
+            user.groups.add(group)
         return user
+
+
     
 class VRegistro(View):
 

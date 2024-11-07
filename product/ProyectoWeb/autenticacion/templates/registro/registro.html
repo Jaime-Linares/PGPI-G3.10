@@ -66,6 +66,24 @@
             {% endif %}
         </div>
 
+        <div class="form-group text-left">
+            <label>¿Qué quieres ser?</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="propietario" value="Propietario" required>
+                <label class="form-check-label" for="propietario">Propietario</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="cliente" value="Cliente" required>
+                <label class="form-check-label" for="cliente">Cliente</label>
+            </div>
+            <!-- Mostrar errores de este campo -->
+            {% if form.role.errors %}
+            <div class="text-danger">
+                {{ form.role.errors }}
+            </div>
+            {% endif %}
+        </div>
+        
         <div class="text-center">
             <button type="submit" class="btn btn-success">Regístrate</button>
         </div>
