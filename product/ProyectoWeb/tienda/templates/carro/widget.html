@@ -1,0 +1,49 @@
+<table class="table table-bordered" style="color: white;">
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center">Carro compras</th>
+        </tr>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Suma</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carro.items %}
+            {% for key, value in request.session.carro.items %}
+            <tr class="text-center">
+                <td>{{ value.nombre }}</td>
+                <td>
+                    <a href="{% url 'carro:agregar' value.producto_id %}" class="btn btn-sm btn-success">+</a>
+                    {{ value.cantidad }}
+                    <a href="{% url 'carro:restar' value.producto_id %}" class="btn btn-sm btn-danger">-</a>
+                </td>
+                <td>{{ value.precio }} €</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">
+                <div class="alert alert-danger text-center">Sin productos</div>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" style="border-right: none;">
+                <p style="color:white;">Total: {{importe_total_carro}} €</p>
+            </td>
+        </tr>
+        {%if request.session.carro.items%} <!-- Si hay productos en el carro del usuario logueado, se muestra el botón de hacer pedido -->
+        <tr>
+            <td colspan="3" style="text-align: center;">
+                <a href="{% url 'procesar_pedido' %}" class="btn btn-success">Hacer pedido</a>
+
+            </td>
+        </tr>
+        {%endif%}
+    </tfoot>
+    
+</table>

@@ -1,0 +1,74 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block content %}
+<form method="POST" action="" style="color:white">
+    {% csrf_token %}
+    <div style="width: 75%; margin: auto;">
+
+        <!-- Mostrar errores generales del formulario -->
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger text-left">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <div class="form-group text-left">
+            <label for="id_username">Nombre de usuario*</label>
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Nombre de usuario" value="{{ form.username.value|default_if_none:'' }}">
+            <small>Requerido. 150 caracteres como máximo. Únicamente letras, dígitos y @/./+/-/_</small>
+            <!-- Mostrar errores de este campo -->
+            {% if form.username.errors %}
+            <div class="text-danger">
+                {{ form.username.errors }}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Campo para email -->
+        <div class="form-group text-left">
+            <label for="id_email">Correo electrónico*</label>
+            <input type="email" name="email" id="id_email" class="form-control" placeholder="Correo electrónico" value="{{ form.email.value|default_if_none:'' }}">
+            <!-- Mostrar errores de este campo -->
+            {% if form.email.errors %}
+            <div class="text-danger">
+                {{ form.email.errors }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-left">
+            <label for="id_password1">Contraseña*</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Contraseña">
+            <ul>
+                <li>Su contraseña no puede asemejarse tanto a su otra información personal.</li>
+                <li>Su contraseña debe contener al menos 8 caracteres.</li>
+                <li>Su contraseña no puede ser una clave utilizada comúnmente.</li>
+                <li>Su contraseña no puede ser completamente numérica.</li>
+            </ul>
+            <!-- Mostrar errores de este campo -->
+            {% if form.password1.errors %}
+            <div class="text-danger">
+                {{ form.password1.errors }}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group text-left">
+            <label for="id_password2">Contraseña (confirmación)*</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Confirme contraseña">
+            <small>Para verificar, introduzca la misma contraseña anterior.</small>
+            <!-- Mostrar errores de este campo -->
+            {% if form.password2.errors %}
+            <div class="text-danger">
+                {{ form.password2.errors }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Regístrate</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

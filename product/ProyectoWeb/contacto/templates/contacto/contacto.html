@@ -1,0 +1,19 @@
+
+{%extends "ProyectoWebApp/base.html"%}
+
+{%load static%}
+
+{%block content%}
+
+<div class="contenedorFormulario"> 
+    {% if "valido" in request.GET%}
+        <p style="color: white;">Formulario enviado correctamente</p>
+    {%endif%}
+    <form action="" method="POST" style="text-align: center;"> 
+        {%csrf_token%} <!-- Para evitar ataques CSRF (si no el botón enviar no funciona debido a que Django protege de este tipo de ataques) -->
+        <table style="color:white; margin: 20px auto;"> {{miFormulario.as_table}}   </table>
+        <input type="submit" value="Enviar" style="width: 150px;"> 
+    </form>
+ </div>
+
+{%endblock%}
