@@ -45,3 +45,5 @@ db.sqlite3
 
 # Archivos generados
 *.log
+
+db.sqlite3
