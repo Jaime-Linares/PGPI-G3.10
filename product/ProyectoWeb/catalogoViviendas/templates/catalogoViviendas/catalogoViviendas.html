@@ -1,0 +1,29 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 class="section-heading mb-4 text-center">Listado de Viviendas en Alquiler</h2>
+<!--
+<div class="container">
+    {% for vivienda in viviendas %}
+    <section class="page-section clearfix">
+        <div class="container">
+            <div class="intro">
+                <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}" style="width: 50%;">
+                <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <h3>{{ vivienda.nombre }}</h3>
+                    <p>{{ vivienda.descripcion }}</p>
+                    <p>Propietario: {{ vivienda.propietario.username }}</p>
+                    <p>Disponible desde: {{ vivienda.fecha_disponible_desde }} hasta {{ vivienda.fecha_disponible_hasta }}</p>
+                    {% if vivienda.disponibilidad %}
+                        <span class="text-success">Disponible</span>
+                    {% else %}
+                        <span class="text-danger">No disponible</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+</div>-->
+{% endblock %}

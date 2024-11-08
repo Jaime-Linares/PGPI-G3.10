@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ProyectoWebApp',
-    'servicios',
+    'catalogoViviendas',
     'blog',
     'contacto',
     'tienda',
