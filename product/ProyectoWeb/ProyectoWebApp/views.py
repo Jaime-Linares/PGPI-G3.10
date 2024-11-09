@@ -11,3 +11,11 @@ def home(request):
 def politica_privacidad(request):
     return render(request, "ProyectoWebApp/politica_privacidad.html")
 
+
+def aviso_legal(request):
+    return render(request, "ProyectoWebApp/aviso_legal.html")
+
+
+def cookies(request):
+    return render(request, "ProyectoWebApp/cookies.html")
+
