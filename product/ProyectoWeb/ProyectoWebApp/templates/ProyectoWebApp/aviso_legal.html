@@ -1,0 +1,76 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block title %}Aviso Legal{% endblock %}
+
+{% block content %}
+<style>
+    .contenedorAvisoLegal {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+        text-align: left;
+    }
+    .contenedorAvisoLegal h2 {
+        text-align: center;
+        color: #f1c40f;
+        margin-bottom: 20px;
+    }
+    .contenedorAvisoLegal h3 {
+        color: #e74c3c;
+        margin-top: 20px;
+    }
+    .contenedorAvisoLegal p, .contenedorAvisoLegal ul {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    .contenedorAvisoLegal ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .contenedorAvisoLegal a {
+        color: #3498db;
+        text-decoration: underline;
+    }
+    .contenedorAvisoLegal a:hover {
+        color: #f1c40f;
+    }
+</style>
+
+<div class="contenedorAvisoLegal">
+    <h2>Aviso Legal</h2>
+    <p>En <strong>CityScape</strong>, nos tomamos en serio el cumplimiento de las normativas legales vigentes. A continuación, encontrarás la información legal relativa al uso de nuestro sitio web y los servicios ofrecidos.</p>
+
+    <h3>1. Titular del Sitio Web</h3>
+    <p>El presente sitio web es propiedad de <strong>CityScape</strong>, con correo electrónico de contacto <a href="mailto:cityscapeg3@gmail.com">cityscapeg3@gmail.com</a>.</p>
+
+    <h3>2. Condiciones de Uso</h3>
+    <ul>
+        <li>El acceso y uso de este sitio web implica la aceptación de las condiciones generales de uso establecidas en este aviso legal.</li>
+        <li>El usuario se compromete a utilizar el sitio web de forma lícita y conforme a la normativa vigente.</li>
+        <li>CityScape se reserva el derecho de modificar el contenido del sitio web en cualquier momento sin previo aviso.</li>
+    </ul>
+
+    <h3>3. Propiedad Intelectual e Industrial</h3>
+    <ul>
+        <li>Todos los contenidos del sitio web (textos, imágenes, logotipos, etc.) están protegidos por derechos de propiedad intelectual e industrial.</li>
+        <li>Queda prohibida la reproducción, distribución o modificación de los contenidos sin autorización expresa del titular.</li>
+    </ul>
+
+    <h3>4. Responsabilidad</h3>
+    <ul>
+        <li>CityScape no se hace responsable de los daños o perjuicios que puedan derivarse del uso indebido del sitio web por parte del usuario.</li>
+        <li>No garantizamos la disponibilidad continua del sitio web ni la ausencia de errores en el mismo.</li>
+    </ul>
+
+    <h3>5. Legislación Aplicable y Jurisdicción</h3>
+    <p>El presente aviso legal se rige por la legislación española. Cualquier controversia se someterá a los juzgados y tribunales de Sevilla.</p>
+
+    <h3>6. Contacto</h3>
+    <p>Si tienes alguna pregunta sobre este aviso legal, puedes contactarnos en <a href="{% url 'Contacto' %}" title="Página de Contacto">Contacto</a>.</p>
+</div>
+{% endblock %}

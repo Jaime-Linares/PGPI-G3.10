@@ -49,8 +49,6 @@ INSTALLED_APPS = [
     'carro',
     'autenticacion',
     'pedidos',
-    
-
 ]
 
 MIDDLEWARE = [
@@ -123,6 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'es-eu'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -158,7 +157,5 @@ MESSAGE_TAGS = {
     messages_de_error.SUCCESS: 'success',
     messages_de_error.WARNING: 'warning',
     messages_de_error.ERROR: 'danger',
-
-
 }
 

@@ -1,0 +1,74 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block title %}Política de Cookies{% endblock %}
+
+{% block content %}
+<style>
+    .contenedorCookies {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+        text-align: left;
+    }
+    .contenedorCookies h2 {
+        text-align: center;
+        color: #f1c40f;
+        margin-bottom: 20px;
+    }
+    .contenedorCookies h3 {
+        color: #e74c3c;
+        margin-top: 20px;
+    }
+    .contenedorCookies p, .contenedorCookies ul {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    .contenedorCookies ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .contenedorCookies a {
+        color: #3498db;
+        text-decoration: underline;
+    }
+    .contenedorCookies a:hover {
+        color: #f1c40f;
+    }
+</style>
+
+<div class="contenedorCookies">
+    <h2>Política de Cookies</h2>
+    <p>En <strong>CityScape</strong>, utilizamos cookies para mejorar la experiencia de nuestros usuarios en nuestro sitio web. A continuación, te explicamos qué son las cookies, cómo las utilizamos y cómo puedes gestionarlas.</p>
+
+    <h3>1. ¿Qué son las Cookies?</h3>
+    <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Estos archivos permiten que el sitio recuerde tu actividad y preferencias (como inicio de sesión, idioma, etc.) durante un período de tiempo.</p>
+
+    <h3>2. Tipos de Cookies que Utilizamos</h3>
+    <ul>
+        <li><strong>Cookies técnicas:</strong> Necesarias para el funcionamiento básico del sitio web y para que puedas navegar y utilizar sus funciones.</li>
+        <li><strong>Cookies de análisis:</strong> Utilizadas para recopilar información sobre el uso del sitio web y mejorar su rendimiento.</li>
+        <li><strong>Cookies de personalización:</strong> Permiten recordar tus preferencias (por ejemplo, idioma o región).</li>
+        <li><strong>Cookies de publicidad:</strong> Utilizadas para mostrar anuncios personalizados en función de tus intereses.</li>
+    </ul>
+
+    <h3>3. ¿Cómo Gestionar las Cookies?</h3>
+    <p>Puedes configurar tu navegador para aceptar o rechazar las cookies, así como para eliminar las cookies ya almacenadas en tu dispositivo. Ten en cuenta que, si desactivas ciertas cookies, algunas funciones de nuestro sitio podrían no funcionar correctamente.</p>
+    <ul>
+        <li><a href="https://support.google.com/chrome/answer/95647?hl=es" target="_blank">Gestión de cookies en Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank">Gestión de cookies en Mozilla Firefox</a></li>
+        <li><a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank">Gestión de cookies en Internet Explorer</a></li>
+        <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank">Gestión de cookies en Safari</a></li>
+    </ul>
+
+    <h3>4. Cambios en la Política de Cookies</h3>
+    <p>Podemos actualizar nuestra política de cookies en cualquier momento. Te recomendamos revisar esta página periódicamente para estar al tanto de cualquier cambio.</p>
+
+    <h3>5. Contacto</h3>
+    <p>Si tienes alguna pregunta sobre nuestra política de cookies, puedes contactarnos en <a href="{% url 'Contacto' %}" title="Página de Contacto">Contacto</a>.</p>
+</div>
+{% endblock %}
