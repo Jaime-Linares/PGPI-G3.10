@@ -34,6 +34,7 @@
             <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'CatalogoViviendas' %}">Catálogo de viviendas</a>
             </li>
@@ -46,6 +47,7 @@
             <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </div>
