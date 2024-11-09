@@ -9,41 +9,38 @@ env/
 .virtualenv/
 .venv/
 
-# Archivos de entorno
+# Archivos de entorno y configuración sensible
 .env
 *.env
 
-# Archivos de configuración de editor
+# Archivos de configuración del editor
 .vscode/
 .idea/
 *.swp
 
-# Archivos de sistema de MacOS y otros
+# Archivos de sistema (MacOS, Windows)
 .DS_Store
 Thumbs.db
 
-# Archivos de compilación
+# Archivos de compilación y logs
 *.log
 
-# Archivos de migración de Django
-*/migrations/*.pyc
-*/migrations/*.pyo
-*/migrations/*.py,cover
+# Archivos de migración de Django (compilados)
+**/migrations/*.py[cod]
+**/migrations/*.pyo
+**/migrations/*.py,cover
 
-# Archivos de caché de Django
-staticfiles/
-mediafiles/
+# Archivos generados por Django
+media/
 
-# Archivos de salida de test
+# Archivos de salida de test y caché
 *.coverage
 .tox/
 .cache/
 
-# Base de datos local
+# Bases de datos locales
 db.sqlite3
-*.sqlite3
+**/db.sqlite3
 
 # Archivos generados
 *.log
-
-db.sqlite3
