@@ -1,0 +1,72 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block title %}Política de Privacidad{% endblock %}
+
+{% block content %}
+<style>
+    .contendorPrivacidad {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+        text-align: left;
+    }
+    .contendorPrivacidad h2 {
+        text-align: center;
+        color: #f1c40f;
+        margin-bottom: 20px;
+    }
+    .contendorPrivacidad h3 {
+        color: #e74c3c;
+        margin-top: 20px;
+    }
+    .contendorPrivacidad p, .contendorPrivacidad ul {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    .contendorPrivacidad ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .contendorPrivacidad a {
+        color: #3498db;
+        text-decoration: underline;
+    }
+    .contendorPrivacidad a:hover {
+        color: #f1c40f;
+    }
+</style>
+
+<div class="contendorPrivacidad">
+    <h2>Política de Privacidad</h2>
+    <p>En <strong>City Rentals</strong>, estamos comprometidos con la protección de la privacidad de nuestros usuarios. Esta política de privacidad describe cómo recopilamos, usamos y protegemos tu información personal cuando utilizas nuestro sitio web de alquiler de pisos turísticos.</p>
+
+    <h3>1. Información que Recopilamos</h3>
+    <ul>
+        <li><strong>Datos personales:</strong> nombre, dirección de correo electrónico, número de teléfono, dirección postal y datos de pago.</li>
+        <li><strong>Datos de navegación:</strong> dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia.</li>
+    </ul>
+
+    <h3>2. Uso de la Información</h3>
+    <ul>
+        <li>Gestionar reservas y facilitar el proceso de alquiler de los pisos.</li>
+        <li>Proporcionar soporte al cliente y responder a tus consultas.</li>
+        <li>Mejorar nuestro sitio web y la experiencia del usuario.</li>
+        <li>Enviarte notificaciones sobre ofertas y promociones (solo si has dado tu consentimiento).</li>
+    </ul>
+
+    <h3>3. Compartir tu Información</h3>
+    <ul>
+        <li>Cuando sea necesario para completar una transacción (por ejemplo, procesadores de pagos).</li>
+        <li>Para cumplir con una obligación legal o responder a procesos judiciales.</li>
+    </ul>
+
+    <h3>4. Contacto</h3>
+    <p>Si tienes alguna pregunta sobre esta política de privacidad, puedes contactarnos en <a href="{% url 'Contacto' %}">Contacto</a>.
+    </p>
+</div>
+{% endblock %}
