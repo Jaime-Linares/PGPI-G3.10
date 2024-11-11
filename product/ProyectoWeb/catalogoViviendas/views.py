@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from .models import Vivienda
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -9,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.dateparse import parse_date
 import json
 from datetime import datetime, timedelta
+
+from .forms import ViviendaForm
+
+
 
 @login_required
 def catalogo_viviendas(request):
@@ -96,3 +99,32 @@ def hacer_reserva(request):
 
         return JsonResponse({'success': True, 'precio_total': precio_total})
     return JsonResponse({'success': False})
+
+@login_required
+def catalogo_viviendas_propietario(request):
+    es_propietario = request.user.groups.filter(name='Propietario').exists()
+    if not es_propietario:
+        return redirect('Home')
+    viviendas = Vivienda.objects.filter(propietario=request.user)
+    return render(request, "catalogoViviendas/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
+
+
+@login_required
+def detalle_vivienda_propietario(request, id):
+    vivienda = get_object_or_404(Vivienda, id=id)
+
+    if request.user != vivienda.propietario:
+        return redirect('Home')
+
+    if request.method == 'POST':
+        form = ViviendaForm(request.POST, request.FILES, instance=vivienda)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogo_viviendas_propietario')
+    else:
+        form = ViviendaForm(instance=vivienda)
+
+    return render(request, "catalogoViviendas/detalle_vivienda_propietario.html", {
+        'form': form,
+        'vivienda': vivienda
+    })
