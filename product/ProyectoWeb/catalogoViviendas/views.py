@@ -39,3 +39,17 @@ def catalogo_viviendas_propietario(request):
         return redirect('Home')
     viviendas = Vivienda.objects.filter(propietario=request.user)
     return render(request, "catalogoViviendas/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
+
+
+@login_required
+def detalle_vivienda_propietario(request, id):
+    vivienda = get_object_or_404(Vivienda, id=id)
+
+    es_propietario_de_la_vivienda = request.user == vivienda.propietario
+    
+    if not es_propietario_de_la_vivienda:
+        return redirect('Home')
+    
+    return render(request, "catalogoViviendas/detalle_vivienda_propietario.html", {
+        'vivienda': vivienda
+    })
