@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Vivienda
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Vivienda
-from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
+from .forms import ViviendaForm
 
 
 
@@ -45,11 +42,18 @@ def catalogo_viviendas_propietario(request):
 def detalle_vivienda_propietario(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
 
-    es_propietario_de_la_vivienda = request.user == vivienda.propietario
-    
-    if not es_propietario_de_la_vivienda:
+    if request.user != vivienda.propietario:
         return redirect('Home')
-    
+
+    if request.method == 'POST':
+        form = ViviendaForm(request.POST, request.FILES, instance=vivienda)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogo_viviendas_propietario')
+    else:
+        form = ViviendaForm(instance=vivienda)
+
     return render(request, "catalogoViviendas/detalle_vivienda_propietario.html", {
+        'form': form,
         'vivienda': vivienda
     })
