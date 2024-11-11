@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
 class Vivienda(models.Model):
     propietario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='viviendas')
     nombre = models.CharField(max_length=100)
@@ -20,6 +22,8 @@ class Vivienda(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+
 class Reserva(models.Model):
     vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE, related_name='reservas')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -35,18 +35,29 @@
               <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
             </li>
             {% if user.is_authenticated %}
-            <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas' %}">Catálogo de viviendas</a>
-            </li>
-            <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'Tienda' %}">Tienda</a>
-            </li>
-            <li class="nav-item {% if request.path|slice:':6' == '/blog/' %} active {% endif %} px-lg-4"> 
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'Blog' %}">Blog</a>
-            </li>
-            <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
-            </li>
+              {% for group in user.groups.all %}
+                {% if group.name == "Propietario" %}
+                  <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas_propietario' %}">Tus viviendas</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {% for group in user.groups.all %}
+                {% if group.name == "Cliente" %}
+                  <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas' %}">Catálogo de viviendas</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'Tienda' %}">Tienda</a>
+              </li>
+              <li class="nav-item {% if request.path|slice:':6' == '/blog/' %} active {% endif %} px-lg-4"> 
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'Blog' %}">Blog</a>
+              </li>
+              <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
+              </li>
             {% endif %}
           </ul>
         </div>
