@@ -1,45 +1,54 @@
+{%extends "ProyectoWebApp/base.html"%}
 
-  {%extends "ProyectoWebApp/base.html"%}
+{%load static%}
 
-  {%load static%}
+{%block content%}
+  <style>
+    .boton {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .boton:hover {
+        background-color: #f1c40f;
+    }
+  </style>
 
-  {%block content%}
-
-   <!-- Heading -->
-   <section class="page-section clearfix">
+  <!-- Heading -->
+  <section class="page-section clearfix">
     <div class="container">
       <div class="intro">
         <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{% static 'ProyectoWebApp/img/principal.jpg'%}" alt="">
         <div class="intro-text left-0 text-center bg-faded p-5 rounded">
           <h2 class="section-heading mb-4" >
-            <span class="section-heading-upper">Puntualidad</span>
-            <span class="section-heading-lower">El mejor stock</span>
+            <span class="section-heading-lower">La mejor app de alquiler de pisos turísticos</span>
           </h2>
-          <p class="mb-3">En la puertra de tu casa en menos de 48 h con el envío normal. En menos de 24 h con el envío express.
-          </p>
-         
+          <p class="mb-3">En <strong>City Rentals</strong>, ofrecemos una experiencia única para que disfrutes de tu estancia en las mejores ciudades de Europa.</p>
         </div>
       </div>
     </div>
   </section>
 
-
-  
-    <!-- Message -->
-    <section class="page-section cta">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <div class="cta-inner text-center rounded">
-              <h2 class="section-heading mb-4">
-                <span class="section-heading-upper">Compromiso total</span>
-                <span class="section-heading-lower">Garantizado</span>
-              </h2>
-              <p class="mb-0">Con más de 75 años de experiencia a nuestras espaldas, desde Gestión de Pedidos tenemos los conocimientos y herramientas necesarios para llevar cualquier objeto a la puerta de su casa con puntualidad y profesionalidad.</p>
-            </div>
+  <!-- Message -->
+  <section class="page-section cta">
+    <div class="container">
+      <div class="intro">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-lower">¿Por qué elegirnos?</span>
+            </h2>
+            <p class="mb-0">Con años de experiencia en el sector, garantizamos la satisfacción de nuestros clientes con un servicio rápido, seguro y confiable.</p>
+            <p>Nuestros clientes están encantados con nuestras opciones de alquiler en ciudades como Madrid, Barcelona, París y Roma.</p>
+            <h3>Alquileres en las Mejores Ciudades de Europa</h3>
+            <p>Explora nuestras propiedades exclusivas en los destinos más buscados. Encuentra el lugar perfecto para tu próxima escapada, ya sea un apartamento en el centro de la ciudad o una casa en la playa.</p>
           </div>
         </div>
       </div>
-    </section>
-
+    </div>
+  </section>
 {%endblock%}
