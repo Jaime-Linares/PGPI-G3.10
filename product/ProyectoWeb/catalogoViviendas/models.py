@@ -8,7 +8,7 @@ class Vivienda(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     ubicacion = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='viviendas')
+    imagen = models.ImageField(upload_to='viviendas',blank=True, null=True)
     disponibilidad = models.BooleanField(default=True)
     fecha_disponible_desde = models.DateField()
     fecha_disponible_hasta = models.DateField()

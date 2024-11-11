@@ -133,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/' # Para que Django sepa donde buscar los archivos multimedia 
+MEDIA_URL = '/media/' # Para que Django sepa donde buscar los archivos multimedia 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Para que Django sepa donde guardar los archivos multimedia
 
 # Default primary key field type
