@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from .models import Vivienda
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
-from .models import Vivienda, Reserva
+from .models import Vivienda
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
 from django.utils.dateparse import parse_date
+
+
 
 @login_required
 def catalogo_viviendas(request):
@@ -16,6 +15,7 @@ def catalogo_viviendas(request):
         return redirect('Home')
     viviendas = Vivienda.objects.all()
     return render(request, "catalogoViviendas/catalogo_viviendas.html", {'viviendas': viviendas,'es_cliente': es_cliente})
+
 
 @login_required
 def detalle_vivienda(request, id):
@@ -30,3 +30,12 @@ def detalle_vivienda(request, id):
         'vivienda': vivienda,
         'es_cliente': es_cliente
     })
+
+
+@login_required
+def catalogo_viviendas_propietario(request):
+    es_propietario = request.user.groups.filter(name='Propietario').exists()
+    if not es_propietario:
+        return redirect('Home')
+    viviendas = Vivienda.objects.filter(propietario=request.user)
+    return render(request, "catalogoViviendas/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
