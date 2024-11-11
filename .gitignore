@@ -30,8 +30,7 @@ Thumbs.db
 **/migrations/*.pyo
 **/migrations/*.py,cover
 
-# Archivos generados por Django
-media/
+
 
 # Archivos de salida de test y caché
 *.coverage
