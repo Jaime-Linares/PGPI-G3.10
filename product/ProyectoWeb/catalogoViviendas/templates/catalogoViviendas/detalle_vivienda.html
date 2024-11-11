@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="container mt-5">
-    <!-- Información de la vivienda -->
     <div class="card mb-5">
         <img class="card-img-top" src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}">
         <div class="card-body" style="color: black;">
@@ -14,78 +13,21 @@
         </div>
     </div>
 
-    <!-- Sección para la selección de fechas -->
     <h4 class="mb-4">Selecciona tu fecha de reserva</h4>
-    <div class="mb-4">
-        <label for="fecha_inicio">Fecha de inicio:</label>
-        <input type="date" id="fecha_inicio" class="form-control" placeholder="Selecciona la fecha de inicio">
-    </div>
-    <div class="mb-4">
-        <label for="fecha_fin">Fecha de fin:</label>
-        <input type="date" id="fecha_fin" class="form-control" placeholder="Selecciona la fecha de fin">
-    </div>
-    
-    <!-- Campos ocultos para almacenar datos -->
-    <input type="hidden" id="vivienda_id" value="{{ vivienda.id }}">
 
-    <!-- Botón para realizar la reserva y mostrar el precio total -->
-    <button id="hacer_reserva" class="btn btn-success">Realizar Reserva</button>
-    <p id="precio_total" class="mt-3 text-success"></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Realizar Reserva</button>
+    </form>
+
+    {% if fechas_reservadas %}
+    <h5 class="mt-5">Fechas no disponibles:</h5>
+    <ul>
+        {% for fecha in fechas_reservadas %}
+        <li>{{ fecha }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 {% endblock %}
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Convertir las fechas reservadas a un array de JavaScript
-    let fechasReservadas;
-    try {
-        fechasReservadas = JSON.parse('{{ fechas_reservadas|safe }}');
-    } catch (error) {
-        console.error("Error al parsear fechas_reservadas:", error);
-        fechasReservadas = [];
-    }
-
-    // Deshabilitar las fechas reservadas
-    function disableReservedDates(input) {
-        const fecha = input.value;
-        if (fechasReservadas.includes(fecha)) {
-            alert("Esta fecha no está disponible para reservar.");
-            input.value = "";
-        }
-    }
-
-    $('#fecha_inicio').on('change', function() {
-        disableReservedDates(this);
-    });
-
-    $('#fecha_fin').on('change', function() {
-        disableReservedDates(this);
-    });
-
-    $('#hacer_reserva').on('click', function() {
-        const fecha_inicio = $('#fecha_inicio').val();
-        const fecha_fin = $('#fecha_fin').val();
-        const vivienda_id = $('#vivienda_id').val();
-
-        if (!fecha_inicio || !fecha_fin) {
-            alert("Por favor, selecciona un rango de fechas.");
-            return;
-        }
-
-        $.post("{% url 'hacer_reserva' %}", {
-            vivienda_id: vivienda_id,
-            fecha_inicio: fecha_inicio,
-            fecha_fin: fecha_fin,
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        }, function(response) {
-            if (response.success) {
-                $('#precio_total').text('Precio Total: ' + response.precio_total + ' €');
-                alert('Reserva realizada con éxito');
-            } else {
-                alert('Error al realizar la reserva');
-            }
-        });
-    });
-});
-</script>
