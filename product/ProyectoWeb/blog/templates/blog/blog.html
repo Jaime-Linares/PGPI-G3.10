@@ -34,16 +34,17 @@
 
     {%endfor%}
 
-<section> 
-        <div style="width: 75%; margin: auto; text-align: center; color: white"> 
-            Categorías:
-            {% for post in posts %}
-                {% for categoria in post.categorias.all %}
-                  <a href="{% url 'categoria' categoria.id %}" class="linksCategorias">{{ categoria.nombre }}</a> &nbsp;&nbsp;&nbsp;
-                   
-                {% endfor %}
-            {% endfor %}
-        </div> 
-    </section>
+    <section class="categories-section">
+      <div class="categories-container">
+          <h3 class="categories-title">Categorías</h3>
+          <div class="categories-list">
+              {% for post in posts %}
+                  {% for categoria in post.categorias.all %}
+                      <a href="{% url 'categoria' categoria.id %}" class="category-link">{{ categoria.nombre }}</a>
+                  {% endfor %}
+              {% endfor %}
+          </div>
+      </div>
+  </section>
 
 {% endblock %}
