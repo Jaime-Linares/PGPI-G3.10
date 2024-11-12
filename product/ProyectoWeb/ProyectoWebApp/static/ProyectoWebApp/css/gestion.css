@@ -296,17 +296,60 @@ ul.errorlist{
   text-decoration: underline;
 }
 
-
+/** Contacto */
 .contenedorFormulario{
+  width: 60%;
+  margin: 50px auto;
+  background-color: rgba(25, 66, 60, 0.578);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
 
-  background-color: rgba(25, 66, 60, 0.432);
-  width: 50%;
+}
+.form-success-message {
+  background-color: #27ae60;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+}
 
-  margin: 10px auto;
+/* Tabla del formulario */
+.form-table-container {
+  margin: 20px auto;
+  width: 80%;
+}
 
-  border-radius: 5px;
-  padding: 1px 0px;
+.form-table-container table {
+  margin: auto;
+  color: white;
+}
 
+.form-table-container th, .form-table-container td {
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* Botón de envío */
+.btn-submit {
+  background-color: #5dade2;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn-submit:hover {
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilos para el contenedor del login */

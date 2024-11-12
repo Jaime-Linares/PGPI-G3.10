@@ -7,12 +7,31 @@
 
 <div class="contenedorFormulario"> 
     {% if "valido" in request.GET%}
-        <p style="color: white;">Formulario enviado correctamente</p>
+        <div class="form-success-message">
+            <p>Formulario enviado correctamente</p>
+        </div>
     {%endif%}
+
     <form action="" method="POST" style="text-align: center;"> 
         {%csrf_token%} <!-- Para evitar ataques CSRF (si no el botón enviar no funciona debido a que Django protege de este tipo de ataques) -->
-        <table style="color:white; margin: 20px auto;"> {{miFormulario.as_table}}   </table>
-        <input type="submit" value="Enviar" style="width: 150px;"> 
+         <!-- Campo para Nombre -->
+         <div class="form-group">
+            <label for="id_nombre">Nombre:</label>
+            <input type="text" name="nombre" id="id_nombre" class="form-control" placeholder="Tu nombre" value="{{ miFormulario.nombre.value|default_if_none:'' }}" required>
+        </div>
+
+        <!-- Campo para Email -->
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" class="form-control" placeholder="Tu correo electrónico" value="{{ miFormulario.email.value|default_if_none:'' }}" required>
+        </div>
+
+        <!-- Campo para Contenido -->
+        <div class="form-group">
+            <label for="id_contenido">Contenido:</label>
+            <textarea name="contenido" id="id_contenido" class="form-control" rows="5" placeholder="Escribe aquí tu mensaje" required>{{ miFormulario.contenido.value|default_if_none:'' }}</textarea>
+        </div>
+        <button type="submit" class="btn-submit">Enviar</button>
     </form>
  </div>
 
