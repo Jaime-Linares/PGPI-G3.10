@@ -13,21 +13,22 @@
         </div>
     </div>
 
-    <h4 class="mb-4">Selecciona tu fecha de reserva</h4>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Realizar Reserva</button>
-    </form>
-
-    {% if fechas_reservadas %}
-    <h5 class="mt-5">Fechas no disponibles:</h5>
-    <ul>
-        {% for fecha in fechas_reservadas %}
-        <li>{{ fecha }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-{% endblock %}
+    <div class="reservation-container">
+        <h4 class="reservation-title">Selecciona tu fecha de reserva</h4>
+        
+        <form method="post" class="reservation-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">Realizar Reserva</button>
+        </form>
+    
+        {% if fechas_reservadas %}
+            <h5 class="unavailable-dates-title">Fechas no disponibles:</h5>
+            <ul class="unavailable-dates-list">
+                {% for fecha in fechas_reservadas %}
+                    <li>{{ fecha }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    {% endblock %}
