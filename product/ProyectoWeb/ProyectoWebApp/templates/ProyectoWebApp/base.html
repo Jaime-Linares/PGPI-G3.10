@@ -12,57 +12,66 @@
 
 
   <body>
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <h1 class="site-heading text-center text-white d-none d-lg-block rounded-heading">
       <span class="site-heading-lower">CityScape Rentals</span>
-    </h1>
+  </h1>
 
-    <div style="text-align:right; margin-right: 100px; color: white;">
-    {% if user.is_authenticated %}
-      ¡ Hola &nbsp;{{ user.username }} ! &nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url 'cerrar_sesion' %}" style="color:white">Cerrar sesión</a>
-    {% else %}
-      <a href="{% url 'iniciar_sesion'%}"  style="color:white">Iniciar sesión</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url 'Autenticacion' %}"  style="color:white">Regístrate</a>
-    {% endif %}
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'Home' %}">CityScape Rentals</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
-            </li>
-            {% if user.is_authenticated %}
-              {% for group in user.groups.all %}
-                {% if group.name == "Propietario" %}
-                  <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas_propietario' %}">Tus viviendas</a>
-                  </li>
+            <ul class="navbar-nav mx-auto">
+
+                <!-- Enlace a Inicio -->
+                <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Propietario" %}
+                            <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas_propietario' %}">Tus viviendas</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Cliente" %}
+                            <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas' %}">Catálogo de viviendas</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Tienda' %}">Tienda</a>
+                    </li>
+                    <li class="nav-item {% if request.path == '/blog/' %} active {% endif %} px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Blog' %}">Blog</a>
+                    </li>
+                    <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
+                    </li>
+                    <!-- Cerrar sesión con saludo -->
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cerrar_sesion' %}">Cerrar sesión ({{ user.username }})</a>
+                    </li>
+                {% else %}
+                    <!-- Iniciar sesión y Registrarse -->
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'iniciar_sesion' %}">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Autenticacion' %}">Regístrate</a>
+                    </li>
                 {% endif %}
-              {% endfor %}
-              {% for group in user.groups.all %}
-                {% if group.name == "Cliente" %}
-                  <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                    <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas' %}">Catálogo de viviendas</a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-              <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
-                <a class="nav-link text-uppercase text-expanded" href="{% url 'Tienda' %}">Tienda</a>
-              </li>
-              <li class="nav-item {% if request.path|slice:':6' == '/blog/' %} active {% endif %} px-lg-4"> 
-                <a class="nav-link text-uppercase text-expanded" href="{% url 'Blog' %}">Blog</a>
-              </li>
-              <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
-                <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
-              </li>
-            {% endif %}
-          </ul>
+            </ul>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Contenido cambiante -->
     {% block content %}

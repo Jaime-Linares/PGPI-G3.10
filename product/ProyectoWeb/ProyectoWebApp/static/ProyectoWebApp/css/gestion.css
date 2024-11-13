@@ -1,6 +1,6 @@
 body {
   font-family: 'Lora';
-  background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../img/bg_main.jpg");
+  background: linear-gradient(rgba(202, 255, 188, 0.692), rgba(255, 255, 255, 0.637)), url("../img/Fondo1.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -66,6 +66,19 @@ p {
   font-weight: 100;
 }
 
+.rounded-heading {
+  background-color: rgba(25, 66, 60, 0.432); 
+  padding: 20px 20px; 
+  border-radius: 20px; 
+  border: 3px solid rgba(255, 255, 255, 0.85); 
+  display: inline-block; 
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+  margin-top: 30px; 
+  margin-bottom: 20px; 
+  margin-left: 100px;
+  margin-right: 100px;
+
+}
 
 .section-heading .section-heading-under {
   display: block;
@@ -80,7 +93,7 @@ p {
 }
 
 #mainNav {
-  background-color: rgba(24, 64, 8);
+  background-color: rgba(25, 66, 60, 0.432);
   font-family: 'Raleway';
 }
 
@@ -134,7 +147,7 @@ p {
     left: 600;
     width: 60%;
     margin-top: 3rem;
-    background-color: rgba(24, 64, 8);
+    background-color: rgba(25, 66, 60, 0.432);
     color: cornsilk;
     position: absolute;
   }
@@ -162,7 +175,7 @@ p {
   position: relative;
   padding: 3rem;
   margin: 0.5rem;
-  background-color: rgba(24, 64, 8);
+  background-color: rgba(25, 66, 60, 0.432);
   color: cornsilk;
 }
 
@@ -229,13 +242,13 @@ p {
 }
 
 .footer {
-   background-color: rgba(24, 64, 8, 0.8);
+   background-color: rgba(25, 66, 60, 0.432);
 }
 
 
 
 .btn {
-  box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
+  box-shadow: 0px 3px 3px 0px rgba(89, 200, 255, 0.8);
 }
 
 
@@ -283,15 +296,377 @@ ul.errorlist{
   text-decoration: underline;
 }
 
-
+/** Contacto */
 .contenedorFormulario{
+  width: 60%;
+  margin: 50px auto;
+  background-color: rgba(25, 66, 60, 0.578);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
 
-  background-color: rgba(24,64,8);
+}
+.form-success-message {
+  background-color: #27ae60;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Tabla del formulario */
+.form-table-container {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.form-table-container table {
+  margin: auto;
+  color: white;
+}
+
+.form-table-container th, .form-table-container td {
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* Botón de envío */
+.btn-submit {
+  background-color: #5dade2;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn-submit:hover {
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el contenedor del login */
+.login-container {
+  width: 400px;
+  margin: 100px auto;
+  background-color: rgba(25, 66, 60, 0.633);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+}
+
+/* Estilo para el título */
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Estilos para los campos de entrada */
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-control:focus {
+  outline: none;
+  border: 2px solid #5dade2;
+}
+
+/* Iconos en los campos de entrada */
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Botón de inicio de sesión */
+.btn-login {
+  background-color: #5dade2;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #3498db;
+}
+
+/* Estilo para enlaces */
+.forgot-password,
+.signup-link {
+  color: #5dade2;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Checkbox */
+.form-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+
+/* Contenedor para el formulario de registro */
+.register-container {
+  width: 450px;
+  margin: 50px auto;
+  background-color: rgba(25, 66, 60, 0.633);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+}
+
+/* Título del formulario */
+.register-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los campos de entrada */
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-control:focus {
+  outline: none;
+  border: 2px solid #5dade2;
+}
+
+/* Iconos en los campos de entrada */
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Botón de registro */
+.btn-register {
+  background-color: #5dade2;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.btn-register:hover {
+  background-color: #3498db;
+}
+
+/* Estilo para las opciones de radio */
+.form-check-inline {
+  margin-right: 20px;
+  color: white;
+}
+
+.password-requirements {
+  font-size: 0.8rem;
+  text-align: left;
+  color: #ccc;
+  margin-top: 10px;
+}
+
+/* Sección de Categorías */
+.categories-section {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.categories-container {
+  background-color: rgba(25, 66, 60, 0.633);
   width: 50%;
+  margin: auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
 
-  margin: 10px auto;
+.categories-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-family: 'Raleway';
+  color: #ffffff;
+  text-transform: uppercase;
+}
 
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.category-link {
+  background-color: rgba(89, 200, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.category-link:hover {
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Contenedor principal para la reserva */
+.reservation-container {
+  width: 100%;
+  margin: 50px auto;
+  background-color: rgba(25, 66, 60, 0.8);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+/* Título de la sección */
+.reservation-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+}
+
+/* Formulario de reserva */
+.reservation-form {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.reservation-form p {
+  margin-bottom: 20px;
+}
+
+.reservation-form label {
+  font-weight: bold;
+}
+
+.reservation-form input, 
+.reservation-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.reservation-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.reservation-form input:focus {
+  outline: none;
+  border: 2px solid #5dade2;
+}
+
+/* Botón de envío */
+.btn-submit {
+  background-color: #5dade2;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.btn-submit:hover {
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Lista de fechas no disponibles */
+.unavailable-dates-title {
+  margin-top: 40px;
+  font-size: 1.5rem;
+  color: #e74c3c;
+}
+
+.unavailable-dates-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.unavailable-dates-list li {
+  background-color: rgba(255, 0, 0, 0.2);
+  padding: 10px;
   border-radius: 5px;
-  padding: 1px 0px;
-
+  margin-bottom: 10px;
 }
