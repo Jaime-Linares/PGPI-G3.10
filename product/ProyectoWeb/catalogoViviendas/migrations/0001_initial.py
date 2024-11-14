@@ -8,6 +8,7 @@ from django.conf import settings
 
 def create_initial_properties(apps, schema_editor):
     Vivienda = apps.get_model("catalogoViviendas", "Vivienda")
+    Reserva = apps.get_model("catalogoViviendas", "Reserva")
     User = apps.get_model("auth", "User")
 
     try:
@@ -23,6 +24,13 @@ def create_initial_properties(apps, schema_editor):
             "ubicacion": "Monte Pueblo, Villa de Mazo",
             "precio_por_dia": 80.00,
             "imagen": os.path.join(settings.MEDIA_URL, 'viviendas/el_molino.jpg'),
+            "wifi": True,
+            "piscina": False,
+            "parking": False,
+            "aire_acondicionado": True,
+            "barbacoa": True,
+            "ducha": True,
+            "cocina": True,
             "propietario": propietario,
         },
         {
@@ -31,6 +39,13 @@ def create_initial_properties(apps, schema_editor):
             "ubicacion": "Las Puntas, España",
             "precio_por_dia": 100.00,
             "imagen": os.path.join(settings.MEDIA_URL, 'viviendas/casa_atilano.jpg'),
+            "wifi": True,
+            "piscina": True,
+            "parking": True,
+            "aire_acondicionado": True,
+            "barbacoa": True,
+            "ducha": True,
+            "cocina": True,
             "propietario": propietario,
         },
     ]
@@ -59,17 +74,40 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nombre', models.CharField(max_length=100)),
                 ('descripcion', models.TextField()),
-                ('imagen', models.ImageField(upload_to='viviendas')),
+                ('ubicacion', models.CharField(max_length=100)),
+                ('wifi', models.BooleanField(default=False)),
+                ('piscina', models.BooleanField(default=False)),
+                ('parking', models.BooleanField(default=False)),
+                ('aire_acondicionado', models.BooleanField(default=False)),
+                ('barbacoa', models.BooleanField(default=False)),
+                ('ducha', models.BooleanField(default=False)),
+                ('cocina', models.BooleanField(default=False)),
+                ('imagen', models.ImageField(upload_to='viviendas', blank=True, null=True)),
                 ('precio_por_dia', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('ubicacion', models.CharField(max_length=255)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('propietario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='viviendas', to=settings.AUTH_USER_MODEL)),
-                    ],
+                ('propietario', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='viviendas',
+                    to=settings.AUTH_USER_MODEL
+                )),
+            ],
             options={
                 'verbose_name': 'vivienda',
                 'verbose_name_plural': 'viviendas',
             },
         ),
-        migrations.RunPython(create_initial_properties),
+        migrations.CreateModel(
+            name='Reserva',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('fecha_inicio', models.DateField()),
+                ('fecha_fin', models.DateField()),
+                ('precio_total', models.DecimalField(decimal_places=2, max_digits=10)),
+                ('creada', models.DateTimeField(auto_now_add=True)),
+                ('usuario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('vivienda', models.ForeignKey( on_delete=django.db.models.deletion.CASCADE,related_name='reservas',to='catalogoViviendas.vivienda'
+                )),
+            ],
+        ),
     ]
