@@ -8,7 +8,7 @@ from django.conf import settings
 
 def create_initial_properties(apps, schema_editor):
     Vivienda = apps.get_model("catalogoViviendas", "Vivienda")
-    Reserva = apps.get_model("catalogoViviendas", "Reserva")
+    #Reserva = apps.get_model("catalogoViviendas", "Reserva")
     User = apps.get_model("auth", "User")
 
     try:
@@ -96,8 +96,8 @@ class Migration(migrations.Migration):
                 'verbose_name': 'vivienda',
                 'verbose_name_plural': 'viviendas',
             },
-        ),
-        migrations.CreateModel(
+        ),'''     
+              migrations.CreateModel(
             name='Reserva',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -109,5 +109,5 @@ class Migration(migrations.Migration):
                 ('vivienda', models.ForeignKey( on_delete=django.db.models.deletion.CASCADE,related_name='reservas',to='catalogoViviendas.vivienda'
                 )),
             ],
-        ),
+        ),'''
     ]
