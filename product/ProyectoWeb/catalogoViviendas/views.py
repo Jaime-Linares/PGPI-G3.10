@@ -19,7 +19,7 @@ def catalogo_viviendas(request):
     if not es_cliente:
         return redirect('Home')
     viviendas = Vivienda.objects.all()
-    return render(request, "catalogoViviendas/catalogo_viviendas.html", {'viviendas': viviendas,'es_cliente': es_cliente})
+    return render(request, "catalogoViviendas/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
 
 
 
@@ -71,7 +71,7 @@ def detalle_vivienda(request, id):
     else:
         form = ReservaForm()
 
-    return render(request, "catalogoViviendas/detalle_vivienda.html", {
+    return render(request, "catalogoViviendas/detalle_vivienda_cliente.html", {
         'vivienda': vivienda,
         'form': form,
         'fechas_reservadas': fechas_reservadas

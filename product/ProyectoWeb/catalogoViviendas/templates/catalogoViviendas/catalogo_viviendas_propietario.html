@@ -14,13 +14,6 @@
                             <h5 class="card-title">{{ vivienda.nombre }}</h5>
                             <p class="card-text text-muted">{{ vivienda.ubicacion }}</p>
                             <p>{{ vivienda.descripcion|truncatewords:20 }}</p>
-                            <p><strong>Propietario:</strong> {{ vivienda.propietario.username }}</p>
-                            <p><strong>Disponible desde:</strong> {{ vivienda.fecha_disponible_desde }} hasta {{ vivienda.fecha_disponible_hasta }}</p>
-                            {% if vivienda.disponibilidad %}
-                                <span class="badge bg-success">Disponible</span>
-                            {% else %}
-                                <span class="badge bg-danger">No disponible</span>
-                            {% endif %}
                         </div>
                         <div class="card-footer text-center">
                             <a href="{% url 'detalle_vivienda_propietario' vivienda.id %}" class="btn btn-primary">Ver más/Editar</a>
