@@ -13,13 +13,43 @@
         </div>
     </div>
 
+    <!-- Servicios adicionales -->
+    {% if vivienda.wifi or vivienda.piscina or vivienda.parking or vivienda.aire_acondicionado or vivienda.barbacoa or vivienda.ducha or vivienda.cocina %}
+        <div class="card mb-5 p-4 shadow">
+            <h4>Servicios incluidos:</h4>
+            <div class="d-flex flex-wrap">
+                {% if vivienda.wifi %}
+                    <div class="badge bg-primary m-2">📶 WiFi gratis</div>
+                {% endif %}
+                {% if vivienda.piscina %}
+                    <div class="badge bg-primary m-2">🏊 Piscina</div>
+                {% endif %}
+                {% if vivienda.parking %}
+                    <div class="badge bg-primary m-2">🚗 Parking gratuito</div>
+                {% endif %}
+                {% if vivienda.aire_acondicionado %}
+                    <div class="badge bg-primary m-2">❄️ Aire acondicionado</div>
+                {% endif %}
+                {% if vivienda.barbacoa %}
+                    <div class="badge bg-primary m-2">🔥 Barbacoa</div>
+                {% endif %}
+                {% if vivienda.ducha %}
+                    <div class="badge bg-primary m-2">🚿 Ducha</div>
+                {% endif %}
+                {% if vivienda.cocina %}
+                    <div class="badge bg-primary m-2">🍳 Cocina</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
     <div class="reservation-container">
         <h4 class="reservation-title">Selecciona tu fecha de reserva</h4>
         
         <form method="post" class="reservation-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn-submit">Realizar Reserva</button>
+            <button type="submit" class="btn btn-primary">Realizar Reserva</button>
         </form>
     
         {% if fechas_reservadas %}
@@ -31,4 +61,5 @@
             </ul>
         {% endif %}
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

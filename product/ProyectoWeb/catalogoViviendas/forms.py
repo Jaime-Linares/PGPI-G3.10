@@ -22,7 +22,14 @@ class ViviendaForm(forms.ModelForm):
             'descripcion',
             'ubicacion',
             'imagen',
-            'precio_por_dia'
+            'precio_por_dia',
+            'wifi',
+            'piscina',
+            'parking',
+            'aire_acondicionado',
+            'barbacoa',
+            'ducha',
+            'cocina'
         ]
 
     def __init__(self, *args, **kwargs):
