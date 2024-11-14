@@ -40,42 +40,15 @@
                 {{ form.imagen|add_class:"form-control" }}
             </div>
 
-            <!-- Disponibilidad -->
-            <div class="form-check mb-4">
-                {{ form.disponibilidad|add_class:"form-check-input" }}
-                <label for="disponibilidad" style="color: #dddddd; font-weight: bold;" class="form-check-label">Disponibilidad</label>
-            </div>
-
-            <!-- Fechas de disponibilidad -->
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <label for="fecha_disponible_desde" style="color: #dddddd; font-weight: bold;">Fecha disponible desde:</label>
-                    <input 
-                        type="date" 
-                        id="fecha_disponible_desde" 
-                        name="fecha_disponible_desde" 
-                        class="form-control" 
-                        value="{{ form.initial.fecha_disponible_desde|date:'Y-m-d' }}"
-                    >
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label for="fecha_disponible_hasta" style="color: #dddddd; font-weight: bold;">Fecha disponible hasta:</label>
-                    <input 
-                        type="date" 
-                        id="fecha_disponible_hasta" 
-                        name="fecha_disponible_hasta" 
-                        class="form-control" 
-                        value="{{ form.initial.fecha_disponible_hasta|date:'Y-m-d' }}"
-                    >
-                </div>
-            </div>        
-
             <!-- Precio por día -->
             <div class="mb-4">
                 <label for="precio_por_dia" style="color: #dddddd; font-weight: bold;">Precio por día:</label>
                 {{ form.precio_por_dia|add_class:"form-control" }}
             </div>
 
+            <!-- TODO -->
+            <p> Fechas reservadas </p>
+            
             <!-- Botones -->
             <div class="text-center mt-5">
                 <button type="submit" style="background-color: #5dade2; border-color: #5dade2; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-transform: uppercase; font-weight: bold; transition: background-color 0.3s; margin-right: 10px;">
