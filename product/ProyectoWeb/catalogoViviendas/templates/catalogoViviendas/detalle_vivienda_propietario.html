@@ -46,8 +46,42 @@
                 {{ form.precio_por_dia|add_class:"form-control" }}
             </div>
 
+            <!-- Servicios adicionales -->
+            <div class="mb-4">
+                <h4 style="color: #dddddd; font-weight: bold;">Servicios disponibles:</h4>
+                
+                <div class="form-check">
+                    {{ form.wifi|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="wifi" style="color: #dddddd;">WiFi</label>
+                </div>
+                <div class="form-check">
+                    {{ form.piscina|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="piscina" style="color: #dddddd;">Piscina</label>
+                </div>
+                <div class="form-check">
+                    {{ form.parking|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="parking" style="color: #dddddd;">Parking</label>
+                </div>
+                <div class="form-check">
+                    {{ form.aire_acondicionado|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="aire_acondicionado" style="color: #dddddd;">Aire acondicionado</label>
+                </div>
+                <div class="form-check">
+                    {{ form.barbacoa|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="barbacoa" style="color: #dddddd;">Barbacoa</label>
+                </div>
+                <div class="form-check">
+                    {{ form.ducha|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="ducha" style="color: #dddddd;">Ducha</label>
+                </div>
+                <div class="form-check">
+                    {{ form.cocina|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="cocina" style="color: #dddddd;">Cocina</label>
+                </div>
+            </div>
+
             <!-- TODO -->
-            <p> Fechas reservadas </p>
+            <p> Fechas reservadas (Implementar) </p>
             
             <!-- Botones -->
             <div class="text-center mt-5">
