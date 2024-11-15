@@ -3,7 +3,6 @@ from .models import Vivienda
 
 class ViviendaAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
-    list_display = ('nombre', 'propietario', 'disponibilidad', 'fecha_disponible_desde', 'fecha_disponible_hasta')
-    list_filter = ('disponibilidad',)
+    list_display = ('nombre', 'propietario')
 
 admin.site.register(Vivienda, ViviendaAdmin)

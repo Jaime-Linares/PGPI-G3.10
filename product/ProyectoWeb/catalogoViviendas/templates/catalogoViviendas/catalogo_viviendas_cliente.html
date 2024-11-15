@@ -1,0 +1,42 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 class="categories-container" style="margin-top: 40px; color: white;">Listado de Viviendas en Alquiler</h2>
+
+<div class="container mt-5">
+    <!-- Formulario de búsqueda con filtros -->
+    <form method="GET" action="{% url 'catalogo_viviendas' %}" class="mb-4">
+        <div class="input-group p-3" style="background-color: #343a40; border-radius: 8px;">
+            <!-- Filtro por nombre -->
+            <input type="text" name="q" class="form-control me-2" placeholder="Buscar por nombre" value="{{ request.GET.q }}">
+            <!-- Filtro por ubicación -->
+            <input type="text" name="ubicacion" class="form-control me-2" placeholder="Buscar por ubicación" value="{{ request.GET.ubicacion }}">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <a href="{% url 'catalogo_viviendas' %}" class="btn btn-secondary ms-2">Reset</a>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for vivienda in viviendas %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img class="card-img-top" src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}">
+                    <div class="card-body" style="color: black;">
+                        <h5 class="card-title">{{ vivienda.nombre }}</h5>
+                        <p class="card-text text-muted">{{ vivienda.ubicacion }}</p>
+                        <p>{{ vivienda.descripcion|truncatewords:20 }}</p>
+                        <p><strong>Propietario:</strong> {{ vivienda.propietario.username }}</p>
+                        <p><strong>Precio por día:</strong> {{ vivienda.precio_por_dia }} €</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'detalle_vivienda' vivienda.id %}" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No se encontraron viviendas que coincidan con los filtros.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
