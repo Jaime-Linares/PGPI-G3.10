@@ -134,3 +134,25 @@ def detalle_vivienda_propietario(request, id):
         'form': form,
         'vivienda': vivienda
     })
+
+
+@login_required
+def crear_vivienda(request):
+    es_propietario = request.user.groups.filter(name='Propietario').exists()
+    if not es_propietario:
+        return redirect('Home')
+
+    if request.method == 'POST':
+        form = ViviendaForm(request.POST, request.FILES)
+        if form.is_valid():
+            nueva_vivienda = form.save(commit=False)
+            nueva_vivienda.propietario = request.user
+            nueva_vivienda.save()
+            return redirect('catalogo_viviendas_propietario')
+    else:
+        form = ViviendaForm()
+
+    return render(request, "catalogoViviendas/crear_vivienda.html", {
+        'form': form
+    })
+

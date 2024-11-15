@@ -2,66 +2,55 @@
 {% load static %}
 {% load custom_tags %}
 
+
 {% block content %}
-<div class="container mt-5" style = "margin-bottom: 30px;">
-    <div class="card shadow-lg p-5" style="background-color: rgba(59, 66, 65, 0.8); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); color: #ffffff;">
-        <h2 class="text-center mb-5" style="text-transform: uppercase; letter-spacing: 2px; font-weight: bold;">Editar Vivienda</h2>
-        
-        <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+<div class="container mt-5" style="margin-bottom: 30px;">
+    <div class="card shadow-lg p-5" style="background-color: rgba(59, 66, 65, 0.8); border-radius: 15px;">
+        <h2 class="text-center mb-5" style="text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #ffffff;">Crear Nueva Vivienda</h2>
+
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             
-            <!-- Nombre de la vivienda -->
             <div class="mb-4">
                 <label for="nombre" style="color: #dddddd; font-weight: bold;">Nombre:</label>
                 {{ form.nombre|add_class:"form-control" }}
                 {% if form.nombre.errors %}
-                    <div class="text-danger mt-2">{{ form.nombre.errors|join:", " }}</div>
+                    <div class="text-danger">{{ form.nombre.errors|join:", " }}</div>
                 {% endif %}
             </div>
 
-            <!-- Descripción de la vivienda -->
             <div class="mb-4">
                 <label for="descripcion" style="color: #dddddd; font-weight: bold;">Descripción:</label>
                 {{ form.descripcion|add_class:"form-control" }}
                 {% if form.descripcion.errors %}
-                    <div class="text-danger mt-2">{{ form.descripcion.errors|join:", " }}</div>
+                    <div class="text-danger">{{ form.descripcion.errors|join:", " }}</div>
                 {% endif %}
             </div>
 
-            <!-- Ubicación de la vivienda -->
             <div class="mb-4">
                 <label for="ubicacion" style="color: #dddddd; font-weight: bold;">Ubicación:</label>
                 {{ form.ubicacion|add_class:"form-control" }}
                 {% if form.ubicacion.errors %}
-                    <div class="text-danger mt-2">{{ form.ubicacion.errors|join:", " }}</div>
+                    <div class="text-danger">{{ form.ubicacion.errors|join:", " }}</div>
                 {% endif %}
             </div>
 
-            <!-- Imagen -->
             <div class="mb-4">
-                <label style="color: #dddddd; font-weight: bold;">Imagen actual:</label>
-                {% if vivienda.imagen %}
-                    <div class="text-center mb-3">
-                        <img src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}" style="border-radius: 10px; max-height: 250px; margin-bottom: 15px;">
-                    </div>
-                {% endif %}
-                <label for="imagen" style="color: #dddddd; font-weight: bold;">Subir nueva imagen:</label>
+                <label for="imagen" style="color: #dddddd; font-weight: bold;">Subir Imagen:</label>
                 {{ form.imagen|add_class:"form-control" }}
                 {% if form.imagen.errors %}
-                    <div class="text-danger mt-2">{{ form.imagen.errors|join:", " }}</div>
+                    <div class="text-danger">{{ form.imagen.errors|join:", " }}</div>
                 {% endif %}
             </div>
 
-            <!-- Precio por día -->
             <div class="mb-4">
                 <label for="precio_por_dia" style="color: #dddddd; font-weight: bold;">Precio por día:</label>
                 {{ form.precio_por_dia|add_class:"form-control" }}
                 {% if form.precio_por_dia.errors %}
-                    <div class="text-danger mt-2">{{ form.precio_por_dia.errors|join:", " }}</div>
+                    <div class="text-danger">{{ form.precio_por_dia.errors|join:", " }}</div>
                 {% endif %}
             </div>
 
-            <!-- Servicios adicionales (Opcionales) -->
             <div class="mb-4">
                 <h4 style="color: #dddddd; font-weight: bold;">Servicios disponibles:</h4>
                 
@@ -95,17 +84,9 @@
                 </div>
             </div>
 
-            <!-- TODO -->
-            <p> Fechas reservadas (Implementar) </p>
-            
-            <!-- Botones -->
             <div class="text-center mt-5">
-                <button type="submit" style="background-color: #5dade2; border-color: #5dade2; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-transform: uppercase; font-weight: bold; transition: background-color 0.3s; margin-right: 10px;">
-                    Guardar cambios
-                </button>
-                <a href="{% url 'catalogo_viviendas_propietario' %}" style="background-color: #6c757d; border-color: #6c757d; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-transform: uppercase; font-weight: bold; transition: background-color 0.3s;">
-                    Volver
-                </a>
+                <button type="submit" class="btn btn-success">Crear Vivienda</button>
+                <a href="{% url 'catalogo_viviendas_propietario' %}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

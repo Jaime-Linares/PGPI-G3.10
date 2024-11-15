@@ -1,5 +1,7 @@
 from django import forms
-from .models import Reserva
+from .models import Reserva, Vivienda
+
+
 
 class ReservaForm(forms.ModelForm):
     class Meta:
@@ -9,9 +11,6 @@ class ReservaForm(forms.ModelForm):
             'fecha_inicio': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'fecha_fin': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
-
-from .models import Vivienda
-
 
 
 class ViviendaForm(forms.ModelForm):
@@ -34,5 +33,9 @@ class ViviendaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if field_name not in ['wifi', 'piscina', 'parking', 'aire_acondicionado', 'barbacoa', 'ducha', 'cocina']:
+                field.required = True
+            field.widget.attrs.update({'class': 'form-control'})
         
 
