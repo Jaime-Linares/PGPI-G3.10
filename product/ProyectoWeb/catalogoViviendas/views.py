@@ -25,7 +25,7 @@ def catalogo_viviendas(request):
         viviendas = viviendas.filter(nombre__icontains=query)
     if ubicacion:
         viviendas = viviendas.filter(ubicacion__icontains=ubicacion)
-    # rendereizamos
+    # renderizamos
     return render(request, "catalogoViviendas/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
 
 
@@ -105,7 +105,16 @@ def catalogo_viviendas_propietario(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
     if not es_propietario:
         return redirect('Home')
+    # miramos si estamos filtrando
+    query = request.GET.get('q')
+    ubicacion = request.GET.get('ubicacion')
+    # filtros por nombre y ubicación
     viviendas = Vivienda.objects.filter(propietario=request.user)
+    if query:
+        viviendas = viviendas.filter(nombre__icontains=query)
+    if ubicacion:
+        viviendas = viviendas.filter(ubicacion__icontains=ubicacion)
+    # renderizamos
     return render(request, "catalogoViviendas/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
 
 
