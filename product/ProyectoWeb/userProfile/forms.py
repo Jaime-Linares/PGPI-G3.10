@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 
 class ProfileForm(forms.ModelForm):
@@ -29,10 +31,16 @@ class ProfileForm(forms.ModelForm):
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
 
-        if password1 and password2:
-            if password1 != password2:
-                self.add_error('password2', "Las contraseñas no coinciden.")
-        
+        # validar que las contraseñas coincidan
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Las contraseñas no coinciden.")
+        # validar la contraseña utilizando los validadores de Django
+        if password1:
+            try:
+                validate_password(password1, self.instance)
+            except ValidationError as e:
+                self.add_error('password1', e)
+
         return cleaned_data
 
     def save(self, commit=True):
@@ -43,3 +51,4 @@ class ProfileForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
