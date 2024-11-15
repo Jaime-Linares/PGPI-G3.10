@@ -29,4 +29,5 @@ urlpatterns = [
     path('autenticacion/', include('autenticacion.urls')),
     path('pedidos/', include('pedidos.urls')),
     path('',include('ProyectoWebApp.urls')),
+    path('profile/', include('userProfile.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

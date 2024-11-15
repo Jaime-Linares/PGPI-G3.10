@@ -1,0 +1,85 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="profile-container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h2 class="profile-title">Perfil</h2>
+
+        <div class="form-group">
+            <label for="id_username">Nombre de usuario</label>
+            <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value|default_if_none:'' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Correo electrónico</label>
+            <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value|default_if_none:'' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_first_name">Nombre</label>
+            <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ form.first_name.value|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_last_name">Apellidos</label>
+            <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value|default_if_none:'' }}">
+        </div>
+
+        <h3 class="profile-subtitle">Cambiar Contraseña</h3>
+
+        <div class="form-group">
+            <label for="id_password1">Nueva contraseña</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Nueva contraseña">
+            {% if form.password1.errors %}
+                <div class="text-danger">{{ form.password1.errors.0 }}</div>
+            {% endif %}
+            <ul class="password-requirements">
+                <li>La contraseña no debe parecerse a su información personal.</li>
+                <li>Debe contener al menos 8 caracteres.</li>
+                <li>No debe ser una contraseña comúnmente utilizada.</li>
+                <li>No puede ser completamente numérica.</li>
+            </ul>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_password2">Confirmar contraseña</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Confirmar contraseña">
+            {% if form.password2.errors %}
+                <div class="text-danger">{{ form.password2.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-register">Guardar cambios</button>
+        </div>
+    </form>
+</div>
+
+<div class="profile-container">
+    <div class="text-center mt-4">
+        <form method="POST" action="{% url 'eliminar_cuenta' %}" id="delete-account-form">
+            {% csrf_token %}
+            <button type="button" class="btn btn-danger" id="delete-account-button">
+                Eliminar cuenta
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButton = document.getElementById('delete-account-button');
+        const deleteForm = document.getElementById('delete-account-form');
+    
+        deleteButton.addEventListener('click', function() {
+            const confirmacion = confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
+            if (confirmacion && deleteForm) {
+                deleteForm.submit();
+            }
+        });
+    });
+</script>
+{% endblock %}

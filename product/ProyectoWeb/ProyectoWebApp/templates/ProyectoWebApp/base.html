@@ -55,7 +55,8 @@
                     <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
                     </li>
-                    <!-- Cerrar sesión con saludo -->
+                    <li class="nav-item {% if request.path == '/userProfile/' %} active {% endif %} px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'detalle_profile' %}">Perfil</a>
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="{% url 'cerrar_sesion' %}">Cerrar sesión ({{ user.username }})</a>
                     </li>

@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 
+
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     role = forms.ChoiceField(
@@ -30,7 +32,6 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 
-
 class VRegistro(View):
     def get(self, request):
         form = CustomUserCreationForm()
@@ -48,11 +49,11 @@ class VRegistro(View):
                 
             return render(request, "registro/registro.html", {"form": form})
 
+
 def cerrar_sesion(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
     return redirect("Home")
-
 
 
 def iniciar_sesion(request):

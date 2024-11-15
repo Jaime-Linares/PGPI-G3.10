@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'carro',
     'autenticacion',
     'pedidos',
+    'userProfile',
 ]
 
 MIDDLEWARE = [

@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Vivienda
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .models import Vivienda, Reserva
-from django.contrib.auth.decorators import login_required
 from django.utils.dateparse import parse_date
 from .forms import ViviendaForm, ReservaForm
 
