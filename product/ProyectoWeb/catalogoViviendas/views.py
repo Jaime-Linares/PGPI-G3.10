@@ -6,30 +6,28 @@ from django.http import JsonResponse
 from .models import Vivienda, Reserva
 from django.contrib.auth.decorators import login_required
 from django.utils.dateparse import parse_date
-import json
-from datetime import datetime, timedelta
-
-from .forms import ViviendaForm
+from .forms import ViviendaForm, ReservaForm
 
 
-
+# --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
 @login_required
 def catalogo_viviendas(request):
+    # comprobamos si es cliente
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
         return redirect('Home')
+    # miramos si estamos filtrando
+    query = request.GET.get('q')
+    ubicacion = request.GET.get('ubicacion')
+    # filtros por nombre y ubicación
     viviendas = Vivienda.objects.all()
+    if query:
+        viviendas = viviendas.filter(nombre__icontains=query)
+    if ubicacion:
+        viviendas = viviendas.filter(ubicacion__icontains=ubicacion)
+    # rendereizamos
     return render(request, "catalogoViviendas/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
 
-
-
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from .models import Vivienda, Reserva
-from .forms import ReservaForm
-from datetime import timedelta
 
 @login_required
 def detalle_vivienda(request, id):
@@ -78,7 +76,7 @@ def detalle_vivienda(request, id):
     })
 
 
-
+@login_required
 def hacer_reserva(request):
     if request.method == 'POST':
         vivienda_id = request.POST.get('vivienda_id')
@@ -100,6 +98,8 @@ def hacer_reserva(request):
         return JsonResponse({'success': True, 'precio_total': precio_total})
     return JsonResponse({'success': False})
 
+
+# --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
 @login_required
 def catalogo_viviendas_propietario(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
