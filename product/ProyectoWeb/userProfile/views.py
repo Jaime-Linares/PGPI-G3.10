@@ -13,7 +13,7 @@ def detalle_profile(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, user) 
-            return redirect('detalle_profile')
+            return redirect('Home')
     else:
         form = ProfileForm(instance=user)
 
