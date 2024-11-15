@@ -2,7 +2,52 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <p>Aqui tienes el detalle de tu perfil usuario {{ uid }}</p>
+<div class="profile-container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h2 class="profile-title">Perfil</h2>
+
+        <!-- Mostrar errores generales del formulario -->
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger text-left">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <!-- Campo para Nombre de Usuario -->
+        <div class="form-group">
+            <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" value="{{ form.username.value|default_if_none:'' }}" required>
+        </div>
+
+        <!-- Campo para Email -->
+        <div class="form-group">
+            <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="{{ form.email.value|default_if_none:'' }}" required>
+        </div>
+
+        <!-- Campo para Nombre -->
+        <div class="form-group">
+            <input type="text" name="first_name" class="form-control" placeholder="Nombre" value="{{ form.first_name.value|default_if_none:'' }}">
+        </div>
+
+        <!-- Campo para Apellido -->
+        <div class="form-group">
+            <input type="text" name="last_name" class="form-control" placeholder="Apellido" value="{{ form.last_name.value|default_if_none:'' }}">
+        </div>
+
+        <!-- Campo para Nueva Contraseña -->
+        <div class="form-group">
+            <input type="password" name="password1" class="form-control" placeholder="Nueva contraseña">
+        </div>
+
+        <!-- Campo para Confirmar Contraseña -->
+        <div class="form-group">
+            <input type="password" name="password2" class="form-control" placeholder="Confirmar contraseña">
+        </div>
+
+        <!-- Botón de Guardar Cambios -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-register">Guardar cambios</button>
+        </div>
+    </form>
 </div>
 {% endblock %}
