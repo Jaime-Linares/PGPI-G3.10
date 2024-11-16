@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from .models import Vivienda, Reserva
-from django.utils.dateparse import parse_date
 from .forms import ViviendaForm, ReservaForm
+from django.utils import timezone
 
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
@@ -28,6 +27,10 @@ def catalogo_viviendas(request):
 
 @login_required
 def detalle_vivienda(request, id):
+    es_cliente = request.user.groups.filter(name='Cliente').exists()
+    if not es_cliente:
+        return redirect('Home')
+    
     vivienda = get_object_or_404(Vivienda, id=id)
     reservas = Reserva.objects.filter(vivienda=vivienda)
     fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
@@ -37,16 +40,12 @@ def detalle_vivienda(request, id):
         if form.is_valid():
             fecha_inicio = form.cleaned_data['fecha_inicio']
             fecha_fin = form.cleaned_data['fecha_fin']
+            usuario = request.user
 
-            # Validar que las fechas no estén ya reservadas
-            reservas_existentes = Reserva.objects.filter(
-                vivienda=vivienda,
-                fecha_inicio__lte=fecha_fin,
-                fecha_fin__gte=fecha_inicio
-            )
-
-            if reservas_existentes.exists():
-                form.add_error(None, 'Algunas fechas seleccionadas ya están reservadas')
+            # validaciones
+            error = validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin)
+            if error:
+                form.add_error(None, error)
             else:
                 dias_reserva = (fecha_fin - fecha_inicio).days + 1
                 precio_total = dias_reserva * vivienda.precio_por_dia
@@ -73,6 +72,33 @@ def detalle_vivienda(request, id):
         'form': form,
         'fechas_reservadas': fechas_reservadas
     })
+
+
+def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
+    # la fecha de fin no puede ser anterior o igual a la fecha de inicio
+    if fecha_fin <= fecha_inicio:
+        return "La fecha de fin debe ser posterior a la fecha de inicio."
+    # no se puede reservar fechas en el pasado
+    if fecha_inicio < timezone.now().date() or fecha_fin < timezone.now().date():
+        return "No se puede realizar una reserva en fechas pasadas."
+    # no reservar si el rango de fechas se superpone con otras reservas de la misma vivienda
+    reservas_existentes = Reserva.objects.filter(
+        vivienda=vivienda,
+        fecha_inicio__lte=fecha_fin,
+        fecha_fin__gte=fecha_inicio
+    )
+    if reservas_existentes.exists():
+        return "Algunas fechas seleccionadas ya están reservadas para esta vivienda."
+    # no reservar si el usuario ya tiene una reserva que se superpone en cualquier vivienda
+    reservas_usuario = Reserva.objects.filter(
+        usuario=usuario,
+        fecha_inicio__lte=fecha_fin,
+        fecha_fin__gte=fecha_inicio
+    )
+    if reservas_usuario.exists():
+        return "Ya tienes una reserva en ese rango de fechas."
+    # si todas las validaciones pasan, retornar None
+    return None
 
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
