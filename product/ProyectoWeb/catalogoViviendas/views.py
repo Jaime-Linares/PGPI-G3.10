@@ -23,7 +23,7 @@ def catalogo_viviendas(request):
     if ubicacion:
         viviendas = viviendas.filter(ubicacion__icontains=ubicacion)
     # renderizamos
-    return render(request, "catalogoViviendas/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
+    return render(request, "catalogoViviendas/cliente/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
 
 
 @login_required
@@ -59,7 +59,7 @@ def detalle_vivienda(request, id):
                     precio_total=precio_total
                 )
 
-                return render(request, "catalogoViviendas/reserva_exitosa.html", {
+                return render(request, "catalogoViviendas/cliente/reserva_exitosa.html", {
                     'vivienda': vivienda,
                     'precio_total': precio_total,
                     'fecha_inicio': fecha_inicio,
@@ -68,34 +68,11 @@ def detalle_vivienda(request, id):
     else:
         form = ReservaForm()
 
-    return render(request, "catalogoViviendas/detalle_vivienda_cliente.html", {
+    return render(request, "catalogoViviendas/cliente/detalle_vivienda_cliente.html", {
         'vivienda': vivienda,
         'form': form,
         'fechas_reservadas': fechas_reservadas
     })
-
-
-@login_required
-def hacer_reserva(request):
-    if request.method == 'POST':
-        vivienda_id = request.POST.get('vivienda_id')
-        fecha_inicio = parse_date(request.POST.get('fecha_inicio'))
-        fecha_fin = parse_date(request.POST.get('fecha_fin'))
-        vivienda = Vivienda.objects.get(id=vivienda_id)
-
-        dias_reserva = (fecha_fin - fecha_inicio).days + 1
-        precio_total = dias_reserva * vivienda.precio_por_dia
-
-        Reserva.objects.create(
-            vivienda=vivienda,
-            usuario=request.user,
-            fecha_inicio=fecha_inicio,
-            fecha_fin=fecha_fin,
-            precio_total=precio_total
-        )
-
-        return JsonResponse({'success': True, 'precio_total': precio_total})
-    return JsonResponse({'success': False})
 
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
@@ -114,7 +91,7 @@ def catalogo_viviendas_propietario(request):
     if ubicacion:
         viviendas = viviendas.filter(ubicacion__icontains=ubicacion)
     # renderizamos
-    return render(request, "catalogoViviendas/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
+    return render(request, "catalogoViviendas/propietario/catalogo_viviendas_propietario.html", {'viviendas': viviendas,'es_propietario': es_propietario})
 
 
 @login_required
@@ -154,7 +131,7 @@ def crear_vivienda(request):
     else:
         form = ViviendaForm()
 
-    return render(request, "catalogoViviendas/crear_vivienda.html", {
+    return render(request, "catalogoViviendas/propietario/crear_vivienda.html", {
         'form': form
     })
 
