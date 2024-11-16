@@ -191,3 +191,17 @@ def crear_vivienda(request):
         'form': form
     })
 
+
+@login_required
+def eliminar_vivienda(request, id):
+    vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
+    if request.user != vivienda.propietario:
+        return redirect('Home')
+    
+    if request.method == 'POST':
+        vivienda.delete()
+        messages.success(request, "Vivienda eliminada con éxito.")
+        return redirect('catalogo_viviendas_propietario')
+    else:
+        return redirect('detalle_vivienda_propietario', id=id)
+
