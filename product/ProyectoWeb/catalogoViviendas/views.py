@@ -30,7 +30,7 @@ def catalogo_viviendas(request):
 def detalle_vivienda(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
     reservas = Reserva.objects.filter(vivienda=vivienda)
-    fechas_reservadas = [reserva.fecha_inicio.strftime('%Y-%m-%d') for reserva in reservas]
+    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
 
     if request.method == 'POST':
         form = ReservaForm(request.POST)
