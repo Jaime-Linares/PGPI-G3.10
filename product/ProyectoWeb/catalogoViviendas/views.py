@@ -89,14 +89,6 @@ def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
     )
     if reservas_existentes.exists():
         return "Algunas fechas seleccionadas ya están reservadas para esta vivienda."
-    # no reservar si el usuario ya tiene una reserva que se superpone en cualquier vivienda
-    reservas_usuario = Reserva.objects.filter(
-        usuario=usuario,
-        fecha_inicio__lte=fecha_fin,
-        fecha_fin__gte=fecha_inicio
-    )
-    if reservas_usuario.exists():
-        return "Ya tienes una reserva en ese rango de fechas."
     # si todas las validaciones pasan, retornar None
     return None
 
