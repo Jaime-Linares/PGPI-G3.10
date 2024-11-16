@@ -95,8 +95,17 @@
                 </div>
             </div>
 
-            <!-- TODO -->
-            <p> Fechas reservadas (Implementar) </p>
+            <!-- Fechas reservadas -->
+            {% if fechas_reservadas %}
+                <h5 class="unavailable-dates-title text-center">Fechas reservadas:</h5>
+                <ul class="unavailable-dates-list">
+                    {% for fecha in fechas_reservadas %}
+                        <div class="text-center">
+                            <li>Desde el {{ fecha.0 }} hasta el {{ fecha.1 }}</li>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             
             <!-- Botones -->
             <div class="text-center mt-5">

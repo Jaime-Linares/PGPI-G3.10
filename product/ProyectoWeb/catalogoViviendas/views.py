@@ -123,6 +123,8 @@ def catalogo_viviendas_propietario(request):
 @login_required
 def detalle_vivienda_propietario(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
+    reservas = Reserva.objects.filter(vivienda=vivienda)
+    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
 
     if request.user != vivienda.propietario:
         return redirect('Home')
@@ -135,9 +137,10 @@ def detalle_vivienda_propietario(request, id):
     else:
         form = ViviendaForm(instance=vivienda)
 
-    return render(request, "catalogoViviendas/detalle_vivienda_propietario.html", {
+    return render(request, "catalogoViviendas/propietario/detalle_vivienda_propietario.html", {
         'form': form,
-        'vivienda': vivienda
+        'vivienda': vivienda,
+        'fechas_reservadas': fechas_reservadas
     })
 
 
