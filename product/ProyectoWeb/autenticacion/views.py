@@ -58,15 +58,23 @@ def cerrar_sesion(request):
 
 def iniciar_sesion(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            nombre_usuario = form.cleaned_data.get("username")
-            contraseña = form.cleaned_data.get("password")
-            usuario = authenticate(username=nombre_usuario, password=contraseña)
-            if usuario is not None:
-                login(request, usuario)
-                return redirect("Home")
-        return redirect("iniciar_sesion") 
+        username_or_email = request.POST.get("username_or_email")
+        password = request.POST.get("password")
+
+        usuario = authenticate(username=username_or_email, password=password)
+        
+        # Si no encuentra por nombre de usuario, intenta buscar por email
+        if usuario is None:
+            try:
+                user_obj = User.objects.get(email=username_or_email)
+                usuario = authenticate(username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                usuario = None
+
+        if usuario is not None:
+            login(request, usuario)
+            return redirect("Home")
+        return redirect("iniciar_sesion")
 
     form = AuthenticationForm()
     return render(request, "login/login.html", {"form": form})
