@@ -3,11 +3,19 @@
 
 
 {% block content %}
-<div class="container mt-5" style="background-color: #888c92; border-radius: 10px; color: #ecf0f1;">
-    <h2 class="text-center">Historial de Reservas</h2>
-    
+<div class="container mt-5 p-4" style="background-color: #b5c7da; border-radius: 10px; color: #ecf0f1;">
+    <h2 class="text-center mb-4">Historial de Reservas</h2>
+
+    {% if messages %}
+        <div class="mt-4">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if reservas %}
-        <table class="table table-striped mt-4">
+        <table class="table table-striped table-hover mt-4">
             <thead>
                 <tr>
                     <th>Vivienda</th>
@@ -15,6 +23,7 @@
                     <th>Fecha de Entrada</th>
                     <th>Fecha de Salida</th>
                     <th>Precio total</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +34,17 @@
                         <td>{{ reserva.fecha_inicio|date:"d-m-Y" }}</td>
                         <td>{{ reserva.fecha_fin|date:"d-m-Y" }}</td>
                         <td>{{ reserva.precio_total }} euros.</td>
+                        <td>
+                            {% if reserva.puede_eliminarse %}
+                                <a href="{% url 'eliminar_reserva' reserva.id %}" 
+                                   class="btn btn-danger btn-sm" 
+                                   onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');">
+                                    Cancelar reserva
+                                </a>
+                            {% else %}
+                                <span class="text-muted">No se puede cancelar</span>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

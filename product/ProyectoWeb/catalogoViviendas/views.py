@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Vivienda, Reserva
 from .forms import ViviendaForm, ReservaForm
@@ -100,7 +101,23 @@ def historial_reservas(request):
         return redirect('Home')
     
     reservas = Reserva.objects.filter(usuario=request.user).order_by('fecha_inicio')
-    return render(request, "catalogoViviendas/cliente/historial_reservas.html", {'reservas': reservas})
+    today = timezone.now().date()
+    for reserva in reservas:
+        reserva.puede_eliminarse = reserva.fecha_inicio > today and (reserva.fecha_inicio - today).days > 7
+    return render(request, "catalogoViviendas/cliente/historial_reservas.html", {'reservas': reservas, 'today': today})
+
+
+@login_required
+def eliminar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
+    
+    if reserva.fecha_inicio > timezone.now().date() and (reserva.fecha_inicio - timezone.now().date()).days > 7:
+        reserva.delete()
+        messages.success(request, "Reserva cancelada con éxito.")
+    else:
+        messages.error(request, "No puedes cancelar esta reserva.")
+    
+    return redirect('historial_reservas')
 
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
