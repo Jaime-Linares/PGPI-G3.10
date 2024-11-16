@@ -8,5 +8,7 @@ urlpatterns = [
     path('propietario/', views.catalogo_viviendas_propietario, name='catalogo_viviendas_propietario'),
     path('propietario/detalle/<int:id>/', views.detalle_vivienda_propietario, name='detalle_vivienda_propietario'),
     path('propietario/create/', views.crear_vivienda, name='crear_vivienda'),
+    path('historial_reservas/', views.historial_reservas, name='historial_reservas'),
+    path('eliminar_reserva/<int:reserva_id>/', views.eliminar_reserva, name='eliminar_reserva'),
     #path('hacer_reserva/', views.hacer_reserva, name='hacer_reserva'),
 ]
