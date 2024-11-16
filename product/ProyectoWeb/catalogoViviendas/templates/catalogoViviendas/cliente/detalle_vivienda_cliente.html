@@ -19,25 +19,25 @@
             <h4>Servicios incluidos:</h4>
             <div class="d-flex flex-wrap">
                 {% if vivienda.wifi %}
-                    <div class="badge bg-primary m-2">📶 WiFi gratis</div>
+                    <div class="badge bg-primary m-2">📶 WiFi gratis 📶</div>
                 {% endif %}
                 {% if vivienda.piscina %}
-                    <div class="badge bg-primary m-2">🏊 Piscina</div>
+                    <div class="badge bg-primary m-2">🏊 Piscina 🏊</div>
                 {% endif %}
                 {% if vivienda.parking %}
-                    <div class="badge bg-primary m-2">🚗 Parking gratuito</div>
+                    <div class="badge bg-primary m-2">🚗 Parking gratuito 🚗</div>
                 {% endif %}
                 {% if vivienda.aire_acondicionado %}
-                    <div class="badge bg-primary m-2">❄️ Aire acondicionado</div>
+                    <div class="badge bg-primary m-2">❄️ Aire acondicionado ❄️</div>
                 {% endif %}
                 {% if vivienda.barbacoa %}
-                    <div class="badge bg-primary m-2">🔥 Barbacoa</div>
+                    <div class="badge bg-primary m-2">🔥 Barbacoa 🔥</div>
                 {% endif %}
                 {% if vivienda.ducha %}
-                    <div class="badge bg-primary m-2">🚿 Ducha</div>
+                    <div class="badge bg-primary m-2">🚿 Ducha 🚿</div>
                 {% endif %}
                 {% if vivienda.cocina %}
-                    <div class="badge bg-primary m-2">🍳 Cocina</div>
+                    <div class="badge bg-primary m-2">🍳 Cocina 🍳</div>
                 {% endif %}
             </div>
         </div>
@@ -49,14 +49,18 @@
         <form method="post" class="reservation-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Realizar Reserva</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Realizar Reserva</button>
+            </div>
         </form>
     
         {% if fechas_reservadas %}
-            <h5 class="unavailable-dates-title">Fechas no disponibles:</h5>
+            <h5 class="unavailable-dates-title text center">Fechas no disponibles:</h5>
             <ul class="unavailable-dates-list">
                 {% for fecha in fechas_reservadas %}
-                    <li>{{ fecha }}</li>
+                    <div class="text-center">
+                        <li>Desde el {{ fecha.0 }} hasta el {{ fecha.1 }}</li>
+                    </div>
                 {% endfor %}
             </ul>
         {% endif %}
