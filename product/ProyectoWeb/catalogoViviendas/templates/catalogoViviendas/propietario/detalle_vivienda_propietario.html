@@ -96,15 +96,19 @@
             </div>
 
             <!-- Fechas reservadas -->
+            <h5 class="unavailable-dates-title text-center">Fechas reservadas:</h5>
             {% if fechas_reservadas %}
-                <h5 class="unavailable-dates-title text-center">Fechas reservadas:</h5>
                 <ul class="unavailable-dates-list">
                     {% for fecha in fechas_reservadas %}
                         <div class="text-center">
-                            <li>Desde el {{ fecha.0 }} hasta el {{ fecha.1 }}</li>
+                            <li>{{ fecha.2 }}: Desde el {{ fecha.0 }} hasta el {{ fecha.1 }}</li>
                         </div>
                     {% endfor %}
                 </ul>
+            {% else %}
+                <div class="text-center">
+                    <p>No hay fechas reservadas para esta vivienda.</p>
+                </div>
             {% endif %}
             
             <!-- Botones -->

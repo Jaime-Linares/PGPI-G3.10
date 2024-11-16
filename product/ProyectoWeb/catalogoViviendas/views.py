@@ -116,7 +116,7 @@ def catalogo_viviendas_propietario(request):
 def detalle_vivienda_propietario(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
     reservas = Reserva.objects.filter(vivienda=vivienda)
-    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
+    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y'), reserva.usuario.username) for reserva in reservas]
 
     if request.user != vivienda.propietario:
         return redirect('Home')
