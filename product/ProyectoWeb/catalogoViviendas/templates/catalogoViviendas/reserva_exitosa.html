@@ -9,7 +9,7 @@
             <p class="mt-4">Gracias por reservar con nosotros.</p>
             <p>Has reservado <strong>{{ vivienda.nombre }}</strong> en <strong>{{ vivienda.ubicacion }}</strong>.</p>
             <p><strong>Precio total:</strong> {{ precio_total }} €</p>
-            <p><strong>Desde:</strong> {{ form.fecha_inicio }} <strong>Hasta:</strong> {{ form.fecha_fin }}</p>
+            <p><strong>Desde:</strong> {{ fecha_inicio }} <strong>Hasta:</strong> {{ fecha_fin }}</p>
         </div>
         <div class="card-footer">
             <a href="{% url 'catalogo_viviendas' %}" class="btn btn-primary">Volver al Catálogo</a>

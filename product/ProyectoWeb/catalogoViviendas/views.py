@@ -61,7 +61,9 @@ def detalle_vivienda(request, id):
 
                 return render(request, "catalogoViviendas/reserva_exitosa.html", {
                     'vivienda': vivienda,
-                    'precio_total': precio_total
+                    'precio_total': precio_total,
+                    'fecha_inicio': fecha_inicio,
+                    'fecha_fin': fecha_fin
                 })
     else:
         form = ReservaForm()
