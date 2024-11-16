@@ -1,8 +1,36 @@
 {% extends "ProyectoWebApp/base.html" %}
 {% load static %}
 
+
 {% block content %}
 <div class="container mt-5">
-    <p>Historial de reservas</p>
+    <h2 class="text-center">Historial de Reservas</h2>
+    
+    {% if reservas %}
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Vivienda</th>
+                    <th>Fecha de Reserva</th>
+                    <th>Fecha de Entrada</th>
+                    <th>Fecha de Salida</th>
+                    <th>Precio total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.vivienda.nombre }}</td>
+                        <td>{{ reserva.creada }}</td>
+                        <td>{{ reserva.fecha_inicio|date:"d-m-Y" }}</td>
+                        <td>{{ reserva.fecha_fin|date:"d-m-Y" }}</td>
+                        <td>{{ reserva.precio_total }} euros.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center mt-4">No tienes reservas registradas.</p>
+    {% endif %}
 </div>
 {% endblock %}

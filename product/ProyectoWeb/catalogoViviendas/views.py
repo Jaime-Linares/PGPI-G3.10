@@ -93,12 +93,13 @@ def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
     return None
 
 
+@login_required
 def historial_reservas(request):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
         return redirect('Home')
     
-    reservas = Reserva.objects.filter(usuario=request.user)
+    reservas = Reserva.objects.filter(usuario=request.user).order_by('fecha_inicio')
     return render(request, "catalogoViviendas/cliente/historial_reservas.html", {'reservas': reservas})
 
 
