@@ -21,6 +21,12 @@
             </div>
         </form>
 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-4">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
         <div class="row">
             {% for vivienda in viviendas %}
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -33,6 +39,12 @@
                         </div>
                         <div class="card-footer text-center">
                             <a href="{% url 'detalle_vivienda_propietario' vivienda.id %}" class="btn btn-primary">Ver más/Editar</a>
+                        </div>
+                        <div class="card-footer text-center">
+                            <form method="POST" action="{% url 'eliminar_vivienda' vivienda.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -90,6 +90,14 @@ def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
     )
     if reservas_existentes.exists():
         return "Algunas fechas seleccionadas ya están reservadas para esta vivienda."
+    # no reservar si el usuario ya tiene una reserva que se superpone en cualquier vivienda
+    reservas_usuario = Reserva.objects.filter(
+        usuario=usuario,
+        fecha_inicio__lte=fecha_fin,
+        fecha_fin__gte=fecha_inicio
+    )
+    if reservas_usuario.exists():
+        return "Ya tienes una reserva en ese rango de fechas."
     # si todas las validaciones pasan, retornar None
     return None
 
@@ -182,4 +190,18 @@ def crear_vivienda(request):
     return render(request, "catalogoViviendas/propietario/crear_vivienda.html", {
         'form': form
     })
+
+
+@login_required
+def eliminar_vivienda(request, id):
+    vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
+    if request.user != vivienda.propietario:
+        return redirect('Home')
+    
+    if request.method == 'POST':
+        vivienda.delete()
+        messages.success(request, "Vivienda eliminada con éxito.")
+        return redirect('catalogo_viviendas_propietario')
+    else:
+        return redirect('detalle_vivienda_propietario', id=id)
 
