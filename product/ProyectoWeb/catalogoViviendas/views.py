@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Vivienda, Reserva
 from django.contrib import messages
@@ -130,8 +131,42 @@ def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
     )
     if reservas_existentes.exists():
         return "Algunas fechas seleccionadas ya están reservadas para esta vivienda."
+    # no reservar si el usuario ya tiene una reserva que se superpone en cualquier vivienda
+    reservas_usuario = Reserva.objects.filter(
+        usuario=usuario,
+        fecha_inicio__lte=fecha_fin,
+        fecha_fin__gte=fecha_inicio
+    )
+    if reservas_usuario.exists():
+        return "Ya tienes una reserva en ese rango de fechas."
     # si todas las validaciones pasan, retornar None
     return None
+
+
+@login_required
+def historial_reservas(request):
+    es_cliente = request.user.groups.filter(name='Cliente').exists()
+    if not es_cliente:
+        return redirect('Home')
+    
+    reservas = Reserva.objects.filter(usuario=request.user).order_by('fecha_inicio')
+    today = timezone.now().date()
+    for reserva in reservas:
+        reserva.puede_eliminarse = reserva.fecha_inicio > today and (reserva.fecha_inicio - today).days > 7
+    return render(request, "catalogoViviendas/cliente/historial_reservas.html", {'reservas': reservas, 'today': today})
+
+
+@login_required
+def eliminar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
+    
+    if reserva.fecha_inicio > timezone.now().date() and (reserva.fecha_inicio - timezone.now().date()).days > 7:
+        reserva.delete()
+        messages.success(request, "Reserva cancelada con éxito.")
+    else:
+        messages.error(request, "No puedes cancelar esta reserva.")
+    
+    return redirect('historial_reservas')
 
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
@@ -196,4 +231,18 @@ def crear_vivienda(request):
     return render(request, "catalogoViviendas/propietario/crear_vivienda.html", {
         'form': form
     })
+
+
+@login_required
+def eliminar_vivienda(request, id):
+    vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
+    if request.user != vivienda.propietario:
+        return redirect('Home')
+    
+    if request.method == 'POST':
+        vivienda.delete()
+        messages.success(request, "Vivienda eliminada con éxito.")
+        return redirect('catalogo_viviendas_propietario')
+    else:
+        return redirect('detalle_vivienda_propietario', id=id)
 
