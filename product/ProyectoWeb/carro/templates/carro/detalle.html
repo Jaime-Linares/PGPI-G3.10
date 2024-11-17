@@ -1,18 +1,18 @@
 {% extends "ProyectoWebApp/base.html" %}
-{% load static %}
 
 
 {% block content %}
     <h2>Carro de Reservas</h2>
-    {% if carro.reserva_existente %}
+
+    {% if reserva %}
         <div class="card mb-4">
-            <img src="{{ carro.carro.reserva.imagen }}" alt="{{ carro.carro.reserva.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+            <img src="{{ reserva.vivienda.imagen.url }}" alt="{{ reserva.vivienda.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;">
             <div class="card-body">
-                <h3>{{ carro.carro.reserva.nombre }}</h3>
-                <p><strong>Precio por día:</strong> {{ carro.carro.reserva.precio_por_dia }} €</p>
-                <p><strong>Precio Total:</strong> {{ carro.carro.reserva.precio_total }} €</p>
-                <p><strong>Fecha Inicio:</strong> {{ carro.carro.reserva.fecha_inicio }}</p>
-                <p><strong>Fecha Fin:</strong> {{ carro.carro.reserva.fecha_fin }}</p>
+                <h3>{{ reserva.vivienda.nombre }}</h3>
+                <p><strong>Precio por día:</strong> {{ reserva.vivienda.precio_por_dia }} €</p>
+                <p><strong>Precio Total:</strong> {{ reserva.precio_total }} €</p>
+                <p><strong>Fecha Inicio:</strong> {{ reserva.fecha_inicio }}</p>
+                <p><strong>Fecha Fin:</strong> {{ reserva.fecha_fin }}</p>
                 <a href="{% url 'carro:eliminar' %}" class="btn btn-danger">Eliminar Reserva</a>
             </div>
         </div>

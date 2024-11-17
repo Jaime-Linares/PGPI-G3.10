@@ -7,8 +7,8 @@ from .carro import Carro
 @login_required
 def detalle_carro(request):
     carro = Carro(request)
-    print(carro.carro)
-    return render(request, 'carro/detalle.html', {'carro': carro})
+    reserva = carro.obtener_reserva()
+    return render(request, 'carro/detalle.html', {'reserva': reserva})
 
 
 @login_required
