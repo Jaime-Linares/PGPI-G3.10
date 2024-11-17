@@ -166,7 +166,7 @@ def detalle_vivienda_propietario(request, id):
         form = ViviendaForm(request.POST, request.FILES, instance=vivienda)
         if form.is_valid():
             form.save()
-            return redirect('catalogo_viviendas_propietario')
+            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
     else:
         form = ViviendaForm(instance=vivienda)
 
@@ -189,7 +189,7 @@ def crear_vivienda(request):
             nueva_vivienda = form.save(commit=False)
             nueva_vivienda.propietario = request.user
             nueva_vivienda.save()
-            return redirect('catalogo_viviendas_propietario')
+            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
     else:
         form = ViviendaForm()
 
