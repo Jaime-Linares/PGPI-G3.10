@@ -32,44 +32,6 @@ def detalle_vivienda(request, id):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
         return redirect('Home')
-
-    vivienda = get_object_or_404(Vivienda, id=id)
-    reservas = Reserva.objects.filter(vivienda=vivienda)
-    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
-    
-    carro = Carro(request)
-    response = render(request, "catalogoViviendas/cliente/detalle_vivienda_cliente.html", {
-        'vivienda': vivienda,
-        'form': ReservaForm(),
-        'fechas_reservadas': fechas_reservadas,
-        'reserva_en_carro': carro.obtener_reserva()
-    })
-
-    if request.method == 'POST':
-        form = ReservaForm(request.POST)
-        if form.is_valid():
-            fecha_inicio = form.cleaned_data['fecha_inicio']
-            fecha_fin = form.cleaned_data['fecha_fin']
-            error = validar_reserva(vivienda, fecha_inicio, fecha_fin)
-            if error:
-                form.add_error(None, error)
-            else:
-                if carro.reserva_existente():
-                    messages.error(request, "Ya tienes una reserva en tu carrito.")
-                    return redirect('catalogoViviendas:detalle_vivienda')
-                else:
-                    dias_reserva = (fecha_fin - fecha_inicio).days + 1
-                    precio_total = dias_reserva * vivienda.precio_por_dia
-                    carro.agregar_reserva(vivienda, fecha_inicio, fecha_fin, precio_total)
-                    messages.success(request, "Reserva añadida al carrito.")
-                    return redirect('carro:detalle')
-    return response
-
-@login_required
-def detalle_vivienda(request, id):
-    es_cliente = request.user.groups.filter(name='Cliente').exists()
-    if not es_cliente:
-        return redirect('Home')
     
     carro = Carro(request)
     vivienda = get_object_or_404(Vivienda, id=id)
