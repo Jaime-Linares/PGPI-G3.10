@@ -50,7 +50,7 @@
                       <a class="nav-link text-uppercase text-expanded" href="{% url 'carro:detalle' %}">Carro</a>
                   </li>
                     <li class="nav-item {% if request.path == '/catalogoViviendas/historial_reservas/' %} active {% endif %} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'historial_reservas' %}">Historial de reservas</a>
+                        <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:historial_reservas' %}">Historial de reservas</a>
                     </li>
                     <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
