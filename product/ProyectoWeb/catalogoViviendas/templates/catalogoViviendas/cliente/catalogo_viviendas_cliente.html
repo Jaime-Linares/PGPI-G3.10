@@ -6,14 +6,14 @@
 
 <div class="container mt-5">
     <!-- Formulario de búsqueda con filtros -->
-    <form method="GET" action="{% url 'catalogo_viviendas' %}" class="mb-4">
+    <form method="GET" action="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="mb-4">
         <div class="input-group p-3" style="background-color: #343a40; border-radius: 8px;">
             <!-- Filtro por nombre -->
             <input type="text" name="q" class="form-control me-2" placeholder="Buscar por nombre" value="{{ request.GET.q }}">
             <!-- Filtro por ubicación -->
             <input type="text" name="ubicacion" class="form-control me-2" placeholder="Buscar por ubicación" value="{{ request.GET.ubicacion }}">
             <button class="btn btn-primary" type="submit">Buscar</button>
-            <a href="{% url 'catalogo_viviendas' %}" class="btn btn-secondary ms-2">Reset</a>
+            <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-secondary ms-2">Reset</a>
         </div>
     </form>
 
@@ -30,7 +30,7 @@
                         <p><strong>Precio por día:</strong> {{ vivienda.precio_por_dia }} €</p>
                     </div>
                     <div class="card-footer text-center">
-                        <a href="{% url 'detalle_vivienda' vivienda.id %}" class="btn btn-primary">Ver más</a>
+                        <a href="{% url 'catalogoViviendas:detalle_vivienda' vivienda.id %}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
             </div>

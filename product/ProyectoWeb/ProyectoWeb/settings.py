@@ -45,10 +45,8 @@ INSTALLED_APPS = [
     'catalogoViviendas',
     'blog',
     'contacto',
-    'tienda',
     'carro',
     'autenticacion',
-    'pedidos',
     'userProfile',
 ]
 

@@ -35,20 +35,20 @@
                     {% for group in user.groups.all %}
                         {% if group.name == "Propietario" %}
                             <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas_propietario' %}">Tus viviendas</a>
+                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}">Tus viviendas</a>
                             </li>
                         {% endif %}
                     {% endfor %}
                     {% for group in user.groups.all %}
                         {% if group.name == "Cliente" %}
                             <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogo_viviendas' %}">Catálogo de viviendas</a>
+                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas' %}">Catálogo de viviendas</a>
                             </li>
                         {% endif %}
                     {% endfor %}
-                    <li class="nav-item {% if request.path == '/tienda/' %} active {% endif %} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Tienda' %}">Tienda</a>
-                    </li>
+                    <li class="nav-item {% if request.path == '/carro/' %} active {% endif %} px-lg-4">
+                      <a class="nav-link text-uppercase text-expanded" href="{% url 'carro:detalle' %}">Carro</a>
+                  </li>
                     <li class="nav-item {% if request.path == '/catalogoViviendas/historial_reservas/' %} active {% endif %} px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="{% url 'historial_reservas' %}">Historial de reservas</a>
                     </li>

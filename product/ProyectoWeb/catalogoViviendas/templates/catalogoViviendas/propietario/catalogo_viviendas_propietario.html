@@ -5,19 +5,19 @@
     <h2 class="categories-container"  style= "margin-top: 40px;   color: white">Listado de tus viviendas</h2>
 
     <div class="text-center mb-4">
-        <a href="{% url 'crear_vivienda' %}" class="btn btn-success">Añadir Nueva Vivienda</a>
+        <a href="{% url 'catalogoViviendas:crear_vivienda' %}" class="btn btn-success">Añadir Nueva Vivienda</a>
     </div>
 
     <div class="container mt-5">
         <!-- Formulario de búsqueda con filtros -->
-        <form method="GET" action="{% url 'catalogo_viviendas_propietario' %}" class="mb-4">
+        <form method="GET" action="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="mb-4">
             <div class="input-group p-3" style="background-color: #343a40; border-radius: 8px;">
                 <!-- Filtro por nombre -->
                 <input type="text" name="q" class="form-control me-2" placeholder="Buscar por nombre" value="{{ request.GET.q }}">
                 <!-- Filtro por ubicación -->
                 <input type="text" name="ubicacion" class="form-control me-2" placeholder="Buscar por ubicación" value="{{ request.GET.ubicacion }}">
                 <button class="btn btn-primary" type="submit">Buscar</button>
-                <a href="{% url 'catalogo_viviendas_propietario' %}" class="btn btn-secondary ms-2">Reset</a>
+                <a href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="btn btn-secondary ms-2">Reset</a>
             </div>
         </form>
 
@@ -38,7 +38,7 @@
                             <p>{{ vivienda.descripcion|truncatewords:20 }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="{% url 'detalle_vivienda_propietario' vivienda.id %}" class="btn btn-primary">Ver más/Editar</a>
+                            <a href="{% url 'catalogoViviendas:detalle_vivienda_propietario' vivienda.id %}" class="btn btn-primary">Ver más/Editar</a>
                         </div>
                         <div class="card-footer text-center">
                             <form method="POST" action="{% url 'eliminar_vivienda' vivienda.id %}">

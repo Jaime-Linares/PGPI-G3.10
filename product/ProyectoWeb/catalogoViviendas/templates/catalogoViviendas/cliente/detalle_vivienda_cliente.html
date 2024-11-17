@@ -53,6 +53,14 @@
                 <button type="submit" class="btn btn-primary">Realizar Reserva</button>
             </div>
         </form>
+        {% if messages %}
+        
+    <div class="mt-4">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
     
         {% if fechas_reservadas %}
             <h5 class="unavailable-dates-title text center">Fechas no disponibles:</h5>
