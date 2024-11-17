@@ -41,7 +41,7 @@
                             <a href="{% url 'catalogoViviendas:detalle_vivienda_propietario' vivienda.id %}" class="btn btn-primary">Ver más/Editar</a>
                         </div>
                         <div class="card-footer text-center">
-                            <form method="POST" action="{% url 'eliminar_vivienda' vivienda.id %}">
+                            <form method="POST" action="{% url 'catalogoViviendas:eliminar_vivienda' vivienda.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>

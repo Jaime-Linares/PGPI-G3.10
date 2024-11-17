@@ -76,7 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'carro.context_processor.importe_total_carro', # Importamos el contexto del carro de compras
+                'carro.context_processor.importe_total_carro',
             ],
         },
     },
@@ -117,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 #LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'es-eu'
 
@@ -139,6 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Para que Django sepa donde guarda
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Configuración de email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
