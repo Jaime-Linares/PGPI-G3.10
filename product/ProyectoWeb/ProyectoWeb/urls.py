@@ -24,10 +24,8 @@ urlpatterns = [
     path('catalogoViviendas/', include('catalogoViviendas.urls')),
     path('blog/', include('blog.urls')),
     path('contacto/', include('contacto.urls')),
-    path('tienda/', include('tienda.urls')),
     path('carro/', include('carro.urls')), # Esto lo podemos poner así gracias a app_name = "carro" del archivo carro/urls.py
     path('autenticacion/', include('autenticacion.urls')),
-    path('pedidos/', include('pedidos.urls')),
     path('',include('ProyectoWebApp.urls')),
     path('profile/', include('userProfile.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

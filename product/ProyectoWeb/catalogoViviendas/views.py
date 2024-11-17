@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Vivienda, Reserva
+from django.contrib import messages
 from .forms import ViviendaForm, ReservaForm
 from django.utils import timezone
+from carro.carro import Carro
 
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
@@ -25,6 +27,7 @@ def catalogo_viviendas(request):
     return render(request, "catalogoViviendas/cliente/catalogo_viviendas_cliente.html", {'viviendas': viviendas,'es_cliente': es_cliente})
 
 
+'''
 @login_required
 def detalle_vivienda(request, id):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
@@ -42,6 +45,7 @@ def detalle_vivienda(request, id):
             fecha_fin = form.cleaned_data['fecha_fin']
             usuario = request.user
 
+
             # validaciones
             error = validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin)
             if error:
@@ -49,6 +53,7 @@ def detalle_vivienda(request, id):
             else:
                 dias_reserva = (fecha_fin - fecha_inicio).days + 1
                 precio_total = dias_reserva * vivienda.precio_por_dia
+                
 
                 Reserva.objects.create(
                     vivienda=vivienda,
@@ -73,7 +78,43 @@ def detalle_vivienda(request, id):
         'fechas_reservadas': fechas_reservadas
     })
 
+'''
+@login_required
+def detalle_vivienda(request, id):
+    es_cliente = request.user.groups.filter(name='Cliente').exists()
+    if not es_cliente:
+        return redirect('Home')
 
+    vivienda = get_object_or_404(Vivienda, id=id)
+    reservas = Reserva.objects.filter(vivienda=vivienda)
+    fechas_reservadas = [(reserva.fecha_inicio.strftime('%d-%m-%Y'), reserva.fecha_fin.strftime('%d-%m-%Y')) for reserva in reservas]
+    
+    form = ReservaForm(request.POST or None)
+    carro = Carro(request)
+
+    if request.method == 'POST' and form.is_valid():
+        fecha_inicio = form.cleaned_data['fecha_inicio']
+        fecha_fin = form.cleaned_data['fecha_fin']
+        usuario = request.user
+
+        error = validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin)
+        if error:
+            form.add_error(None, error)
+        else:
+            if carro.reserva_existente():
+                messages.error(request, "Ya tienes una reserva en tu carrito.")
+            else:
+                dias_reserva = (fecha_fin - fecha_inicio).days + 1
+                precio_total = dias_reserva * vivienda.precio_por_dia
+                carro.agregar_reserva(vivienda, fecha_inicio, fecha_fin, precio_total)
+                messages.success(request, "Reserva añadida al carrito.")
+                return redirect('carro:detalle')
+
+    return render(request, "catalogoViviendas/cliente/detalle_vivienda_cliente.html", {
+        'vivienda': vivienda,
+        'form': form,
+        'fechas_reservadas': fechas_reservadas
+    })
 def validar_reserva(vivienda, usuario, fecha_inicio, fecha_fin):
     # la fecha de fin no puede ser anterior o igual a la fecha de inicio
     if fecha_fin <= fecha_inicio:
