@@ -1,33 +1,32 @@
+from .models import Carro as CarroModel
+
+
 class Carro:
     def __init__(self, request):
         self.request = request
-        self.session = request.session
-        carro = self.session.get("carro")
-        if not carro:
-            carro = self.session["carro"] = {}
-        self.carro = carro
+        self.usuario = request.user if request.user.is_authenticated else None
+        if self.usuario:
+            self.carro, _ = CarroModel.objects.get_or_create(usuario=self.usuario)
 
     def agregar_reserva(self, vivienda, fecha_inicio, fecha_fin, precio_total):
-        self.carro.clear()  # Limpiar el carrito antes de añadir una nueva reserva
-        self.carro["reserva"] = {
-            "vivienda_id": vivienda.id,
-            "nombre": vivienda.nombre,
-            "precio_por_dia": str(vivienda.precio_por_dia),
-            "precio_total": str(precio_total),
-            "imagen": vivienda.imagen.url,
-            "fecha_inicio": fecha_inicio.strftime('%d-%m-%Y'),
-            "fecha_fin": fecha_fin.strftime('%d-%m-%Y')
-        }
-        self.guardar_carro()
+        self.carro.vivienda = vivienda
+        self.carro.fecha_inicio = fecha_inicio
+        self.carro.fecha_fin = fecha_fin
+        self.carro.precio_total = precio_total
+        self.carro.save()
 
     def reserva_existente(self):
-        return "reserva" in self.carro
+        return self.carro.vivienda is not None
 
-    def eliminar(self):
-        if "reserva" in self.carro:
-            del self.carro["reserva"]
-        self.guardar_carro()
+    def obtener_reserva(self):
+        if self.reserva_existente():
+            return {
+                "vivienda": self.carro.vivienda,
+                "fecha_inicio": self.carro.fecha_inicio,
+                "fecha_fin": self.carro.fecha_fin,
+                "precio_total": self.carro.precio_total
+            }
+        return None
 
-    def guardar_carro(self):
-        self.session["carro"] = self.carro
-        self.session.modified = True
+    def limpiar_carro(self):
+        self.carro.limpiar_carro()
