@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'carro',
     'autenticacion',
     'userProfile',
+    'pago',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,17 @@ MESSAGE_TAGS = {
     messages_de_error.ERROR: 'danger',
 }
 
+# Configuración de Braintree
+BRAINTREE_MERCHANT_ID = os.getenv('BRAINTREE_MERCHANT_ID')
+BRAINTREE_PUBLIC_KEY = os.getenv('BRAINTREE_PUBLIC_KEY')
+BRAINTREE_PRIVATE_KEY = os.getenv('BRAINTREE_PRIVATE_KEY')
+BRAINTREE_ENVIRONMENT = os.getenv('BRAINTREE_ENVIRONMENT', 'sandbox')
+
+# Configurar el entorno de Braintree
+import braintree
+braintree.Configuration.configure(
+    braintree.Environment.Sandbox,
+    merchant_id=BRAINTREE_MERCHANT_ID,
+    public_key=BRAINTREE_PUBLIC_KEY,
+    private_key=BRAINTREE_PRIVATE_KEY
+)

@@ -12,7 +12,7 @@ def detalle_carro(request):
 
 
 @login_required
-def eliminar_reserva(request):
+def eliminar_reserva_carro(request):
     carro = Carro(request)
     carro.limpiar_carro()
     messages.success(request, "Reserva eliminada del carrito.")

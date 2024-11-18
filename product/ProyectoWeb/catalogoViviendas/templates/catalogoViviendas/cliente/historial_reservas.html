@@ -36,7 +36,7 @@
                         <td>{{ reserva.precio_total }} euros.</td>
                         <td>
                             {% if reserva.puede_eliminarse %}
-                                <a href="{% url 'eliminar_reserva' reserva.id %}" 
+                                <a href="{% url 'catalogoViviendas:eliminar_reserva' reserva.id %}" 
                                    class="btn btn-danger btn-sm" 
                                    onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');">
                                     Cancelar reserva

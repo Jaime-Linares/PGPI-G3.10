@@ -14,6 +14,8 @@
                 <p><strong>Fecha Inicio:</strong> {{ reserva.fecha_inicio }}</p>
                 <p><strong>Fecha Fin:</strong> {{ reserva.fecha_fin }}</p>
                 <a href="{% url 'carro:eliminar' %}" class="btn btn-danger">Eliminar Reserva</a>
+                <a href="{% url 'pago:confirmar_reserva' %}" class="btn btn-primary">Confirmar Reserva</a>
+
             </div>
         </div>
     {% else %}
