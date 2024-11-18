@@ -52,7 +52,7 @@ def confirmar_reserva(request):
             )
             
             # Limpiar el carro después del pago exitoso
-            carro.delete()
+            carro.limpiar_carro()
             
             messages.success(request, "Pago realizado con éxito. ¡Reserva confirmada!")
             return redirect('Home')
