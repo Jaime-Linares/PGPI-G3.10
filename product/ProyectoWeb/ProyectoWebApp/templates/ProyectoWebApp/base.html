@@ -30,49 +30,56 @@
                 <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
                     <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
                 </li>
-
                 {% if user.is_authenticated %}
-                    {% for group in user.groups.all %}
-                        {% if group.name == "Propietario" %}
-                            <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}">Tus viviendas</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    {% for group in user.groups.all %}
-                        {% if group.name == "Cliente" %}
-                            <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
-                                <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas' %}">Catálogo de viviendas</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    <li class="nav-item {% if request.path == '/carro/' %} active {% endif %} px-lg-4">
-                      <a class="nav-link text-uppercase text-expanded" href="{% url 'carro:detalle' %}">Carro</a>
+                  {% for group in user.groups.all %}
+                      {% if group.name == "Propietario" %}
+                          <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                              <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}">Tus viviendas</a>
+                          </li>
+                      {% endif %}
+                  {% endfor %}
+                  {% for group in user.groups.all %}
+                      {% if group.name == "Cliente" %}
+                        <li class="nav-item {% if request.path == '/catalogoViviendas/' %} active {% endif %} px-lg-4">
+                          <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:catalogo_viviendas' %}">Catálogo de viviendas</a>
+                        </li>
+                      {% endif %}
+                  {% endfor %}
+                  {% for group in user.groups.all %}
+                      {% if group.name == "Cliente" %}
+                        <li class="nav-item {% if request.path == '/carro/' %} active {% endif %} px-lg-4">
+                          <a class="nav-link text-uppercase text-expanded" href="{% url 'carro:detalle' %}">Carro</a>
+                        </li>
+                      {% endif %}
+                  {% endfor %}
+                  {% for group in user.groups.all %}
+                      {% if group.name == "Cliente" %}
+                        <li class="nav-item {% if request.path == '/catalogoViviendas/historial_reservas/' %} active {% endif %} px-lg-4">
+                          <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:historial_reservas' %}">Historial de reservas</a>
+                        </li>
+                      {% endif %}
+                  {% endfor %}
+                  <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
                   </li>
-                    <li class="nav-item {% if request.path == '/catalogoViviendas/historial_reservas/' %} active {% endif %} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'catalogoViviendas:historial_reservas' %}">Historial de reservas</a>
-                    </li>
-                    <li class="nav-item {% if request.path == '/contacto/' %} active {% endif %} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
-                    </li>
-                    <li class="nav-item {% if request.path == '/userProfile/' %} active {% endif %} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'detalle_profile' %}">Perfil</a>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'cerrar_sesion' %}">Cerrar sesión ({{ user.username }})</a>
-                    </li>
+                  <li class="nav-item {% if request.path == '/userProfile/' %} active {% endif %} px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'detalle_profile' %}">Perfil</a>
+                  <li class="nav-item px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="{% url 'cerrar_sesion' %}">Cerrar sesión ({{ user.username }})</a>
+                  </li>
                 {% else %}
                     <!-- Iniciar sesión y Registrarse -->
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'iniciar_sesion' %}">Iniciar sesión</a>
+                      <a class="nav-link text-uppercase text-expanded" href="{% url 'iniciar_sesion' %}">Iniciar sesión</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{% url 'Autenticacion' %}">Regístrate</a>
+                      <a class="nav-link text-uppercase text-expanded" href="{% url 'Autenticacion' %}">Regístrate</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </div>
-</nav>
+  </nav>
 
     <!-- Contenido cambiante -->
     {% block content %}

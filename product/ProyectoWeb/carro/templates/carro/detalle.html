@@ -1,6 +1,4 @@
 {% extends "ProyectoWebApp/base.html" %}
-{% block content %}
-<h2>Carro de Reservas</h2>
 
 {% if carro.reserva_existente %}
     <div class="card mb-4">
@@ -15,11 +13,10 @@
             <a href="{% url 'pago:confirmar_reserva' %}" class="btn btn-primary">Confirmar Reserva</a>
 
         </div>
-    </div>
-{% else %}
-    <div class="alert alert-info text-center">
-        <h4>Tu carrito está vacío</h4>
-        <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-success mt-3">Ver catálogo de viviendas</a>
-    </div>
-{% endif %}
+    {% else %}
+        <div class="alert alert-info text-center">
+            <h4>Tu carrito está vacío</h4>
+            <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-success mt-3">Ver catálogo de viviendas</a>
+        </div>
+    {% endif %}
 {% endblock %}
