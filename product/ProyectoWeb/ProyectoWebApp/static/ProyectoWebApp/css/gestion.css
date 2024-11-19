@@ -675,7 +675,7 @@ ul.errorlist{
 .profile-container {
   max-width: 600px;
   margin: 50px auto; /* Centramos el contenedor */
-  background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro con opacidad del 75% */
+  background-color: rgba(25, 66, 60, 0.633); /* Fondo oscuro con opacidad del 75% */
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
