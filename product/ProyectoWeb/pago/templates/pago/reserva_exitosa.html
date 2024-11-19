@@ -3,13 +3,13 @@
 <div class="container mt-5">
     <div class="alert alert-success text-center">
         <h2>¡Reserva realizada con éxito!</h2>
-        <p>Gracias por tu reserva, {{ reserva.usuario.username }}.</p>
+        <p>Gracias por tu reserva, {{ usuario.username }}.</p>
         <h4>Detalles de la reserva:</h4>
         <ul>
-            <li><strong>Vivienda:</strong> {{ reserva.vivienda.nombre }}</li>
-            <li><strong>Fecha de inicio:</strong> {{ reserva.fecha_inicio }}</li>
-            <li><strong>Fecha de fin:</strong> {{ reserva.fecha_fin }}</li>
-            <li><strong>Precio Total:</strong> {{ reserva.precio_total }} €</li>
+            <li><strong>Vivienda:</strong> {{ vivienda.nombre }}</li>
+            <li><strong>Fecha de inicio:</strong> {{ fecha_inicio }}</li>
+            <li><strong>Fecha de fin:</strong> {{ fecha_fin }}</li>
+            <li><strong>Precio Total:</strong> {{ precio_total }} €</li>
         </ul>
         <a href="{% url 'Home' %}" class="btn btn-primary mt-4">Volver a la página principal</a>
     </div>

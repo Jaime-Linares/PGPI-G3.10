@@ -15,10 +15,10 @@ def contacto(request):
             email = request.POST.get('email')   
             contenido = request.POST.get('contenido')
 
-            email = EmailMessage("Mensaje desde App de Django", 
+            email = EmailMessage("Contacto CityScape Rentals", 
                                  "El usuario con nombre {} con la dirección de correo {} escribe lo siguiente:\n\n{}".format(nombre, email, contenido),
                                  "", # Aquí se puede poner el correo de quien viene el mensaje, pero en este caso se deja vacío ya que lo tenemos en settings.py
-                                 ["davidguillenfernandez@gmail.com"],reply_to=[email]) 
+                                 ["cityscapeg3@gmail.com"],reply_to=[email]) 
             # Si nos llega bien el email entra por el try
             try:
                 email.send()

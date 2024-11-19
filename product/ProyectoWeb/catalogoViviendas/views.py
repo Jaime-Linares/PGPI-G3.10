@@ -190,7 +190,7 @@ def eliminar_vivienda(request, id):
     if request.method == 'POST':
         vivienda.delete()
         messages.success(request, "Vivienda eliminada con éxito.")
-        return redirect('catalogo_viviendas_propietario')
+        return redirect('catalogoViviendas:catalogo_viviendas_propietario')
     else:
-        return redirect('detalle_vivienda_propietario', id=id)
+        return redirect('catalogoViviendas:detalle_vivienda_propietario', id=id)
 
