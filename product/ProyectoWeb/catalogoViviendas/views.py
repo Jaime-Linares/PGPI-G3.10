@@ -5,6 +5,7 @@ from .models import Vivienda, Reserva
 from .forms import ViviendaForm, ReservaForm
 from django.utils import timezone
 from carro.carro import Carro
+from django.core.mail import EmailMessage
 
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
@@ -111,6 +112,37 @@ def eliminar_reserva(request, reserva_id):
     if reserva.fecha_inicio > timezone.now().date() and (reserva.fecha_inicio - timezone.now().date()).days > 7:
         reserva.delete()
         messages.success(request, "Reserva cancelada con éxito.")
+
+        email = EmailMessage(
+            "Cancelación de reserva en CityScape Rentals",
+            f"""
+            Estimado/a {request.user.username},
+
+            Lamentamos informarte que tu reserva ha sido cancelada. A continuación, te proporcionamos los detalles de la reserva cancelada:
+
+            - Vivienda: {reserva.vivienda.nombre}
+            - Fecha de inicio: {reserva.fecha_inicio}
+            - Fecha de fin: {reserva.fecha_fin}
+            - Precio Total: {reserva.precio_total} €
+
+            Si esta cancelación fue un error o necesitas realizar una nueva reserva, no dudes en contactarnos. Estamos aquí para ayudarte.
+
+            Saludos cordiales,  
+            El equipo de CityScape Rentals
+            """,
+            "noreply@cityscaperentals.com",
+            [request.user.email],
+            reply_to=["cityscapeg3@gmail.com"]
+        )
+    
+        try:
+            email.send()
+            messages.success(request, "Se ha enviado la confirmación de cancelación correctamente.")
+            return redirect('Home')
+        except:
+            messages.error(request, "Hubo un error al enviar el correo de cancelación.")
+            return redirect('catalogoViviendas:historial_reservas')
+
     else:
         messages.error(request, "No puedes cancelar esta reserva.")
     
