@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from carro.carro import Carro
 from catalogoViviendas.models import Reserva, Vivienda
 import datetime
+from django.core.mail import EmailMessage
 
 def generar_client_token():
     return braintree.ClientToken.generate()
@@ -57,8 +58,37 @@ def confirmar_reserva(request):
             carro.limpiar_carro()
 
             messages.success(request, "Pago realizado con éxito. ¡Reserva confirmada!")
-            return render(request,'pago/reserva_exitosa.html',{'usuario': request.user ,'vivienda': vivienda, 'fecha_inicio': fecha_inicio, 
+
+            email = EmailMessage(
+                    "Confirmación de reserva en CityScape Rentals",
+                    f"""
+                    Estimado/a {request.user.username},
+
+                    Gracias por realizar tu reserva con CityScape Rentals. A continuación, te proporcionamos los detalles de tu reserva:
+
+                    - Vivienda: {vivienda.nombre}
+                    - Fecha de inicio: {fecha_inicio}
+                    - Fecha de fin: {fecha_fin}
+                    - Precio Total: {precio_total} €
+
+                    Si tienes alguna duda o necesitas realizar cambios en tu reserva, no dudes en contactarnos.
+
+                    Saludos cordiales,  
+                    El equipo de CityScape Rentals
+                    """,
+                    "noreply@cityscaperentals.com",
+                    [request.user.email],
+                    reply_to=["cityscapeg3@gmail.com"]
+                )
+
+            try:
+                email.send()
+                return render(request,'pago/reserva_exitosa.html',{'usuario': request.user ,'vivienda': vivienda, 'fecha_inicio': fecha_inicio, 
                                                                'fecha_fin': fecha_fin, 'precio_total': precio_total})
+            except:
+                messages.error(request, f"Error al enviar el correo: {result.message}")
+                return redirect('carro:detalle')
+
         else:
             messages.error(request, f"Error al procesar el pago: {result.message}")
             return redirect('carro:detalle')
