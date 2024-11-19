@@ -778,3 +778,54 @@ ul.errorlist{
   color: white;
   text-transform: uppercase;
 }
+
+/* Card personalizada */
+.card {
+  margin: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen superior con bordes redondeados */
+.card .card-img-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Estilo de los botones */
+.card-body .btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-body .btn-danger {
+  background-color: #e74c3c;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.card-body .btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.card-body .btn-primary {
+  background-color: #3498db;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.card-body .btn-primary:hover {
+  background-color: #2980b9;
+}
+
+/* Contenedor para centrar */
+.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}

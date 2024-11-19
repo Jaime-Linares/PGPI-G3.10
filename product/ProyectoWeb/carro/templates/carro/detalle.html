@@ -1,27 +1,27 @@
 {% extends "ProyectoWebApp/base.html" %}
 
-
 {% block content %}
-    <h2>Carro de Reservas</h2>
+<h2 class="categories-container" style="margin-top: 40px; color: white; text-align: center;">Carro de Reservas</h2>
 
+<div class="d-flex justify-content-center">
     {% if reserva %}
-        <div class="card mb-4">
-            <img src="{{ reserva.vivienda.imagen.url }}" alt="{{ reserva.vivienda.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;">
-            <div class="card-body">
+        <div class="card h-100 shadow-sm rounded-card">
+            <img src="{{ reserva.vivienda.imagen.url }}" alt="{{ reserva.vivienda.nombre }}" class="card-img-top img-fluid rounded-top" style="max-height: 300px; object-fit: cover;">
+            <div class="card-body text-center">
                 <h3>{{ reserva.vivienda.nombre }}</h3>
                 <p><strong>Precio por día:</strong> {{ reserva.vivienda.precio_por_dia }} €</p>
                 <p><strong>Precio Total:</strong> {{ reserva.precio_total }} €</p>
                 <p><strong>Fecha Inicio:</strong> {{ reserva.fecha_inicio }}</p>
                 <p><strong>Fecha Fin:</strong> {{ reserva.fecha_fin }}</p>
-                <a href="{% url 'carro:eliminar' %}" class="btn btn-danger">Eliminar Reserva</a>
+                <a href="{% url 'carro:eliminar' %}" class="btn btn-danger me-2">Eliminar Reserva</a>
                 <a href="{% url 'pago:confirmar_reserva' %}" class="btn btn-primary">Confirmar Reserva</a>
-
             </div>
         </div>
     {% else %}
-        <div class="alert alert-info text-center">
+        <div class="alert alert-info text-center w-75 mx-auto">
             <h4>Tu carrito está vacío</h4>
             <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-success mt-3">Ver catálogo de viviendas</a>
         </div>
     {% endif %}
+</div>
 {% endblock %}
