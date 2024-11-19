@@ -4,10 +4,12 @@
 {% block content %}
 <h2 class="categories-container" style="margin-top: 40px; color: white;">Confirmar Reserva</h2>
 
+<div class="d-flex justify-content-center">
+
 <form id="payment-form" method="post">
     {% csrf_token %}
     <div id="dropin-container"></div>
-    <button type="submit" class="btn btn-success mt-3">Confirmar Reserva y Pagar</button>
+    <button type="submit" class="btn btn-primary">Confirmar Reserva y Pagar</button>
 </form>
 
 <script src="https://js.braintreegateway.com/web/dropin/1.33.6/js/dropin.min.js"></script>
@@ -42,4 +44,5 @@
         });
     });
 </script>
+</div>
 {% endblock %}
