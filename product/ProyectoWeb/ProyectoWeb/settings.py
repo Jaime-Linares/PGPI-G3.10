@@ -43,12 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ProyectoWebApp',
     'catalogoViviendas',
-    'blog',
     'contacto',
-    'tienda',
     'carro',
     'autenticacion',
-    'pedidos',
+    'userProfile',
+    'pago',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'carro.context_processor.importe_total_carro', # Importamos el contexto del carro de compras
+                'carro.context_processor.importe_total_carro',
             ],
         },
     },
@@ -118,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 #LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'es-eu'
 
@@ -141,6 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Para que Django sepa donde guarda
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # Configuración de email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -159,3 +158,17 @@ MESSAGE_TAGS = {
     messages_de_error.ERROR: 'danger',
 }
 
+# Configuración de Braintree
+BRAINTREE_MERCHANT_ID = os.getenv('BRAINTREE_MERCHANT_ID')
+BRAINTREE_PUBLIC_KEY = os.getenv('BRAINTREE_PUBLIC_KEY')
+BRAINTREE_PRIVATE_KEY = os.getenv('BRAINTREE_PRIVATE_KEY')
+BRAINTREE_ENVIRONMENT = os.getenv('BRAINTREE_ENVIRONMENT', 'sandbox')
+
+# Configurar el entorno de Braintree
+import braintree
+braintree.Configuration.configure(
+    braintree.Environment.Sandbox,
+    merchant_id=BRAINTREE_MERCHANT_ID,
+    public_key=BRAINTREE_PUBLIC_KEY,
+    private_key=BRAINTREE_PRIVATE_KEY
+)

@@ -1,49 +1,32 @@
+from .models import Carro as CarroModel
+
+
 class Carro:
     def __init__(self, request):
-        self.request = request # Se guarda la petición para poder acceder a la sesión
-        self.session = request.session # Se inicia la sesión
-        carro = self.session.get("carro")
-        if not carro:
-            carro = self.session["carro"] = {}
-        self.carro = carro
+        self.request = request
+        self.usuario = request.user if request.user.is_authenticated else None
+        if self.usuario:
+            self.carro, _ = CarroModel.objects.get_or_create(usuario=self.usuario)
 
-    def agregar(self, producto):
-        if str(producto.id) not in self.carro.keys():
-            self.carro[producto.id] = {
-                "producto_id": producto.id,
-                "nombre": producto.nombre,
-                "precio": str(producto.precio),
-                "cantidad": 1,
-                "imagen": producto.imagen.url
+    def agregar_reserva(self, vivienda, fecha_inicio, fecha_fin, precio_total):
+        self.carro.vivienda = vivienda
+        self.carro.fecha_inicio = fecha_inicio
+        self.carro.fecha_fin = fecha_fin
+        self.carro.precio_total = precio_total
+        self.carro.save()
+
+    def reserva_existente(self):
+        return self.carro.vivienda is not None
+
+    def obtener_reserva(self):
+        if self.reserva_existente():
+            return {
+                "vivienda": self.carro.vivienda,
+                "fecha_inicio": self.carro.fecha_inicio,
+                "fecha_fin": self.carro.fecha_fin,
+                "precio_total": self.carro.precio_total
             }
-        else:
-            for key, value in self.carro.items():
-                if key == str(producto.id):
-                    value["cantidad"] = value["cantidad"] + 1
-                    value["precio"]=float(value["precio"])+producto.precio
-                    break
-        self.guardar_carro()
-
-    def guardar_carro(self):
-        self.session["carro"] = self.carro
-        self.session.modified = True
-
-    def eliminar(self, producto):
-        producto_id = str(producto.id)
-        if producto_id in self.carro:
-            del self.carro[producto_id]
-            self.guardar_carro()
-
-    def restar_producto(self, producto):
-        for key, value in self.carro.items():
-            if key == str(producto.id):
-                value["cantidad"] = value["cantidad"] - 1
-                value["precio"]=float(value["precio"])-producto.precio
-                if value["cantidad"] < 1:
-                    self.eliminar(producto)
-                break
-        self.guardar_carro()
+        return None
 
     def limpiar_carro(self):
-        self.session["carro"] = {}
-        self.session.modified
+        self.carro.limpiar_carro()

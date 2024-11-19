@@ -670,3 +670,55 @@ ul.errorlist{
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
+
+.profile-container {
+  max-width: 600px;
+  margin: 50px auto; /* Centramos el contenedor */
+  background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro con opacidad del 75% */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
+  color: #fff; /* Color del texto blanco para mejor contraste */
+}
+
+.profile-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #ffcc00; /* Color personalizado para el título */
+  text-align: center;
+}
+
+.profile-subtitle {
+  font-size: 1.5rem;
+  margin-top: 40px;
+  color: #ffc107;
+  text-align: center;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo claro para inputs */
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.form-control::placeholder {
+  color: #666;
+}
+
+.btn-register {
+  background-color: #007bff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.btn-register:hover {
+  background-color: #0056b3;
+}
+

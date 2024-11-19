@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 
+
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     role = forms.ChoiceField(
@@ -30,7 +32,6 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 
-
 class VRegistro(View):
     def get(self, request):
         form = CustomUserCreationForm()
@@ -48,24 +49,32 @@ class VRegistro(View):
                 
             return render(request, "registro/registro.html", {"form": form})
 
+
 def cerrar_sesion(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
     return redirect("Home")
 
 
-
 def iniciar_sesion(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            nombre_usuario = form.cleaned_data.get("username")
-            contraseña = form.cleaned_data.get("password")
-            usuario = authenticate(username=nombre_usuario, password=contraseña)
-            if usuario is not None:
-                login(request, usuario)
-                return redirect("Home")
-        return redirect("iniciar_sesion") 
+        username_or_email = request.POST.get("username_or_email")
+        password = request.POST.get("password")
+
+        usuario = authenticate(username=username_or_email, password=password)
+        
+        # Si no encuentra por nombre de usuario, intenta buscar por email
+        if usuario is None:
+            try:
+                user_obj = User.objects.get(email=username_or_email)
+                usuario = authenticate(username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                usuario = None
+
+        if usuario is not None:
+            login(request, usuario)
+            return redirect("Home")
+        return redirect("iniciar_sesion")
 
     form = AuthenticationForm()
     return render(request, "login/login.html", {"form": form})

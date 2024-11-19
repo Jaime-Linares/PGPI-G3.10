@@ -1,0 +1,94 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+
+{% block content %}
+<div class="container mt-5" style="margin-bottom: 30px;">
+    <div class="card shadow-lg p-5" style="background-color: rgba(59, 66, 65, 0.8); border-radius: 15px;">
+        <h2 class="text-center mb-5" style="text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #ffffff;">Crear Nueva Vivienda</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="nombre" style="color: #dddddd; font-weight: bold;">Nombre:</label>
+                {{ form.nombre|add_class:"form-control" }}
+                {% if form.nombre.errors %}
+                    <div class="text-danger">{{ form.nombre.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="descripcion" style="color: #dddddd; font-weight: bold;">Descripción:</label>
+                {{ form.descripcion|add_class:"form-control" }}
+                {% if form.descripcion.errors %}
+                    <div class="text-danger">{{ form.descripcion.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="ubicacion" style="color: #dddddd; font-weight: bold;">Ubicación:</label>
+                {{ form.ubicacion|add_class:"form-control" }}
+                {% if form.ubicacion.errors %}
+                    <div class="text-danger">{{ form.ubicacion.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="imagen" style="color: #dddddd; font-weight: bold;">Subir Imagen:</label>
+                {{ form.imagen|add_class:"form-control" }}
+                {% if form.imagen.errors %}
+                    <div class="text-danger">{{ form.imagen.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="precio_por_dia" style="color: #dddddd; font-weight: bold;">Precio por día:</label>
+                {{ form.precio_por_dia|add_class:"form-control" }}
+                {% if form.precio_por_dia.errors %}
+                    <div class="text-danger">{{ form.precio_por_dia.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <h4 style="color: #dddddd; font-weight: bold;">Servicios disponibles:</h4>
+                
+                <div class="form-check">
+                    {{ form.wifi|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="wifi" style="color: #dddddd;">WiFi</label>
+                </div>
+                <div class="form-check">
+                    {{ form.piscina|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="piscina" style="color: #dddddd;">Piscina</label>
+                </div>
+                <div class="form-check">
+                    {{ form.parking|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="parking" style="color: #dddddd;">Parking</label>
+                </div>
+                <div class="form-check">
+                    {{ form.aire_acondicionado|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="aire_acondicionado" style="color: #dddddd;">Aire acondicionado</label>
+                </div>
+                <div class="form-check">
+                    {{ form.barbacoa|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="barbacoa" style="color: #dddddd;">Barbacoa</label>
+                </div>
+                <div class="form-check">
+                    {{ form.ducha|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="ducha" style="color: #dddddd;">Ducha</label>
+                </div>
+                <div class="form-check">
+                    {{ form.cocina|add_class:"form-check-input" }}
+                    <label class="form-check-label" for="cocina" style="color: #dddddd;">Cocina</label>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-success">Crear Vivienda</button>
+                <a href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

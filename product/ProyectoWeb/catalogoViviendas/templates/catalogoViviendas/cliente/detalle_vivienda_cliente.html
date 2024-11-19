@@ -1,0 +1,78 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-5">
+        <img class="card-img-top" src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}">
+        <div class="card-body" style="color: black;">
+            <h3 class="card-title">{{ vivienda.nombre }}</h3>
+            <p class="text-muted">{{ vivienda.ubicacion }}</p>
+            <p>{{ vivienda.descripcion }}</p>
+            <p><strong>Precio por día:</strong> {{ vivienda.precio_por_dia }} €</p>
+        </div>
+    </div>
+
+    <!-- Servicios adicionales -->
+    {% if vivienda.wifi or vivienda.piscina or vivienda.parking or vivienda.aire_acondicionado or vivienda.barbacoa or vivienda.ducha or vivienda.cocina %}
+        <div class="card mb-5 p-4 shadow">
+            <h4>Servicios incluidos:</h4>
+            <div class="d-flex flex-wrap">
+                {% if vivienda.wifi %}
+                    <div class="badge bg-primary m-2">📶 WiFi gratis 📶</div>
+                {% endif %}
+                {% if vivienda.piscina %}
+                    <div class="badge bg-primary m-2">🏊 Piscina 🏊</div>
+                {% endif %}
+                {% if vivienda.parking %}
+                    <div class="badge bg-primary m-2">🚗 Parking gratuito 🚗</div>
+                {% endif %}
+                {% if vivienda.aire_acondicionado %}
+                    <div class="badge bg-primary m-2">❄️ Aire acondicionado ❄️</div>
+                {% endif %}
+                {% if vivienda.barbacoa %}
+                    <div class="badge bg-primary m-2">🔥 Barbacoa 🔥</div>
+                {% endif %}
+                {% if vivienda.ducha %}
+                    <div class="badge bg-primary m-2">🚿 Ducha 🚿</div>
+                {% endif %}
+                {% if vivienda.cocina %}
+                    <div class="badge bg-primary m-2">🍳 Cocina 🍳</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="reservation-container">
+        <h4 class="reservation-title">Selecciona tu fecha de reserva</h4>
+        
+        {% if messages %}
+            <div class="mt-4">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="reservation-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Realizar Reserva</button>
+            </div>
+        </form>
+    </div>
+    
+        {% if fechas_reservadas %}
+            <h5 class="unavailable-dates-title text center">Fechas no disponibles:</h5>
+            <ul class="unavailable-dates-list">
+                {% for fecha in fechas_reservadas %}
+                    <div class="text-center">
+                        <li>Desde el {{ fecha.0 }} hasta el {{ fecha.1 }}</li>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

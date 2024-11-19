@@ -1,0 +1,44 @@
+{% extends "ProyectoWebApp/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Confirmar Reserva</h2>
+<form id="payment-form" method="post">
+    {% csrf_token %}
+    <div id="dropin-container"></div>
+    <button type="submit" class="btn btn-success mt-3">Confirmar Reserva y Pagar</button>
+</form>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.33.6/js/dropin.min.js"></script>
+<script>
+    var form = document.getElementById('payment-form');
+    braintree.dropin.create({
+        authorization: "{{ client_token }}",
+        container: '#dropin-container',
+        paypal: {
+            flow: 'vault'
+        }
+    }, function (err, instance) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            instance.requestPaymentMethod(function (err, payload) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Añadir el nonce al formulario y enviarlo
+                var nonceInput = document.createElement('input');
+                nonceInput.setAttribute('type', 'hidden');
+                nonceInput.setAttribute('name', 'payment_method_nonce');
+                nonceInput.setAttribute('value', payload.nonce);
+                form.appendChild(nonceInput);
+                form.submit();
+            });
+        });
+    });
+</script>
+{% endblock %}
