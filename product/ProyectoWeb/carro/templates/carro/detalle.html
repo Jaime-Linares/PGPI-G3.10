@@ -18,9 +18,9 @@
             </div>
         </div>
     {% else %}
-        <div class="alert alert-info text-center w-75 mx-auto">
+        <div class="categories-container" style="margin-top: 40px; color: white; text-align: center;">
             <h4>Tu carrito está vacío</h4>
-            <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-success mt-3">Ver catálogo de viviendas</a>
+            <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-primary">Ver catálogo de viviendas</a>
         </div>
     {% endif %}
 </div>
