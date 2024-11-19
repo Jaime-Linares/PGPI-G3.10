@@ -23,7 +23,6 @@ def confirmar_reserva(request):
         except Carro.DoesNotExist:
             total = 0
 
-        print("Total obtenido de la base de datos:", total)
 
         # Verifica si el total es mayor que cero antes de intentar la transacción
         if total <= 0:
@@ -39,8 +38,6 @@ def confirmar_reserva(request):
             }
         })
 
-        print("Resultado del pago:", result.is_success)
-
         if result.is_success:
             # Crear y guardar la reserva en la base de datos usando la información del carro
             Reserva.objects.create(
@@ -51,11 +48,17 @@ def confirmar_reserva(request):
                 precio_total=carro.precio_total
             )
             
+            vivienda = carro.vivienda
+            fecha_inicio = carro.fecha_inicio
+            fecha_fin = carro.fecha_fin
+            precio_total = carro.precio_total
+
             # Limpiar el carro después del pago exitoso
             carro.limpiar_carro()
-            
+
             messages.success(request, "Pago realizado con éxito. ¡Reserva confirmada!")
-            return redirect('Home')
+            return render(request,'pago/reserva_exitosa.html',{'usuario': request.user ,'vivienda': vivienda, 'fecha_inicio': fecha_inicio, 
+                                                               'fecha_fin': fecha_fin, 'precio_total': precio_total})
         else:
             messages.error(request, f"Error al procesar el pago: {result.message}")
             return redirect('carro:detalle')
