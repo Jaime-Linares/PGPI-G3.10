@@ -18,15 +18,24 @@ Guarda la imagen Docker en un archivo `.tar` en el dispositivo de origen:
 
 ## 2. Transferir la imagen al nuevo dispositivo
 
-Descargar el archivo `city-scape-rentals.tar` de la carpeta docker.  
+### Opción 1:   
+Descargar el archivo `alvarochico2408/city-scape-rentals.tar` adjunto.  
+
+### Opción2:  
+Iniciar sesión en docker:  
+```docker login```
+
+Descargar la imagen subida en dockerHub:  
+```docker pull alvarochico2408/city-scape-rentals:latest```
 
 ---
 
 ## 3. Cargar la imagen en el nuevo dispositivo
 
+### Si antes has optado por la opción 1:
 En el dispositivo, asegúrate de que Docker esté instalado y funcionando. Luego, usa el siguiente comando para cargar la imagen desde el archivo `.tar`:
 
-```docker load -i city-scape-rentals.tar```  
+```docker load -i alvarochico2408/city-scape-rentals.tar```  
 
 Este comando importará la imagen a Docker. Puedes verificar que la imagen se cargó correctamente con:  
 
@@ -34,15 +43,17 @@ Este comando importará la imagen a Docker. Puedes verificar que la imagen se ca
 
 Deberías ver algo como:
 
-```REPOSITORY          TAG       IMAGE ID       CREATED        SIZE```  
-```city-scape-rentals  latest    1a2b3c4d5e6f   2 days ago     544MB```  
+```REPOSITORY                           TAG       IMAGE ID       CREATED        SIZE```  
+```alvarochico2408/city-scape-rentals  latest    1a2b3c4d5e6f   2 days ago     544MB```  
 
+
+### Si has optado por la opción 2, este paso no es necesario.
 ---
 
 ## **4. Ejecutar la imagen**
 Ahora que la imagen está disponible, puedes usarla para crear y ejecutar un contenedor:  
 
-```docker run -p 8000:8000 --name city-scape-rentals city-scape-rentals```
+```docker run -p 8000:8000 --name alvarochico2408/city-scape-rentals city-scape-rentals```
 
 Esto iniciará un contenedor basado en la imagen city-scape-rentals y mapeará el puerto 8000 del contenedor al puerto 8000 del host.  
 
