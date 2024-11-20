@@ -6,22 +6,35 @@
 
 <div class="container mt-5">
     <!-- Formulario de búsqueda con filtros -->
+    <div class="reservation-container">
     <form method="GET" action="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="mb-4">
-        <div class="input-group p-3" style="background-color: #343a40; border-radius: 8px;">
+        <div class="input-group d-flex flex-column align-items-center">
             <!-- Filtro por nombre -->
-            <input type="text" name="q" class="form-control me-2" placeholder="Buscar por nombre" value="{{ request.GET.q }}">
+            <div class="mb-3 w-100">
+                <label for="buscar-nombre" class="form-label text-white">Buscar por nombre</label>
+                <input id="buscar-nombre" type="text" name="q" class="form-control" placeholder="Introducir nombre" value="{{ request.GET.q }}">
+            </div>
             <!-- Filtro por ubicación -->
-            <input type="text" name="ubicacion" class="form-control me-2" placeholder="Buscar por ubicación" value="{{ request.GET.ubicacion }}">
-            <button class="btn btn-primary" type="submit">Buscar</button>
-            <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn btn-secondary ms-2">Reset</a>
+            <div class="mb-3 w-100">
+                <label for="buscar-ubicacion" class="form-label text-white">Buscar por ubicación</label>
+                <input id="buscar-ubicacion" type="text" name="ubicacion" class="form-control" placeholder="Introducir ubicación" value="{{ request.GET.ubicacion }}">
+            </div>
+            
+            <!-- Botones -->
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn-submit me-2" type="submit">Buscar</button>
+                <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="btn-submit me-2" style = "margin-left: 10px;">Reset</a>
+            </div>
         </div>
     </form>
-
+    </div>
     <div class="row">
         {% for vivienda in viviendas %}
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 shadow-sm">
+                    <div class ="image-container">
                     <img class="card-img-top" src="{{ vivienda.imagen.url }}" alt="{{ vivienda.nombre }}">
+                    </div>
                     <div class="card-body" style="color: black;">
                         <h5 class="card-title">{{ vivienda.nombre }}</h5>
                         <p class="card-text text-muted">{{ vivienda.ubicacion }}</p>

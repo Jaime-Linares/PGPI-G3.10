@@ -3,10 +3,11 @@
 {% load custom_tags %}
 
 
+
 {% block content %}
 <div class="container mt-5" style="margin-bottom: 30px;">
-    <div class="card shadow-lg p-5" style="background-color: rgba(59, 66, 65, 0.8); border-radius: 15px;">
-        <h2 class="text-center mb-5" style="text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #ffffff;">Crear Nueva Vivienda</h2>
+    <div class="card shadow-lg p-5" style="background-color: rgba(25, 66, 60, 0.633); border-radius: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); color: #ffffff;">
+        <h2 class="text-center mb-5" style="font-weight: bold; color: #ffffff;">Crear Nueva Vivienda</h2>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -85,7 +86,7 @@
             </div>
 
             <div class="text-center mt-5">
-                <button type="submit" class="btn btn-success">Crear Vivienda</button>
+                <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Crear Vivienda</button>
                 <a href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
