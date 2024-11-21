@@ -3,6 +3,11 @@
 * In the folder *docs*, you have all the documents related to the project: project plan, requirements record...
 * In the folder *product*, you have the application code, that is, the code of the web platform for renting tourist apartments.
 
+
+# Análisis de Sonarqube
+```https://sonarcloud.io/summary/overall?id=Jaime-Linares_PGPI-G3.10```
+
+
 # Cómo cargar y usar la imagen Docker
 
 Estos son los pasos necesarios para cargar y usar una imagen Docker exportada en otro dispositivo.  
