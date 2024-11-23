@@ -1,10 +1,12 @@
 name: Build
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarcloud:
     name: SonarQube Cloud
@@ -13,8 +15,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarQube Cloud Scan
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install coverage
+          pip install -r product/ProyectoWeb/requirements.txt
+
+      - name: Run tests with coverage
+        run: |
+          cd product/ProyectoWeb
+          coverage run --source='.' manage.py test
+          coverage xml
+
+      - name: Upload coverage and run SonarQube Cloud Scan
         uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10
+            -Dsonar.organization=jaime-linares
+            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
