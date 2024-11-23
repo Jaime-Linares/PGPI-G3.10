@@ -1,5 +1,4 @@
 name: Build
-
 on:
   push:
     branches:
@@ -9,39 +8,33 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarQube Cloud
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Clonación completa para mejor relevancia del análisis
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.12'  # Versión de Python
 
       - name: Install dependencies
         run: |
           pip install coverage
-          pip install -r requirements.txt
-        working-directory: .
-
+          pip install -r product/ProyectoWeb/requirements.txt
 
       - name: Run tests with coverage
         run: |
           coverage run --source='.' manage.py test
           coverage xml
-        working-directory: product/ProyectoWeb
 
-      - name: SonarQube Cloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
             -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10
             -Dsonar.organization=jaime-linares
-            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml
+            -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
