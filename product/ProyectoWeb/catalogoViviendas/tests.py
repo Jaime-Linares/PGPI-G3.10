@@ -7,7 +7,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 class ViviendaTests(TestCase):
     def setUp(self):
-        self.usuario = User.objects.create_user(username="usuario", password="12345")
+        self.usuario = User.objects.create_user(username="testuser", password="testpassword123")
         self.vivienda = Vivienda.objects.create(
             propietario=self.usuario,
             nombre="Casa Test",
@@ -18,7 +18,7 @@ class ViviendaTests(TestCase):
         )
 
     def test_crear_vivienda(self):
-        self.client.login(username="usuario", password="12345")
+        self.client.login(username="testuser", password="testpassword123")
         response = self.client.post(reverse('catalogoViviendas:crear_vivienda'), {
             "nombre": "Nueva Vivienda",
             "descripcion": "Descripción de prueba",
@@ -45,7 +45,7 @@ class ReservaTests(TestCase):
         self.propietario = User.objects.create_user(username="propietario", password="password")
         self.propietario.groups.add(self.propietario_group)
 
-        self.usuario = User.objects.create_user(username="usuario", password="12345")
+        self.usuario = User.objects.create_user(username="testuser", password="testpassword123")
         self.vivienda = Vivienda.objects.create(
             propietario=self.usuario,
             nombre="Casa Test",
@@ -58,7 +58,8 @@ class ReservaTests(TestCase):
                 content_type='image/jpeg'
             )
         )
-        self.client.login(username="usuario", password="12345")
+        self.client.login(username="testuser", password="testpassword123")
+
 
     # def test_crear_reserva(self):
     #     self.client.login(username="cliente", password="password")  # Autenticación

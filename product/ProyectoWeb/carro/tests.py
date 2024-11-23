@@ -9,7 +9,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 class CarroClassTests(TestCase):
     def setUp(self):
         # Crear un usuario para los tests
-        self.usuario = User.objects.create_user(username="usuario", password="12345")
+        self.usuario = User.objects.create_user(username="testuser", password="testpassword123")
         self.factory = RequestFactory()
 
         # Crear una vivienda de prueba
