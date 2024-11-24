@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'  # Versión de Python
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -27,8 +27,11 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd product/ProyectoWeb
-          coverage run --source=autenticacion,carro,catalogoViviendas,contacto,pago,ProyectoWebApp manage.py test
+          coverage run --source=. manage.py test
           coverage xml -o coverage.xml
+
+      - name: Verify coverage report
+        run: ls product/ProyectoWeb/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
