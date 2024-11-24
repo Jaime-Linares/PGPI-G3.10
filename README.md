@@ -73,22 +73,22 @@ Accede a la aplicación en el navegador en:
 ```brew install sonar-scanner```
 
 ## Windows/Linux (manual):
-####    Descarga SonarScanner CLI.
-####    Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
+####    - Descarga SonarScanner CLI.
+####    - Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
 
 ### Verifica la instalación:
 ```sonar-scanner --version```
 ### Una vez descargado todo lo necesario:
 
 ## **1. Ejecutar los tests y generar la cobertura.**
-coverage run --source=product/ProyectoWeb -m pytest
-coverage xml
+```coverage run --source=product/ProyectoWeb -m pytest```
+```coverage xml```
 
 ## **2. Ejecutar SonarScanner.**
-sonar-scanner
+```sonar-scanner```
 
 ## **3. Limpiar archivos temporales.**
-find . -type d -name ".scannerwork" -exec rm -rf {} +
+```find . -type d -name ".scannerwork" -exec rm -rf {} +```
 
 
 
