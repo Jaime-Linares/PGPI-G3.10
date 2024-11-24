@@ -82,6 +82,7 @@ Accede a la aplicación en el navegador en:
 ### Una vez descargado todo lo necesario:
 
 ## **1. Ejecutar los tests y generar la cobertura.**
+```cd product/ProyectoWeb```
 ```coverage run --source=product/ProyectoWeb -m pytest```
 ```coverage xml```
 
