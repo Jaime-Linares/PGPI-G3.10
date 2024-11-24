@@ -38,20 +38,12 @@ jobs:
       - name: Verificar archivo coverage.xml
         run: head -n 20 product/ProyectoWeb/coverage.xml
 
-      - name: Install SonarScanner
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-          unzip sonar-scanner-cli-4.7.0.2747-linux.zip
-          mv sonar-scanner-4.7.0.2747-linux $HOME/sonar-scanner
-          echo "export PATH=$HOME/sonar-scanner/bin:\$PATH" >> $HOME/.bashrc
-          export PATH=$HOME/sonar-scanner/bin:$PATH
-
-      - name: Upload coverage to SonarCloud
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10 \
-            -Dsonar.organization=jaime-linares \
-            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml \
-            -Dsonar.host.url=https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10
+            -Dsonar.organization=jaime-linares
+            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml
