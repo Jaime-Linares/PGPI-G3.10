@@ -27,8 +27,8 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd product/ProyectoWeb
-          coverage run --source='.' manage.py test
-          coverage xml
+          coverage run --source=autenticacion,carro,catalogoViviendas,contacto,pago,ProyectoWebApp manage.py test
+          coverage xml -o coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -36,6 +36,6 @@ jobs:
           args: >
             -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10
             -Dsonar.organization=jaime-linares
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
