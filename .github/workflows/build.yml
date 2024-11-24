@@ -40,9 +40,11 @@ jobs:
 
       - name: Install SonarScanner
         run: |
-          curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip -o sonar-scanner.zip
-          unzip sonar-scanner.zip -d $HOME/sonar-scanner
-          export PATH="$HOME/sonar-scanner/sonar-scanner-4.7.0.2747-linux/bin:$PATH"
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+          unzip sonar-scanner-cli-4.7.0.2747-linux.zip
+          mv sonar-scanner-4.7.0.2747-linux $HOME/sonar-scanner
+          echo "export PATH=$HOME/sonar-scanner/bin:\$PATH" >> $HOME/.bashrc
+          export PATH=$HOME/sonar-scanner/bin:$PATH
 
       - name: Upload coverage to SonarCloud
         env:
