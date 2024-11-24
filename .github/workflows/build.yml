@@ -33,7 +33,7 @@ jobs:
           coverage xml -o coverage.xml
 
       - name: Adjust coverage paths
-        run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb/||g' product/ProyectoWeb/coverage.xml
+        run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb/||g' product/ProyectoWeb
 
       - name: Verify coverage report
         run: cat product/ProyectoWeb/coverage.xml
