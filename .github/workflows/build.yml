@@ -1,4 +1,5 @@
-name: Build
+name: Build and Analyze with SonarCloud
+
 on:
   push:
     branches:
@@ -10,43 +11,33 @@ jobs:
   sonarcloud:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout del repositorio
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Configuración de Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      # Instalación de dependencias
       - name: Install dependencies
         run: |
           pip install coverage
           pip install -r product/ProyectoWeb/requirements.txt
 
-      # Ejecución de tests y generación de reporte de cobertura
       - name: Run tests with coverage
         run: |
           cd product/ProyectoWeb
           coverage run --source=. manage.py test
           coverage xml -o coverage.xml
 
-      # Verificación de la existencia del archivo coverage.xml
+      - name: Adjust coverage paths
+        run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb/||g' coverage.xml
+
       - name: Verify coverage report
-        run: ls product/ProyectoWeb/coverage.xml
+        run: cat coverage.xml
 
-      # Mostrar contenido de coverage.xml para depuración
-      - name: Show coverage report content
-        run: cat product/ProyectoWeb/coverage.xml
-
-      # Ajuste de rutas absolutas a relativas en el coverage.xml
-      - name: Adjust paths in coverage report
-        run: sed -i 's|C:\\\\Users\\\\jaime\\\\Desktop\\\\Planificación y Gestión de Proyectos Informáticos\\\\Proyecto\\\\PGPI-G3.10\\\\||g' product/ProyectoWeb/coverage.xml
-
-      # Ejecución del análisis de SonarCloud
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
