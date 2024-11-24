@@ -1,4 +1,5 @@
-name: Build
+name: Build and Analyze with SonarCloud
+
 on:
   push:
     branches:
@@ -10,6 +11,7 @@ jobs:
   sonarcloud:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'  # Versión de Python
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -27,8 +29,14 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd product/ProyectoWeb
-          coverage run --source='.' manage.py test
-          coverage xml
+          coverage run --source=. manage.py test
+          coverage xml -o coverage.xml
+
+      - name: Adjust coverage paths
+        run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb/||g' product/ProyectoWeb/coverage.xml
+
+      - name: Verify coverage report
+        run: cat product/ProyectoWeb/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -36,6 +44,6 @@ jobs:
           args: >
             -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10
             -Dsonar.organization=jaime-linares
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
