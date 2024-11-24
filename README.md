@@ -74,6 +74,7 @@ Accede a la aplicación en el navegador en:
 
 ## Windows/Linux (manual):
 ####    - Descarga SonarScanner CLI.
+```https://docs.sonarsource.com/sonarqube/10.4/analyzing-source-code/scanners/sonarscanner/```
 ####    - Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
 
 ### Verifica la instalación:
