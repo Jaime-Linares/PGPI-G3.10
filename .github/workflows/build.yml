@@ -1,51 +1,50 @@
-name: Python CI with Coverage
+name: Build and Analyze with SonarCloud
 
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  sonarcloud:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install coverage
-        pip install -r product/ProyectoWeb/requirements.txt
-
-    - name: Run tests with coverage
-      run: |
-        cd product/ProyectoWeb
-        coverage run --source=. manage.py test
-        coverage xml -o coverage.xml
-
-    - name: Ajustar rutas del coverage.xml
-      run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb|/product/ProyectoWeb|g' product/ProyectoWeb/coverage.xml
-
-    - name: Verificar archivo coverage.xml
-      run: head -n 20 product/ProyectoWeb/coverage.xml
-
-    - name: Upload coverage to SonarCloud
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        sonar-scanner \
-          -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10 \
-          -Dsonar.organization=jaime-linares \
-          -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml \
-          -Dsonar.host.url=https://sonarcloud.io
+      - name: Install dependencies
+        run: |
+          pip install coverage
+          pip install -r product/ProyectoWeb/requirements.txt
           
+      - name: Run tests with coverage
+        run: |
+          cd product/ProyectoWeb
+          coverage run --source=. manage.py test
+          coverage xml -o coverage.xml
+
+      - name: Ajustar rutas del coverage.xml
+        run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb|/product/ProyectoWeb|g' product/ProyectoWeb/coverage.xml
+
+      - name: Verificar archivo coverage.xml
+        run: head -n 20 product/ProyectoWeb/coverage.xml
+
+      - name: Upload coverage to SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=Jaime-Linares_PGPI-G3.10 \
+            -Dsonar.organization=jaime-linares \
+            -Dsonar.python.coverage.reportPaths=product/ProyectoWeb/coverage.xml \
+            -Dsonar.host.url=https://sonarcloud.io
+            
