@@ -24,13 +24,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
         pip install coverage
+        pip install -r product/ProyectoWeb/requirements.txt
 
     - name: Run tests with coverage
       run: |
-        coverage run manage.py test
-        coverage xml
+        cd product/ProyectoWeb
+        coverage run --source=. manage.py test
+        coverage xml -o coverage.xml
 
     - name: Ajustar rutas del coverage.xml
       run: sed -i 's|/home/runner/work/PGPI-G3.10/PGPI-G3.10/product/ProyectoWeb|/product/ProyectoWeb|g' product/ProyectoWeb/coverage.xml
