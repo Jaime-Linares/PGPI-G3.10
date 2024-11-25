@@ -829,3 +829,94 @@ ul.errorlist{
   align-items: center;
   margin-top: 40px;
 }
+
+
+/* Contenedor del buscador */
+.reservation-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px 30px;
+  border-radius: 50px;
+  background-color: rgba(25, 66, 60, 0.633); /* Fondo blanco */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulario del buscador */
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 20px; /* Espaciado entre los campos */
+}
+
+/* Campo de entrada */
+.search-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.search-label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.search-field input:focus {
+  border-color: #3498db;
+}
+
+/* Botón Buscar */
+.search-button {
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: white;
+  background-color: #5dade2; /* Azul */
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #3498db; /* Azul más oscuro */
+}
+
+/* Botón Reset */
+.reset-button {
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: white;
+  background-color: #5dade2; /* Rojo */
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #3498db; /* Rojo más oscuro */
+}
