@@ -1,9 +1,10 @@
 {% extends "ProyectoWebApp/base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <div class="alert alert-success text-center">
-        <h2>¡Reserva realizada con éxito!</h2>
-        <p>Gracias por tu reserva, {{ usuario.username }}.</p>
+<div class="reservation-success-container">
+    <h2 class="success-title">¡Reserva realizada con éxito!</h2>
+    <p class="success-message">Gracias por tu reserva, <strong>{{ usuario.username }}</strong>.</p>
+    <div class="reservation-details">
+    
         <h4>Detalles de la reserva:</h4>
         <ul>
             <li><strong>Vivienda:</strong> {{ vivienda.nombre }}</li>
@@ -11,7 +12,8 @@
             <li><strong>Fecha de fin:</strong> {{ fecha_fin }}</li>
             <li><strong>Precio Total:</strong> {{ precio_total }} €</li>
         </ul>
-        <a href="{% url 'Home' %}" class="btn btn-primary mt-4">Volver a la página principal</a>
-    </div>
+        </div>
+        <a href="{% url 'Home' %}" class="btn-return-home">Volver a la página principal</a>
+    
 </div>
 {% endblock %}
