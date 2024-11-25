@@ -88,7 +88,7 @@ Accede a la aplicación en el navegador en:
 ```coverage run --source=product/ProyectoWeb -m test```
 ```coverage xml```
 
-## **2. Ejecutar SonarScanner.**
+## **2. Ejecutar SonarScanner (En una nueva terminal) **
 ```sonar-scanner```
 
 ## **3. Limpiar archivos temporales.**
