@@ -186,8 +186,8 @@ class CustomUserCreationFormTests(TestCase):
         data = {
             'username': 'testuser',
             'email': 'testuser@example.com',
-            'password1': '123',
-            'password2': '123',  # Contraseña débil
+            'password1': 't1t2t3',
+            'password2': 't1t2t3',  # Contraseña débil
             'role': 'Cliente',
         }
         response = self.client.post(reverse('Autenticacion'), data)
