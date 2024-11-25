@@ -832,7 +832,7 @@ ul.errorlist{
 
 
 /* Contenedor del buscador */
-.reservation-container {
+.reservation-container1 {
   width: 100%;
   max-width: 1200px;
   margin: 50px auto;
@@ -919,4 +919,80 @@ ul.errorlist{
 
 .reset-button:hover {
   background-color: #3498db; /* Rojo más oscuro */
+}
+
+/* Contenedor principal */
+.reservation-success-container {
+  width: 80%;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: rgba(25, 66, 60, 0.85); /* Fondo estilo aplicación */
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+}
+
+/* Título de éxito */
+.success-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #5dade2; /* Azul para destacar */
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Mensaje general */
+.success-message {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Detalles de la reserva */
+.reservation-details {
+  text-align: left;
+  margin: 20px auto;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  width: 70%;
+}
+
+.reservation-details h4 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+}
+
+.reservation-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reservation-details li {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+/* Botón para volver */
+.btn-return-home {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 30px;
+  background-color: #5dade2; /* Azul */
+  color: white;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-return-home:hover {
+  background-color: #3498db; /* Azul más oscuro */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
 }
