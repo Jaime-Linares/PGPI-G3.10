@@ -43,3 +43,6 @@ db.sqlite3
 
 # Archivos generados
 *.log
+
+# Archivos de test
+coverage.xml

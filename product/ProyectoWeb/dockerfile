@@ -1,0 +1,26 @@
+# Imagen base con Python 3.12.2
+FROM python:3.12.2-slim
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Actualizar los paquetes e instalar herramientas necesarias
+RUN apt-get update && apt-get install -y gcc && apt-get clean
+
+# Copiar el archivo requirements.txt al contenedor
+COPY requirements.txt /app/
+
+# Instalar las dependencias de Python
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copiar los archivos del proyecto al contenedor
+COPY . /app
+
+# Crear una carpeta para almacenar archivos estáticos de Django
+RUN mkdir -p /app/static
+
+# Exponer el puerto 8000 para el servidor Django
+EXPOSE 8000
+
+# Comando por defecto para iniciar el servidor Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
