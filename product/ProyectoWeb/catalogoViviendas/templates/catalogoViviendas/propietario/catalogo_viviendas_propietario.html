@@ -10,9 +10,9 @@
 
     <div class="container mt-5">
         <!-- Formulario de búsqueda con filtros -->
-        <div class="reservation-container1">
+             <div class="reservation-container1">
 
-            <form method="GET" action="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="search-form">
+            <form method="GET" action="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="search-form">
                 <!-- Campo 1: Buscar por nombre -->
                 <div class="search-field">
                     <label for="buscar-nombre" class="search-label" style="color: white">Nombre</label>
@@ -26,7 +26,7 @@
                 <!-- Botón Buscar -->
                 <button type="submit" class="search-button">Buscar</button>
                 <!-- Botón Reset -->
-                <a href="{% url 'catalogoViviendas:catalogo_viviendas' %}" class="reset-button">Reset</a>
+                <a href="{% url 'catalogoViviendas:catalogo_viviendas_propietario' %}" class="reset-button">Reset</a>
             </form>
         </div>
 
