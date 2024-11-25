@@ -15,7 +15,6 @@ def detalle_carro(request):
 def eliminar_reserva_carro(request):
     carro = Carro(request)
     carro.limpiar_carro()
-    messages.success(request, "Reserva eliminada del carrito.")
     return redirect('carro:detalle')
 
  
