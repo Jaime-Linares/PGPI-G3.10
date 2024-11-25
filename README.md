@@ -85,10 +85,10 @@ Accede a la aplicación en el navegador en:
 
 ## **1. Ejecutar los tests y generar la cobertura.**
 ```cd product/ProyectoWeb```
-```coverage run --source=product/ProyectoWeb -m pytest```
+```coverage run --source='.' manage.py test```
 ```coverage xml```
 
-## **2. Ejecutar SonarScanner.**
+## **2. Ejecutar SonarScanner (En una nueva terminal) **
 ```sonar-scanner```
 
 ## **3. Limpiar archivos temporales.**
