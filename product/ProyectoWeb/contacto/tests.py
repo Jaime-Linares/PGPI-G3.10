@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.core import mail
 
+@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
 class ContactoViewsTests(TestCase):
     def test_renderizar_formulario_contacto(self):
         response = self.client.get(reverse("Contacto"))
@@ -69,7 +70,7 @@ class ContactoViewsTests(TestCase):
             "email": "testuser@example.com",
             "contenido": "Este es un mensaje de prueba."
         }
-        with self.settings(EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"):
+        with self.settings(EMAIL_BACKEND="django.core.mail.backends.locmen.EmailBackend"):
             response = self.client.post(reverse("Contacto"), data=datos_formulario)
             self.assertRedirects(response, "/contacto/?valido")
             self.assertEqual(len(mail.outbox), 0)
