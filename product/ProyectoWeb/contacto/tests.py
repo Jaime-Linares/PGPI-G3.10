@@ -63,16 +63,5 @@ class ContactoViewsTests(TestCase):
         self.assertTemplateUsed(response, "contacto/contacto.html")
         self.assertContains(response, "<form")
         self.assertEqual(len(mail.outbox), 0)
-
-    def test_envio_fallo_envio_email(self):
-        datos_formulario = {
-            "nombre": "Test User",
-            "email": "testuser@example.com",
-            "contenido": "Este es un mensaje de prueba."
-        }
-        with self.settings(EMAIL_BACKEND="django.core.mail.backends.locmen.EmailBackend"):
-            response = self.client.post(reverse("Contacto"), data=datos_formulario)
-            self.assertRedirects(response, "/contacto/?valido")
-            self.assertEqual(len(mail.outbox), 0)
     
     

@@ -5,7 +5,7 @@ from carro.carro import Carro
 from carro.models import Carro as CarroModel
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth.models import AnonymousUser
-from carro.views import *
+from carro.views import detalle_carro,eliminar_reserva_carro
 from django.urls import reverse
 
 

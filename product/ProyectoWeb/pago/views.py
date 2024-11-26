@@ -3,14 +3,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from carro.carro import Carro
-from catalogoViviendas.models import Reserva, Vivienda
-import datetime
+from catalogoViviendas.models import Reserva
 from django.core.mail import EmailMessage
+from carro.models import Carro
+import smtplib
+
+
+
+redirect_carro_detalle= 'carro:detalle'
 
 def generar_client_token():
     return braintree.ClientToken.generate()
-
-from carro.models import Carro
 
 @login_required
 def confirmar_reserva(request):
@@ -28,7 +31,7 @@ def confirmar_reserva(request):
         # Verifica si el total es mayor que cero antes de intentar la transacción
         if total <= 0:
             messages.error(request, "El monto debe ser mayor que cero.")
-            return redirect('carro:detalle')
+            return redirect(redirect_carro_detalle)
 
         # Procesar el pago con Braintree
         result = braintree.Transaction.sale({
@@ -85,13 +88,13 @@ def confirmar_reserva(request):
                 email.send()
                 return render(request,'pago/reserva_exitosa.html',{'usuario': request.user ,'vivienda': vivienda, 'fecha_inicio': fecha_inicio, 
                                                                'fecha_fin': fecha_fin, 'precio_total': precio_total})
-            except:
+            except (smtplib.SMTPException, OSError) as e:
                 messages.error(request, f"Error al enviar el correo: {result.message}")
-                return redirect('carro:detalle')
+                return redirect(redirect_carro_detalle)
 
         else:
             messages.error(request, f"Error al procesar el pago: {result.message}")
-            return redirect('carro:detalle')
+            return redirect(redirect_carro_detalle)
 
     client_token = generar_client_token()
     return render(request, 'pago/confirmar_reserva.html', {'client_token': client_token})

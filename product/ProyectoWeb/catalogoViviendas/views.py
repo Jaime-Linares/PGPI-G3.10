@@ -6,7 +6,9 @@ from .forms import ViviendaForm, ReservaForm
 from django.utils import timezone
 from carro.carro import Carro
 from django.core.mail import EmailMessage
+import smtplib
 
+redirigir_catalogo_vivienda_propietario= 'catalogoViviendas:catalogo_viviendas_propietario'
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
 @login_required
@@ -139,14 +141,15 @@ def eliminar_reserva(request, reserva_id):
             email.send()
             messages.success(request, "Se ha enviado la confirmación de cancelación correctamente.")
             return redirect('Home')
-        except:
-            messages.error(request, "Hubo un error al enviar el correo de cancelación.")
+        except (smtplib.SMTPException, OSError) as e:
+            messages.error(request, f"Hubo un error al enviar el correo de cancelación: {str(e)}")
             return redirect('catalogoViviendas:historial_reservas')
 
     else:
         messages.error(request, "No puedes cancelar esta reserva.")
     
     return redirect('catalogoViviendas:historial_reservas')
+
 
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
@@ -181,7 +184,7 @@ def detalle_vivienda_propietario(request, id):
         form = ViviendaForm(request.POST, request.FILES, instance=vivienda)
         if form.is_valid():
             form.save()
-            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+            return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         form = ViviendaForm(instance=vivienda)
 
@@ -204,7 +207,7 @@ def crear_vivienda(request):
             nueva_vivienda = form.save(commit=False)
             nueva_vivienda.propietario = request.user
             nueva_vivienda.save()
-            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+            return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         form = ViviendaForm()
 
@@ -222,7 +225,7 @@ def eliminar_vivienda(request, id):
     if request.method == 'POST':
         vivienda.delete()
         messages.success(request, "Vivienda eliminada con éxito.")
-        return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+        return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         return redirect('catalogoViviendas:detalle_vivienda_propietario', id=id)
 

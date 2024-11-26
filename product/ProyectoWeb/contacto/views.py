@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import FormularioContacto
 from django.shortcuts import redirect
 from django.core.mail import EmailMessage
+import smtplib
 
 # Create your views here.
 
@@ -23,7 +24,7 @@ def contacto(request):
             try:
                 email.send()
                 return redirect("/contacto/?valido") # Esta línea es para redirigir a la misma página con un mensaje de éxito una vez que se haya enviado el formulario
-            except:
+            except (smtplib.SMTPException, OSError) as e:
                 return redirect("/contacto/?novalido")
 
 
