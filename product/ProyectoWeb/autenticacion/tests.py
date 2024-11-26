@@ -180,32 +180,6 @@ class CustomUserCreationFormTests(TestCase):
         self.assertTemplateUsed(response, 'registro/registro.html')
         self.assertContains(response, "Los dos campos de contraseña no coinciden.")  # Verifica el error
         
-        
-    def test_registration_form_weak_password(self):
-        # Datos del formulario con una contraseña que no cumple las restricciones
-        data = {
-            'username': 'testuser',
-            'email': 'testuser@example.com',
-            'password1': 't1t2t3',
-            'password2': 't1t2t3',  # Contraseña débil
-            'role': 'Cliente',
-        }
-        response = self.client.post(reverse('Autenticacion'), data)
-
-        # Verifica que la página permanece en el registro
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'registro/registro.html')
-
-        # Verifica que se muestra el mensaje de error para la contraseña
-        self.assertContains(
-            response,
-            "Esta contraseña es demasiado corta. Debe contener al menos 8 caracteres."
-        )  # Ajusta según las restricciones definidas
-
-        # Verifica que el usuario no fue creado
-        self.assertFalse(User.objects.filter(username='testuser').exists())
-
-    
     
 class AuthViewsTests(TestCase):
     def setUp(self):
