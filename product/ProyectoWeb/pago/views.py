@@ -7,6 +7,7 @@ from catalogoViviendas.models import Reserva
 from django.core.mail import EmailMessage
 from carro.models import Carro
 import smtplib
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -16,6 +17,7 @@ def generar_client_token():
     return braintree.ClientToken.generate()
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def confirmar_reserva(request):
     if request.method == 'POST':
         nonce = request.POST.get('payment_method_nonce')

@@ -3,9 +3,11 @@ from .forms import FormularioContacto
 from django.shortcuts import redirect
 from django.core.mail import EmailMessage
 import smtplib
+from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 
+@require_http_methods(["GET", "POST"])
 def contacto(request):
     formularioContacto = FormularioContacto()
 

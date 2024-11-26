@@ -7,11 +7,13 @@ from django.utils import timezone
 from carro.carro import Carro
 from django.core.mail import EmailMessage
 import smtplib
+from django.views.decorators.http import require_http_methods
 
 redirigir_catalogo_vivienda_propietario= 'catalogoViviendas:catalogo_viviendas_propietario'
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
 @login_required
+@require_http_methods(["GET"])
 def catalogo_viviendas(request):
     # comprobamos si es cliente
     es_cliente = request.user.groups.filter(name='Cliente').exists()
@@ -31,6 +33,7 @@ def catalogo_viviendas(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def detalle_vivienda(request, id):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
@@ -95,6 +98,7 @@ def validar_reserva(vivienda, fecha_inicio, fecha_fin):
 
 
 @login_required
+@require_http_methods(["GET"])
 def historial_reservas(request):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
@@ -108,6 +112,7 @@ def historial_reservas(request):
 
 
 @login_required
+@require_http_methods(["POST"])
 def eliminar_reserva(request, reserva_id):
     reserva = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
     
@@ -154,6 +159,7 @@ def eliminar_reserva(request, reserva_id):
 
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
 @login_required
+@require_http_methods(["GET"])
 def catalogo_viviendas_propietario(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
     if not es_propietario:
@@ -172,6 +178,7 @@ def catalogo_viviendas_propietario(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def detalle_vivienda_propietario(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
     reservas = Reserva.objects.filter(vivienda=vivienda)
@@ -196,6 +203,7 @@ def detalle_vivienda_propietario(request, id):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def crear_vivienda(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
     if not es_propietario:
@@ -217,6 +225,7 @@ def crear_vivienda(request):
 
 
 @login_required
+@require_http_methods(["POST"])
 def eliminar_vivienda(request, id):
     vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
     if request.user != vivienda.propietario:

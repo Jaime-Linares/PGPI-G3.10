@@ -189,7 +189,7 @@ class AuthViewsTests(TestCase):
     def test_cerrar_sesion(self):
         # Probar cerrar sesión
         self.client.login(username='testuser', password='testpassword123')
-        response = self.client.get(reverse('cerrar_sesion'))
+        response = self.client.post(reverse('cerrar_sesion'))
         self.assertEqual(response.status_code, 302)  # Redirección después de cerrar sesión
         self.assertRedirects(response, reverse('Home'))
 

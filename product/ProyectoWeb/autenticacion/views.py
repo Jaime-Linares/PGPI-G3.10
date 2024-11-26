@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -56,13 +57,14 @@ class VRegistro(View):
                 
             return render(request, "registro/registro.html", {"form": form})
 
-
+@require_http_methods(["POST"])
 def cerrar_sesion(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
     return redirect("Home")
 
 
+@require_http_methods(["GET", "POST"])
 def iniciar_sesion(request):
     if request.method == "POST":
         username_or_email = request.POST.get("username_or_email")
