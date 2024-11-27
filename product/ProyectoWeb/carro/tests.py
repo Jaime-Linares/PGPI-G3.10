@@ -80,10 +80,10 @@ class CarroClassTests(TestCase):
         carro.agregar_reserva(self.vivienda, "2024-01-01", "2024-01-10", 900)
 
         # Verificar los valores de la reserva
-        self.assertEqual(carro.carro.vivienda, self.vivienda)
-        self.assertEqual(str(carro.carro.fecha_inicio), "2024-01-01")
-        self.assertEqual(str(carro.carro.fecha_fin), "2024-01-10")
-        self.assertEqual(carro.carro.precio_total, 900)
+        self.assertEqual(carro.carro_usuario.vivienda, self.vivienda)
+        self.assertEqual(str(carro.carro_usuario.fecha_inicio), "2024-01-01")
+        self.assertEqual(str(carro.carro_usuario.fecha_fin), "2024-01-10")
+        self.assertEqual(carro.carro_usuario.precio_total, 900)
 
 
     def test_valid_reserva_existente(self):
@@ -115,9 +115,9 @@ class CarroClassTests(TestCase):
         # Verificar los valores obtenidos
         reserva = carro.obtener_reserva()
         self.assertEqual(reserva["vivienda"], self.vivienda)
-        self.assertEqual(reserva["fecha_inicio"], carro.carro.fecha_inicio)
-        self.assertEqual(reserva["fecha_fin"], carro.carro.fecha_fin)
-        self.assertEqual(reserva["precio_total"], carro.carro.precio_total)
+        self.assertEqual(reserva["fecha_inicio"], carro.carro_usuario.fecha_inicio)
+        self.assertEqual(reserva["fecha_fin"], carro.carro_usuario.fecha_fin)
+        self.assertEqual(reserva["precio_total"], carro.carro_usuario.precio_total)
         
 
     def test_valid_ver_detalles_carro(self):
@@ -132,22 +132,6 @@ class CarroClassTests(TestCase):
         self.assertTemplateUsed(response, 'carro/detalle.html')
 
         # Verificar que el contexto no contiene una reserva (carro vacío)
-        self.assertIn("reserva", response.context)
-        self.assertIsNone(response.context["reserva"])
-
-        
-    def test_valid_detalle_carro_sin_reserva(self):
-        # Iniciar sesión con el usuario
-        self.client.login(username="testuser", password="testpassword123")
-
-        # Hacer una solicitud GET a la vista detalle_carro
-        response = self.client.get(reverse('carro:detalle'))
-
-        # Verificar que la respuesta es correcta
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'carro/detalle.html')
-
-        # Verificar que el contexto no contiene una reserva
         self.assertIn("reserva", response.context)
         self.assertIsNone(response.context["reserva"])
 
@@ -196,10 +180,10 @@ class CarroClassTests(TestCase):
 
         # Verificar que la reserva fue eliminada
         self.assertFalse(carro.reserva_existente())
-        self.assertIsNone(carro.carro.vivienda)
-        self.assertIsNone(carro.carro.fecha_inicio)
-        self.assertIsNone(carro.carro.fecha_fin)
-        self.assertIsNone(carro.carro.precio_total)
+        self.assertIsNone(carro.carro_usuario.vivienda)
+        self.assertIsNone(carro.carro_usuario.fecha_inicio)
+        self.assertIsNone(carro.carro_usuario.fecha_fin)
+        self.assertIsNone(carro.carro_usuario.precio_total)
       
       
     def test_valid_limpiar_carro_vacio(self):
@@ -210,20 +194,20 @@ class CarroClassTests(TestCase):
 
         # Confirmar que el carrito está vacío inicialmente
         self.assertFalse(carro.reserva_existente())
-        self.assertIsNone(carro.carro.vivienda)
-        self.assertIsNone(carro.carro.fecha_inicio)
-        self.assertIsNone(carro.carro.fecha_fin)
-        self.assertIsNone(carro.carro.precio_total)
+        self.assertIsNone(carro.carro_usuario.vivienda)
+        self.assertIsNone(carro.carro_usuario.fecha_inicio)
+        self.assertIsNone(carro.carro_usuario.fecha_fin)
+        self.assertIsNone(carro.carro_usuario.precio_total)
 
         # Intentar limpiar el carrito vacío
         carro.limpiar_carro()
 
         # Confirmar que el carrito sigue vacío y no se generaron errores
         self.assertFalse(carro.reserva_existente())
-        self.assertIsNone(carro.carro.vivienda)
-        self.assertIsNone(carro.carro.fecha_inicio)
-        self.assertIsNone(carro.carro.fecha_fin)
-        self.assertIsNone(carro.carro.precio_total)
+        self.assertIsNone(carro.carro_usuario.vivienda)
+        self.assertIsNone(carro.carro_usuario.fecha_inicio)
+        self.assertIsNone(carro.carro_usuario.fecha_fin)
+        self.assertIsNone(carro.carro_usuario.precio_total)
        
         
  

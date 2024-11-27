@@ -9,11 +9,11 @@ from django.views.decorators.http import require_http_methods
 
 @require_http_methods(["GET", "POST"])
 def contacto(request):
-    formularioContacto = FormularioContacto()
+    formulario_contacto = FormularioContacto()
 
     if request.method == "POST":
-        formularioContacto = FormularioContacto(data=request.POST)
-        if formularioContacto.is_valid():
+        formulario_contacto = FormularioContacto(data=request.POST)
+        if formulario_contacto.is_valid():
             nombre = request.POST.get('nombre')
             email = request.POST.get('email')   
             contenido = request.POST.get('contenido')
@@ -31,5 +31,5 @@ def contacto(request):
 
 
 
-    return render(request, "contacto/contacto.html", {"miFormulario": formularioContacto})
+    return render(request, "contacto/contacto.html", {"miFormulario": formulario_contacto})
 
