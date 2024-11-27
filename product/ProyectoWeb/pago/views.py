@@ -90,7 +90,7 @@ def confirmar_reserva(request):
                 email.send()
                 return render(request,'pago/reserva_exitosa.html',{'usuario': request.user ,'vivienda': vivienda, 'fecha_inicio': fecha_inicio, 
                                                                'fecha_fin': fecha_fin, 'precio_total': precio_total})
-            except (smtplib.SMTPException, OSError) as e:
+            except (smtplib.SMTPException, OSError):
                 messages.error(request, f"Error al enviar el correo: {result.message}")
                 return redirect(redirect_carro_detalle)
 

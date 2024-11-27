@@ -26,7 +26,7 @@ def contacto(request):
             try:
                 email.send()
                 return redirect("/contacto/?valido") # Esta línea es para redirigir a la misma página con un mensaje de éxito una vez que se haya enviado el formulario
-            except (smtplib.SMTPException, OSError) as e:
+            except (smtplib.SMTPException, OSError):
                 return redirect("/contacto/?novalido")
 
 
