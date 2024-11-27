@@ -1,5 +1,5 @@
 body {
-  font-family: 'Lora';
+  font-family: 'Lora', serif;
   background: linear-gradient(rgba(202, 255, 188, 0.692), rgba(255, 255, 255, 0.637)), url("../img/Fondo1.jpg");
   background-attachment: fixed;
   background-position: center;
@@ -12,7 +12,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif ;
 }
 
 p {
@@ -28,7 +28,7 @@ p {
   margin-bottom: 5rem;
   text-transform: uppercase;
   line-height: 1;
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
 }
 
 .site-heading .site-heading-upper {
@@ -94,7 +94,7 @@ p {
 
 #mainNav {
   background-color: rgba(25, 66, 60, 0.432);
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
 }
 
 #mainNav .navbar-brand {
@@ -279,7 +279,7 @@ a.link:hover{
 }
 
 .section-content{
-  font-family: 'Lora' !important;
+  font-family: 'Lora', serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   line-height: 28px !important;
@@ -342,10 +342,14 @@ ul.errorlist{
   padding: 12px 20px;
   color: white;
   font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+  text-transform: uppercase;
   margin-top: 20px;
 }
+
 
 .btn-submit:hover {
   background-color: #3498db;
@@ -374,7 +378,7 @@ ul.errorlist{
 /* Estilos para los campos de entrada */
 .form-group {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .form-control {
@@ -460,12 +464,6 @@ ul.errorlist{
   margin-bottom: 20px;
 }
 
-/* Estilos para los campos de entrada */
-.form-group {
-  position: relative;
-  margin-bottom: 25px;
-}
-
 .form-control {
   width: 100%;
   padding: 12px 15px;
@@ -476,30 +474,11 @@ ul.errorlist{
   font-size: 1rem;
 }
 
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.form-control:focus {
-  outline: none;
-  border: 2px solid #5dade2;
-}
-
-/* Iconos en los campos de entrada */
-.icon {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.5);
-}
-
-/* Botón de registro */
 .btn-register {
-  background-color: #5dade2;
+  background-color: #007bff; /* Se prioriza este color como más reciente */
   border: none;
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: 10px; /* Valor más consistente */
+  padding: 15px; /* Padding más amplio */
   width: 100%;
   font-size: 1.1rem;
   font-weight: bold;
@@ -508,9 +487,11 @@ ul.errorlist{
   color: white;
 }
 
+
 .btn-register:hover {
-  background-color: #3498db;
+  background-color: #0056b3; /* Se prioriza este color como más reciente y oscuro */
 }
+
 
 /* Estilo para las opciones de radio */
 .form-check-inline {
@@ -547,7 +528,7 @@ ul.errorlist{
 .categories-title {
   font-size: 2rem;
   margin-bottom: 20px;
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
   color: #ffffff;
   text-transform: uppercase;
 }
@@ -593,7 +574,7 @@ ul.errorlist{
   margin-bottom: 30px;
   color: #ffffff;
   text-transform: uppercase;
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
 }
 
 /* Formulario de reserva */
@@ -628,27 +609,6 @@ ul.errorlist{
 .reservation-form input:focus {
   outline: none;
   border: 2px solid #5dade2;
-}
-
-/* Botón de envío */
-.btn-submit {
-  background-color: #5dade2;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 20px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-transform: uppercase;
-  margin-top: 20px;
-}
-
-.btn-submit:hover {
-  background-color: #3498db;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Lista de fechas no disponibles */
@@ -702,24 +662,6 @@ ul.errorlist{
   background-color: rgba(255, 255, 255, 0.9); /* Fondo claro para inputs */
   color: #000;
   margin-bottom: 20px;
-}
-
-.form-control::placeholder {
-  color: #666;
-}
-
-.btn-register {
-  background-color: #007bff;
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  width: 100%;
-  transition: background-color 0.3s ease;
-  color: white;
-}
-
-.btn-register:hover {
-  background-color: #0056b3;
 }
 
 .image-container {
