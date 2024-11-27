@@ -67,31 +67,31 @@ Esto iniciará un contenedor basado en la imagen city-scape-rentals y mapeará e
 Accede a la aplicación en el navegador en:  
 ```http://localhost:8000```
 
-## Ejecutar pruebas:
+# Ejecutar pruebas:
 
-### Instalación de SonarScanner
+## Instalación de SonarScanner
 
-#### macOS/Linux:
+### macOS/Linux:
 ```brew install sonar-scanner```
 
-## Windows/Linux (manual):
-####    - Descarga SonarScanner CLI.
+### Windows/Linux (manual):
+###    - Descarga SonarScanner CLI.
 ```https://docs.sonarsource.com/sonarqube/10.4/analyzing-source-code/scanners/sonarscanner/```
-####    - Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
+###    - Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
 
-### Verifica la instalación:
+## Verifica la instalación:
 ```sonar-scanner --version```
 ### Una vez descargado todo lo necesario:
 
-## **1. Ejecutar los tests y generar la cobertura.**
+### **1. Ejecutar los tests y generar la cobertura.**
 ```cd product/ProyectoWeb```
 ```coverage run --source='.' manage.py test```
 ```coverage xml```
 
-## **2. Ejecutar SonarScanner (En una nueva terminal) **
+### **2. Ejecutar SonarScanner (En una nueva terminal)**
 ```sonar-scanner```
 
-## **3. Limpiar archivos temporales.**
+### **3. Limpiar archivos temporales.**
 ```find . -type d -name ".scannerwork" -exec rm -rf {} +```
 
 
