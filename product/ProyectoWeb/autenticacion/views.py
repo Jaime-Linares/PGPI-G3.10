@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -20,6 +21,13 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2", "role")
+        
+        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este correo electrónico ya está registrado. Por favor, utiliza otro.")
+        return email
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -49,13 +57,14 @@ class VRegistro(View):
                 
             return render(request, "registro/registro.html", {"form": form})
 
-
+@require_http_methods(["POST"])
 def cerrar_sesion(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
     return redirect("Home")
 
 
+@require_http_methods(["GET", "POST"])
 def iniciar_sesion(request):
     if request.method == "POST":
         username_or_email = request.POST.get("username_or_email")

@@ -2,15 +2,18 @@ from django.shortcuts import render
 from .forms import FormularioContacto
 from django.shortcuts import redirect
 from django.core.mail import EmailMessage
+import smtplib
+from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 
+@require_http_methods(["GET", "POST"])
 def contacto(request):
-    formularioContacto = FormularioContacto()
+    formulario_contacto = FormularioContacto()
 
     if request.method == "POST":
-        formularioContacto = FormularioContacto(data=request.POST)
-        if formularioContacto.is_valid():
+        formulario_contacto = FormularioContacto(data=request.POST)
+        if formulario_contacto.is_valid():
             nombre = request.POST.get('nombre')
             email = request.POST.get('email')   
             contenido = request.POST.get('contenido')
@@ -23,10 +26,10 @@ def contacto(request):
             try:
                 email.send()
                 return redirect("/contacto/?valido") # Esta línea es para redirigir a la misma página con un mensaje de éxito una vez que se haya enviado el formulario
-            except:
+            except (smtplib.SMTPException, OSError):
                 return redirect("/contacto/?novalido")
 
 
 
-    return render(request, "contacto/contacto.html", {"miFormulario": formularioContacto})
+    return render(request, "contacto/contacto.html", {"miFormulario": formulario_contacto})
 

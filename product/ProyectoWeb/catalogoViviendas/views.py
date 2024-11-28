@@ -6,10 +6,14 @@ from .forms import ViviendaForm, ReservaForm
 from django.utils import timezone
 from carro.carro import Carro
 from django.core.mail import EmailMessage
+import smtplib
+from django.views.decorators.http import require_http_methods
 
+redirigir_catalogo_vivienda_propietario= 'catalogoViviendas:catalogo_viviendas_propietario'
 
 # --- CLIENTE ---------------------------------------------------------------------------------------------------------------------
 @login_required
+@require_http_methods(["GET"])
 def catalogo_viviendas(request):
     # comprobamos si es cliente
     es_cliente = request.user.groups.filter(name='Cliente').exists()
@@ -29,6 +33,7 @@ def catalogo_viviendas(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def detalle_vivienda(request, id):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
@@ -93,6 +98,7 @@ def validar_reserva(vivienda, fecha_inicio, fecha_fin):
 
 
 @login_required
+@require_http_methods(["GET"])
 def historial_reservas(request):
     es_cliente = request.user.groups.filter(name='Cliente').exists()
     if not es_cliente:
@@ -106,6 +112,7 @@ def historial_reservas(request):
 
 
 @login_required
+@require_http_methods(["POST"])
 def eliminar_reserva(request, reserva_id):
     reserva = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
     
@@ -139,8 +146,8 @@ def eliminar_reserva(request, reserva_id):
             email.send()
             messages.success(request, "Se ha enviado la confirmación de cancelación correctamente.")
             return redirect('Home')
-        except:
-            messages.error(request, "Hubo un error al enviar el correo de cancelación.")
+        except (smtplib.SMTPException, OSError) as e:
+            messages.error(request, f"Hubo un error al enviar el correo de cancelación: {str(e)}")
             return redirect('catalogoViviendas:historial_reservas')
 
     else:
@@ -149,8 +156,10 @@ def eliminar_reserva(request, reserva_id):
     return redirect('catalogoViviendas:historial_reservas')
 
 
+
 # --- PROPIETARIO -----------------------------------------------------------------------------------------------------------------
 @login_required
+@require_http_methods(["GET"])
 def catalogo_viviendas_propietario(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
     if not es_propietario:
@@ -169,6 +178,7 @@ def catalogo_viviendas_propietario(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def detalle_vivienda_propietario(request, id):
     vivienda = get_object_or_404(Vivienda, id=id)
     reservas = Reserva.objects.filter(vivienda=vivienda)
@@ -181,7 +191,7 @@ def detalle_vivienda_propietario(request, id):
         form = ViviendaForm(request.POST, request.FILES, instance=vivienda)
         if form.is_valid():
             form.save()
-            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+            return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         form = ViviendaForm(instance=vivienda)
 
@@ -193,6 +203,7 @@ def detalle_vivienda_propietario(request, id):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def crear_vivienda(request):
     es_propietario = request.user.groups.filter(name='Propietario').exists()
     if not es_propietario:
@@ -204,7 +215,7 @@ def crear_vivienda(request):
             nueva_vivienda = form.save(commit=False)
             nueva_vivienda.propietario = request.user
             nueva_vivienda.save()
-            return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+            return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         form = ViviendaForm()
 
@@ -214,6 +225,7 @@ def crear_vivienda(request):
 
 
 @login_required
+@require_http_methods(["POST"])
 def eliminar_vivienda(request, id):
     vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
     if request.user != vivienda.propietario:
@@ -222,7 +234,7 @@ def eliminar_vivienda(request, id):
     if request.method == 'POST':
         vivienda.delete()
         messages.success(request, "Vivienda eliminada con éxito.")
-        return redirect('catalogoViviendas:catalogo_viviendas_propietario')
+        return redirect(redirigir_catalogo_vivienda_propietario)
     else:
         return redirect('catalogoViviendas:detalle_vivienda_propietario', id=id)
 
