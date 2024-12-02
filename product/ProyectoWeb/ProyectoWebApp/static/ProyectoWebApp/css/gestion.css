@@ -386,8 +386,8 @@ ul.errorlist{
   padding: 12px 15px; /* Padding más reciente y uniforme */
   border: none;
   border-radius: 10px; /* Bordes redondeados más consistentes */
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo claro para mejor legibilidad */
-  color: #000; /* Texto oscuro para buen contraste */
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: #ffffff; 
   font-size: 1rem;
   margin-bottom: 20px; /* Margen inferior consistente */
 }
