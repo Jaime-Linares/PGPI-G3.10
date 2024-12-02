@@ -11,7 +11,6 @@ def detalle_carro(request):
     reserva = carro.obtener_reserva()
     return render(request, 'carro/detalle.html', {'reserva': reserva})
 
-@require_http_methods(["POST"])
 @login_required
 def eliminar_reserva_carro(request):
     carro = Carro(request)

@@ -112,7 +112,6 @@ def historial_reservas(request):
 
 
 @login_required
-@require_http_methods(["POST"])
 def eliminar_reserva(request, reserva_id):
     reserva = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
     
@@ -225,7 +224,6 @@ def crear_vivienda(request):
 
 
 @login_required
-@require_http_methods(["POST"])
 def eliminar_vivienda(request, id):
     vivienda = get_object_or_404(Vivienda, id=id, propietario=request.user)
     if request.user != vivienda.propietario:

@@ -57,7 +57,6 @@ class VRegistro(View):
                 
             return render(request, "registro/registro.html", {"form": form})
 
-@require_http_methods(["POST"])
 def cerrar_sesion(request):
     logout(request)
     messages.info(request, "Has cerrado sesión exitosamente.")
