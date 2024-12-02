@@ -8,6 +8,7 @@ from django.core.mail import EmailMessage
 from carro.models import Carro
 import smtplib
 from django.views.decorators.http import require_http_methods
+from catalogoViviendas.views import validar_reserva
 
 
 
@@ -19,16 +20,20 @@ def generar_client_token():
 @login_required
 @require_http_methods(["GET", "POST"])
 def confirmar_reserva(request):
+    try:
+        carro = Carro.objects.get(usuario=request.user)
+        total = float(carro.precio_total)
+    except Carro.DoesNotExist:
+        total = 0
+
+    es_valida = validar_reserva(carro.vivienda, carro.fecha_inicio, carro.fecha_fin)
+    if es_valida is not None:
+        messages.error(request, es_valida)
+        print(es_valida)
+        return redirect(redirect_carro_detalle)
+
     if request.method == 'POST':
         nonce = request.POST.get('payment_method_nonce')
-
-        # Obtener la reserva actual del carro del usuario
-        try:
-            carro = Carro.objects.get(usuario=request.user)
-            total = float(carro.precio_total)
-        except Carro.DoesNotExist:
-            total = 0
-
 
         # Verifica si el total es mayor que cero antes de intentar la transacción
         if total <= 0:
