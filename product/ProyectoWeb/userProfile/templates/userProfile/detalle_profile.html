@@ -1,12 +1,11 @@
 {% extends "ProyectoWebApp/base.html" %}
 {% load static %}
 
-
 {% block content %}
 <div class="profile-container">
     <form method="POST" action="">
         {% csrf_token %}
-        <h2 class="profile-title" style = " color: white">Perfil</h2>
+        <h2 class="profile-title" style="color: white">Perfil</h2>
 
         <div class="form-group">
             <label for="id_username">Nombre de usuario</label>
@@ -28,7 +27,7 @@
             <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value|default_if_none:'' }}">
         </div>
 
-        <h3 class="profile-subtitle" style = " color: white">Cambiar Contraseña</h3>
+        <h3 class="profile-subtitle" style="color: white">Cambiar Contraseña</h3>
 
         <div class="form-group">
             <label for="id_password1">Nueva contraseña</label>
@@ -55,27 +54,28 @@
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-register">Guardar cambios</button>
         </div>
+    </form>
 
+    <!-- Formulario para eliminar cuenta -->
+    <form method="POST" action="{% url 'eliminar_cuenta' %}" id="delete-account-form">
+        {% csrf_token %}
         <div class="text-center mt-4">
-
-        <button type="button" class="btn btn-danger" id="delete-account-button">
-            Eliminar cuenta
-        </button>
+            <button type="submit" class="btn btn-danger">
+                Eliminar cuenta
+            </button>
         </div>
     </form>
+
 </div>
-
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const deleteButton = document.getElementById('delete-account-button');
         const deleteForm = document.getElementById('delete-account-form');
-    
-        deleteButton.addEventListener('click', function() {
+        
+        deleteForm.addEventListener('submit', function(event) {
             const confirmacion = confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
-            if (confirmacion && deleteForm) {
-                deleteForm.submit();
+            if (!confirmacion) {
+                event.preventDefault();  // Prevenir el envío del formulario si el usuario no confirma
             }
         });
     });
