@@ -29,7 +29,6 @@ def confirmar_reserva(request):
     es_valida = validar_reserva(carro.vivienda, carro.fecha_inicio, carro.fecha_fin)
     if es_valida is not None:
         messages.error(request, es_valida)
-        print(es_valida)
         return redirect(redirect_carro_detalle)
 
     if request.method == 'POST':
