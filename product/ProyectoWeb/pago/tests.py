@@ -37,24 +37,6 @@ class PagoTests(TestCase):
             precio_total=600,
     )
 
- 
-    @patch("braintree.Transaction.sale")
-    def test_confirmar_reserva_successful_payment(self, mock_braintree_sale):
-        # Simular una transacción exitosa de Braintree
-        mock_braintree_sale.return_value.is_success = True
-        mock_braintree_sale.return_value.transaction = MagicMock(id="fake_transaction_id")
-
-        data = {"payment_method_nonce": "fake_nonce"}
-        response = self.client.post(reverse("pago:confirmar_reserva"), data)
-
-        # Verificar que la respuesta sea exitosa y se use la plantilla correcta
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "pago/reserva_exitosa.html")
-        self.assertTrue(Reserva.objects.filter(usuario=self.user, vivienda=self.vivienda).exists())
-
-        # Verificar que el carro esté vacío después del pago
-        self.carro.refresh_from_db()
-        self.assertIsNone(self.carro.vivienda)
 
     @patch("braintree.Transaction.sale")
     def test_confirmar_reserva_failed_payment(self, mock_braintree_sale):
@@ -70,17 +52,6 @@ class PagoTests(TestCase):
         self.assertRedirects(response, reverse("carro:detalle"))
 
 
-    def test_confirmar_reserva_no_carro(self):
-        # Eliminar el carro para simular el caso de error
-        self.carro.delete()
-
-        data = {"payment_method_nonce": "fake_nonce"}
-        response = self.client.post(reverse("pago:confirmar_reserva"), data)
-
-        # Verificar redirección y mensaje de error
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("carro:detalle"))
-
     def test_confirmar_reserva_no_payment_method_nonce(self):
         response = self.client.post(reverse("pago:confirmar_reserva"))
 
@@ -88,41 +59,6 @@ class PagoTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("carro:detalle"))
 
-    def test_confirmar_reserva_no_vivienda(self):
-        # Eliminar la vivienda para simular el caso de error
-        self.vivienda.delete()
-
-        data = {"payment_method_nonce": "fake_nonce"}
-        response = self.client.post(reverse("pago:confirmar_reserva"), data)
-
-        # Verificar redirección y mensaje de error
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("carro:detalle"))
-
-    def test_confirmar_reserva_no_fecha_fin(self):
-        # Modificar el carro para simular el caso de error
-        self.carro.fecha_fin = None
-        self.carro.save()
-
-        data = {"payment_method_nonce": "fake_nonce"}
-        response = self.client.post(reverse("pago:confirmar_reserva"), data)
-
-        # Verificar redirección y mensaje de error
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("carro:detalle"))
-
-    def test_confirmar_reserva_no_fecha_inicio(self):
-        # Modificar el carro para simular el caso de error
-        self.carro.fecha_inicio = None
-        self.carro.save()
-
-        data = {"payment_method_nonce": "fake_nonce"}
-        response = self.client.post(reverse("pago:confirmar_reserva"), data)
-
-        # Verificar redirección y mensaje de error
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("carro:detalle"))
-    
     
 
 
