@@ -1,10 +1,11 @@
-## CityScape Rentals
+# CityScape Rentals
 
 * In the folder *docs*, you have all the documents related to the project: project plan, requirements record...
 * In the folder *product*, you have the application code, that is, the code of the web platform for renting tourist apartments.
 
-# Enlace despliegue:
+# Enlace despliegue
 ```https://pgpig310.pythonanywhere.com/```
+
 
 # Análisis de Sonarqube
 ```https://sonarcloud.io/summary/overall?id=Jaime-Linares_PGPI-G3.10```
@@ -15,7 +16,7 @@
 Estos son los pasos necesarios para cargar y usar una imagen Docker exportada en otro dispositivo.  
 Es necesario tener Docker instalado en el equipo.
 
-## **1. Exportar la imagen desde el dispositivo original (Solo chico cuando esté terminado todo)**
+## 1. Exportar la imagen desde el dispositivo original (Solo chico cuando esté terminado todo)
 
 Guarda la imagen Docker en un archivo `.tar` en el dispositivo de origen:
 
@@ -57,7 +58,7 @@ Deberías ver algo como:
 ### Si has optado por la opción 2, este paso no es necesario.
 ---
 
-## **4. Ejecutar la imagen**
+## 4. Ejecutar la imagen
 Ahora que la imagen está disponible, puedes usarla para crear y ejecutar un contenedor:  
 
 ```docker run -p 8000:8000 --name alvarochico2408/city-scape-rentals city-scape-rentals```
@@ -67,31 +68,33 @@ Esto iniciará un contenedor basado en la imagen city-scape-rentals y mapeará e
 Accede a la aplicación en el navegador en:  
 ```http://localhost:8000```
 
-# Ejecutar pruebas:
+# Ejecutar pruebas
 
 ## Instalación de SonarScanner
 
-### macOS/Linux:
+#### macOS/Linux:
 ```brew install sonar-scanner```
 
-### Windows/Linux (manual):
-###    - Descarga SonarScanner CLI.
+#### Windows/Linux (manual)
+
+### Descarga SonarScanner CLI
 ```https://docs.sonarsource.com/sonarqube/10.4/analyzing-source-code/scanners/sonarscanner/```
-###    - Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH.
+### Extrae los archivos y agrega la carpeta bin a la variable de entorno PATH
 
-## Verifica la instalación:
+## Verifica la instalación
 ```sonar-scanner --version```
-### Una vez descargado todo lo necesario:
 
-### **1. Ejecutar los tests y generar la cobertura.**
+## Una vez descargado todo lo necesario
+
+### 1. Ejecutar los tests y generar la cobertura
 ```cd product/ProyectoWeb```
 ```coverage run --source='.' manage.py test```
 ```coverage xml```
 
-### **2. Ejecutar SonarScanner (En una nueva terminal)**
+### 2. Ejecutar SonarScanner (En una nueva terminal)
 ```sonar-scanner```
 
-### **3. Limpiar archivos temporales.**
+### 3. Limpiar archivos temporales
 ```find . -type d -name ".scannerwork" -exec rm -rf {} +```
 
 
